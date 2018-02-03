@@ -1,0 +1,2 @@
+SELECT *
+FROM visual_network.card_accounts;

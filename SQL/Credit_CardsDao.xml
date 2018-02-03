@@ -1,0 +1,3 @@
+SELECT * 
+FROM visual_network.credit_cards natural join visual_network.card_accounts 
+WHERE Card_Account = Account_Id AND Account_ID = [Account_ID];
