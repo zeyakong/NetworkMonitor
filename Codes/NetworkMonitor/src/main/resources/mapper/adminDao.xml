@@ -9,7 +9,4 @@
         WHERE admin_username = #{username}
         AND admin_password = #{password}
     </select>
-    <select id="da">
-        ds
-    </select>
 </mapper>
