@@ -24,3 +24,5 @@ Tomcat
 ### Upload Log  
 #### The basic SSM web-app framework
 * [core-code](https://github.com/Kong96/NetworkMonitor/tree/95a7fdbb6f1f92f6e1d9c55e56d65e1110afa667).
+#### The SQL statement
+* [core-code](https://github.com/Kong96/NetworkMonitor/tree/master/SQL).
