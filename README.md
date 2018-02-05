@@ -26,3 +26,5 @@ Tomcat
 * [core-code](https://github.com/Kong96/NetworkMonitor/tree/95a7fdbb6f1f92f6e1d9c55e56d65e1110afa667).
 #### The SQL statement
 * [SQL](https://github.com/Kong96/NetworkMonitor/tree/master/SQL).
+#### The Front-end Code
+* [html/css](https://github.com/Kong96/NetworkMonitor/tree/master/Codes/NetworkMonitor/src/main/webapp).
