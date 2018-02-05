@@ -3,9 +3,11 @@
         PUBLIC "-//mybatis.org//DTD config.mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ssm.dao.CreditCardDao">
-    <select id="findCreditCardById" resultType="CreditCard">
-    SELECT card_id , ,,,,
-    FROM credit_cards natural join card_accounts
-    WHERE card_account = account_id AND account_id = ${accountId};
-    </select>
+
+    	<select id="findCreditCardsByAccountId" resultType="CreditCard">
+    	SELECT card_id, card_name, expiration_date, security_code, card_account
+    	FROM credit_cards natural join card_accounts
+    	WHERE card_account = account_id AND account_id = ${accountId};
+    	</select>
+
 </mapper>
