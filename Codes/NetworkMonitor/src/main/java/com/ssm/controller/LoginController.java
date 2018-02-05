@@ -1,6 +1,5 @@
 package com.ssm.controller;
 
-import com.ssm.entity.SecurityQuestion;
 import com.ssm.services.LoginAccountServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,6 +32,17 @@ public class LoginController {
     @RequestMapping("/loginSuccess")
     public String loginSuccess() {
         return "index";
+    }
+
+    @RequestMapping("/test")
+    public String test(){
+        return "test";
+    }
+    @RequestMapping("/doTest")
+    public void doTest(){
+        System.out.println("----------------do the test in controller");
+        SecurityQuestion securityQuestion= loginAccountServices.findRandomSecurityQuestionByUsernameAndPassword("kong","123");
+        System.out.println(securityQuestion);
     }
 
 }
