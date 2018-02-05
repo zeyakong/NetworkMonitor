@@ -22,27 +22,4 @@ public class LoginController {
         return "login";
     }
 
-    @RequestMapping("/doLogin")
-    public @ResponseBody
-    SecurityQuestion doLogin(String username, String password, HttpServletRequest request) {
-        SecurityQuestion securityQuestion= loginAccountServices.findRandomSecurityQuestionByUsernameAndPassword(username,password);
-        return securityQuestion;
-    }
-
-    @RequestMapping("/loginSuccess")
-    public String loginSuccess() {
-        return "index";
-    }
-
-    @RequestMapping("/test")
-    public String test(){
-        return "test";
-    }
-    @RequestMapping("/doTest")
-    public void doTest(){
-        System.out.println("----------------do the test in controller");
-        SecurityQuestion securityQuestion= loginAccountServices.findRandomSecurityQuestionByUsernameAndPassword("kong","123");
-        System.out.println(securityQuestion);
-    }
-
 }
