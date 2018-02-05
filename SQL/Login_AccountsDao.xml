@@ -1,3 +1,3 @@
-SELECT Security_Question_[number 1-3], Security_Answer_[1-3]
-FROM visual_network.login_accounts
-WHERE Username = [username] AND Password = [password];
+SELECT security_question_[number 1-3], security_answer_[1-3]
+FROM login_accounts
+WHERE username = [username] AND password = [password];

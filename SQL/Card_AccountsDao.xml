@@ -1,2 +1,2 @@
 SELECT *
-FROM visual_network.card_accounts;
+FROM card_accounts;
