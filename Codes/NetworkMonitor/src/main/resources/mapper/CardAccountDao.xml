@@ -9,4 +9,9 @@
 	FROM card_accounts
 	</select>
 
+	<select id="findCardAccountById" resultType="com.ssm.entity.CardAccount">
+		SELECT *
+		FROM card_accounts
+		WHERE account_id = #{id}
+	</select>
 </mapper>

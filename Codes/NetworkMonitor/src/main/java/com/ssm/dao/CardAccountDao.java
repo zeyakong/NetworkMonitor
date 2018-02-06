@@ -12,4 +12,5 @@ public interface CardAccountDao {
     //show all account information
     //return a list of CardAccount objects
     List<CardAccount> findAllCardAccounts();
+    CardAccount findCardAccountById(int id);
 }

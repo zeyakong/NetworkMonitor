@@ -19,4 +19,8 @@ public class CardAccountServicesImpl implements CardAccountServices {
     public List<CardAccount> findAllCardAccounts() {
         return cardAccountDao.findAllCardAccounts();
     }
+
+    public CardAccount findCardAccountById(int id) {
+        return cardAccountDao.findCardAccountById(id);
+    }
 }

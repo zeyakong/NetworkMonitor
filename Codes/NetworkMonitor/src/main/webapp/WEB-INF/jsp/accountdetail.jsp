@@ -65,19 +65,34 @@
 
                 <div class="panel panel-primary"
                      style="width: 80%; height:90%; margin-left:20px; margin-top:20px;background-color:white;">
+                    <h1>Account:</h1>
                     <table id="tbeTest " class="table table-bordered">
                         <tr>
-                            <td>Account info1</td>
-                            <td></td>
+                            <td>Account Name</td>
+                            <td>${cardAccount.accountName}</td>
                         </tr>
                         <tr>
-                            <td>Account info2</td>
-                            <td>32</td>
+                            <td>Account Address</td>
+                            <td>${cardAccount.accountAddress}</td>
                         </tr>
                         <tr>
-                            <td>Account info3</td>
-                            <td>26</td>
+                            <td>Account Phone</td>
+                            <td>${cardAccount.accountPhone}</td>
                         </tr>
+                        <tr>
+                            <td>Account Limit</td>
+                            <td>${cardAccount.limit}</td>
+                        </tr>
+                        <tr>
+                            <td>Account Balance</td>
+                            <td>${cardAccount.balance}</td>
+                        </tr>
+                    </table>
+
+                    <hr>
+                    <h1>Cards</h1>
+
+                    <table id="2 " class="table table-bordered">
                         <c:forEach var="ac" items="${list}">
                         <tr>
                             <td>Card Id</td>
@@ -101,13 +116,8 @@
                             <td>Security code</td>
                             <td>${ac.securityCode}</td>
                         </tr>
-                        <tr>
-                            <td>-</td>
-                            <td>-</td>
-                        </tr>
+                            <hr>
                         </c:forEach>
-
-
                 </div>
                 </table>
 

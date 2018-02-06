@@ -77,6 +77,8 @@ public class LoginController {
         List<CreditCard> list = new ArrayList<CreditCard>();
         list = creditCardServices.findCreditCardsByAccountId(id);
         model.addAttribute("list",list);
+        CardAccount cardAccount = cardAccountServices.findCardAccountById(id);
+        model.addAttribute("cardAccount",cardAccount);
         return "accountdetail";
     }
 

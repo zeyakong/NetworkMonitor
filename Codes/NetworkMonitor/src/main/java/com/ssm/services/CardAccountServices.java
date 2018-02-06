@@ -10,4 +10,5 @@ import java.util.List;
  */
 public interface CardAccountServices {
     List<CardAccount> findAllCardAccounts();
+    CardAccount findCardAccountById(int id);
 }
