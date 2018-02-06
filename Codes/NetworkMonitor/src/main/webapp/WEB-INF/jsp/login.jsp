@@ -10,6 +10,12 @@
     <meta name="keywords"
           content="Alley Signup & Signin Form Tab Form,Login Forms,Sign up Forms,Registration Forms,News letter Forms,Elements"
           ./>
+    <style>
+        #message{
+            color: red;
+            font-weight:bold;
+        }
+    </style>
     <script type="application/x-javascript">
         addEventListener("load", function () {
             setTimeout(hideURLbar, 0);
@@ -18,22 +24,23 @@
         function hideURLbar() {
             window.scrollTo(0, 1);
         }
-        
+
         function doLogin() {
             var userName = $("#username").val();
             var password = $("#password").val();
             $.ajax({
-                type:"POST",
-                url:"/doLogin.action",
-                data:"username="+userName+"&password="+password,
-                success:function (data) {
+                type: "POST",
+                url: "/doLogin.action",
+                data: "username=" + userName + "&password=" + password,
+                success: function (data) {
                     //如果成功,转发到其他页面，否则提示内容
-                    if(data){
+                    if (data) {
                         //success
+                        document.cookie="username="+data.username+" ;loginId="+data.loginId;
                         window.location.href="loginSuccess.action";
-                    }else{
+                    } else {
                         //incorrect
-                        $("#message").text("The username or password wrong!");
+                        $("#message").text("The username or password was wrong!");
 //                        document.getElementById("message").innerHTML="The username or password wrong!";
                     }
 
@@ -67,18 +74,18 @@
             <div class="tab-2 resp-tab-content" aria-labelledby="tab_item-1">
                 <div class="facts">
                     <div class="register">
-                            <input placeholder="Username" id = "username"class="mail" type="text"  required="">
-                            <input placeholder="Password" id="password" class="lock" type="password"  required="">
-                            <div class="sign-up">
-                                <p id="message" ><font color="red">text</font></p>
-                                <input type="submit" onclick="doLogin()"></input>
-                            </div>
+                        <input placeholder="Username" id="username" class="mail" type="text" required=""onfocus='$("#message").text("");'>
+                        <input placeholder="Password" id="password" class="lock" type="password" required=""onfocus='$("#message").text("");'>
+                        <div class="sign-up">
+                            <p id="message"></p>
+                            <input type="submit" onclick="doLogin()"></div>
                         <h3><a href="#"> Help</a></h3>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 </div>
 <!--start-copyright-->
 <div class="copy-right">
