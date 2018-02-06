@@ -74,7 +74,7 @@
                         <input placeholder="Answer" id="answer" class="lock" type="password" required="" onfocus='$("#message").text("");'>
                         <div class="sign-up">
                             <p id="message"></p>
-                            <input type="submit" onclick="answer()"></div>
+                            <input type="submit" onclick="answer()" value="Answer"></div>
                         <h3><a href="#"> Help</a></h3>
                     </div>
                 </div>

@@ -30,7 +30,7 @@
             var password = $("#password").val();
             $.ajax({
                 type: "POST",
-                url: "/doLogin.action",
+                url: "doLogin.action",
                 data: "username=" + userName + "&password=" + password,
                 success: function (data) {
                     //如果成功,转发到其他页面，否则提示内容
@@ -43,7 +43,6 @@
                         $("#message").text("The username or password was wrong!");
 //                        document.getElementById("message").innerHTML="The username or password wrong!";
                     }
-
                 }
             });
         }
@@ -78,7 +77,7 @@
                         <input placeholder="Password" id="password" class="lock" type="password" required=""onfocus='$("#message").text("");'>
                         <div class="sign-up">
                             <p id="message"></p>
-                            <input type="submit" onclick="doLogin()"></div>
+                            <input type="submit" onclick="doLogin()" value="Sign in"></div>
                         <h3><a href="#"> Help</a></h3>
                     </div>
                 </div>
