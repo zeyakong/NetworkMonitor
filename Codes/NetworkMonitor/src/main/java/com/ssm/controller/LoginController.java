@@ -1,13 +1,20 @@
 package com.ssm.controller;
 
+import com.ssm.entity.CardAccount;
+import com.ssm.entity.CreditCard;
 import com.ssm.entity.LoginAccount;
+import com.ssm.services.CardAccountServices;
+import com.ssm.services.CreditCardServices;
 import com.ssm.services.LoginServices;
         import org.springframework.beans.factory.annotation.Autowired;
         import org.springframework.stereotype.Controller;
-        import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Zeya Kong
@@ -18,6 +25,12 @@ import javax.servlet.http.HttpServletRequest;
 public class LoginController {
     @Autowired
     private LoginServices loginServices;
+
+    @Autowired
+    private CardAccountServices cardAccountServices;
+
+    @Autowired
+    private CreditCardServices creditCardServices;
 
     @RequestMapping("/login")
     public String goLoginPage() {
@@ -46,13 +59,25 @@ public class LoginController {
         return "securityQ";
     }
 
-    @RequestMapping("/goMap")
-    public String goMap(){
-        return "map";
+    @RequestMapping("/accountinfo")
+    public String goMap(Model model){
+        List<CardAccount> list = new ArrayList<CardAccount>();
+        list =  cardAccountServices.findAllCardAccounts();
+        if(list!=null){
+            for(int i = 0 ;i<list.size();i++){
+                System.out.println("----------------"+list.get(i));
+            }
+        }else System.out.println("---------------empty list!");
+        model.addAttribute("list",list);
+        return "accountinfo";
     }
 
-    @RequestMapping("/cardinfo")
-    public String cardinfo(){
-        return "cardinfo";
+    @RequestMapping("/accountCards")
+    public String accountCards(int id,Model model){
+        List<CreditCard> list = new ArrayList<CreditCard>();
+        list = creditCardServices.findCreditCardsByAccountId(id);
+        model.addAttribute("list",list);
+        return "accountdetail";
     }
+
 }

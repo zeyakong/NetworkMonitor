@@ -4,9 +4,9 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ssm.dao.CardAccountDao">
 
-	<select id="findAllCardAccounts" resultType="CardAccount">
-	SELECT account_name, account_address, account_id, account_phone, limit, balance
-	FROM card_accounts;
+	<select id="findAllCardAccounts" resultType="com.ssm.entity.CardAccount">
+	SELECT *
+	FROM card_accounts
 	</select>
 
 </mapper>

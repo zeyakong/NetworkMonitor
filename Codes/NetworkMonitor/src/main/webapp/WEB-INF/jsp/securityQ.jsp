@@ -46,7 +46,7 @@
             <%str ="answer"+num;%>
             var ar = "<%=request.getSession().getAttribute(str)%>";
             if(a==ar){
-                window.location.href="goMap.action";
+                window.location.href="accountinfo.action";
             }else{
                 $("#message").text("The answer is wrong!");
             }

@@ -7,17 +7,18 @@ import java.util.Date;
  * On 2018/1/31 15:49.
  */
 public class CreditCard {
-    private int cardId;
+    private long cardId;
     private String cardName;
     private Date expirationDate;
     private String securityCode;
     private int cardAccount;
 
-    public int getCardId() {
+
+    public long getCardId() {
         return cardId;
     }
 
-    public void setCardId(int cardId) {
+    public void setCardId(long cardId) {
         this.cardId = cardId;
     }
 
