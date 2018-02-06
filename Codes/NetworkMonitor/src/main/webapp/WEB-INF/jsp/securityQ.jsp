@@ -8,7 +8,7 @@
 <html>
 <head>
     <title>Let's make things better.</title>
-    <link href="css/style.css" rel='stylesheet' type='text/css'/>
+    <link href="css/style2.css" rel='stylesheet' type='text/css'/>
     <style>
         #message{
             color: red;
@@ -42,7 +42,7 @@
         });
 
         function answer() {
-            var a= $("#answer");
+            var a= $("#answer").val();
             <%str ="answer"+num;%>
             var ar = "<%=request.getSession().getAttribute(str)%>";
             if(a==ar){
@@ -79,9 +79,7 @@
                     </div>
                 </div>
             </div>
-
         </div>
-
     </div>
 </div>
 <!--start-copyright-->
