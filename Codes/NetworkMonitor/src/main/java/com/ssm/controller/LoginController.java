@@ -50,4 +50,9 @@ public class LoginController {
     public String goMap(){
         return "map";
     }
+
+    @RequestMapping("/cardinfo")
+    public String cardinfo(){
+        return "cardinfo";
+    }
 }
