@@ -10,33 +10,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html lang="en" class="no-js">
 <head>
  <style type="text/css">  
-*{  
-}  
+ 
   
 html,body{  
     height: 100%;  
     width: 100%;  
 }   
   
-#table-demo{  
-    text-align: center;  
-    margin: auto;
-}  
-  
-#table-demo tr{  
-    display: inline-block;  
-}  
-  
-#table-demo th,td{  
-    display: block;  
-    border: 1px solid;  
-}  
+ 
   
 </style>  
 	<meta charset="gb2312">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="css/css/reset.css"> <!-- CSS reset -->
 	<link rel="stylesheet" href="css/css/style.css"> <!-- Resource style -->
+	<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 	<script src="js/modernizr.js"></script> <!-- Modernizr --> 
 	<title>main</title> 
 	

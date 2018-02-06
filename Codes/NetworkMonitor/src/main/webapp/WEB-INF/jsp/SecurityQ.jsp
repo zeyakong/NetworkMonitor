@@ -1,9 +1,13 @@
- 
+ <%@ page language="java" import="java.util.*" pageEncoding="ISO-8859-1"%>
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
 <!DOCTYPE html>
 <html>
 <head>
-<title>Let's make things better.</title>
-<link href="css/style.css" rel='stylesheet' type='text/css' />
+<title>Let's make things better.</title> 
+<link href="css/style2.css" rel='stylesheet' type='text/css' /> 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="Alley Signup & Signin Form Tab Form,Login Forms,Sign up Forms,Registration Forms,News letter Forms,Elements"./>
@@ -24,16 +28,17 @@
 				 
 					
 				   </script>
+	 
 </head>
 <body>
-	<h1> Let's Make Things Better</h1>
+	<h1>Safer</h1>
 			
 <div class="main-content">
 	<div class="sap_tabs">	 
 		<div id="horizontalTab" style="display: block; width: 100%; margin: 0px;">
 		 
 			  <ul>
-			  	  <li class="resp-tab-item" aria-controls="tab_item-0" role="tab"><span>Welcome</span></li>
+			  	  <li class="resp-tab-item" aria-controls="tab_item-0" role="tab"><span>Security Question</span></li>
 				    
 			  </ul>		
 			  <!----> 
@@ -42,10 +47,11 @@
 				<div class="facts">
 					<div class="register">
 						 <form name="loginform" method="POST" id="loginform" action="getinfo.jsp">									
-							<input placeholder="Username" class="mail" type="text" name="username" required="">									
-							<input placeholder="Password" class="lock" type="password" name="password" required="">										
+							<input placeholder="SecurityQuestion" class="mail" type="text" name="username" required="">	
+							<option value="SecurityQuestion"><%session.getAttribute("SecurityQ");%></option> 								
+							<input placeholder="Answer" class="Answer" type="password" name="Answer" required="">										
 							<div class="sign-up">
-								<input type="submit" class="submit-btn" id="J_submit" value="Sign in"">
+								<input type="submit" class="submit-btn" id="J_submit" value="Answer"">
 							</div>
 						</form>
 						<h3><a href="#"> Help</a></h3>
@@ -60,7 +66,7 @@
 	 <!--start-copyright-->
    		<div class="copy-right">
    			<div class="wrap">
-				<p>&copy;  </a></p>
+				 
 			</div>
 		</div>
 	<!--//end-copyright-->

@@ -3,8 +3,7 @@
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
-
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+ 
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html lang="en" class="no-js">
@@ -18,25 +17,15 @@ html,body{
     width: 100%;  
 }   
   
-#table-demo{  
-    text-align: center;  
-    margin: auto;
-}  
-  
-#table-demo tr{  
-    display: inline-block;  
-}  
-  
-#table-demo th,td{  
-    display: block;  
-    border: 1px solid;  
-}  
+ 
   
 </style>  
 	<meta charset="gb2312">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="css/css/reset.css"> <!-- CSS reset -->
 	<link rel="stylesheet" href="css/css/style.css"> <!-- Resource style -->
+	<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	
 	<script src="js/modernizr.js"></script> <!-- Modernizr --> 
 	<title>main</title> 
 	
@@ -50,28 +39,33 @@ html,body{
 		<section class="cd-section cardinfo cd-selected">
 			<header>
 				<div class="cd-title">
-		 <h2><table id="table-demo">  
+				
+			<div class="panel panel-primary"   style="width: 80%; height:90%; margin-left:20px; margin-top:20px;background-color:white;"                      >	 
+		  <table id="table-demo" class="table table-bordered" style="margin-top:30px; width:100%;  
+    margin-left:0px;">  
+		 <thead  >
         <tr>  
-            <td>Card name</td>  
-            <td>infor1</td>  
-            <td>2<td>  
-          
-    
-                 
-                <td><%session.getAttribute("cardid");%></td>
-                <td><%session.getAttribute("cardowner");%></td> 
-                <td><%session.getAttribute("carddate");%></td>  
-            </tr>  
-           
-    </table>  </h2>
+            <th >Card Id</th>  
+            <th>Card Onwer</th>  
+            <th>Associate Account</th>  
+            <th>Manage</th>
+            </tr>
+             </thead>
+           <tbody>
+            <c:forEach var="cd" items="${list}">
+                    <tr>
+                        <td>${cd.requestId}</td>
+                        <td>${cd.requestName}</td>  
+                        <td>${cd.requestName}</td> 
+                        <td><button type="button" class="btn btn-info">Freeze</button></td>
+                         
+                    </tr>
+                </c:forEach> 
+           </tbody>
+               </table>   
 					  
-					 
-						<div style="text-align:center;margin:50px 0; font:normal 14px/24px 'MicroSoft YaHei';">
-							<p> </p>
-							<p> </p>
-						</div>
-					</a>
-				</div> <!-- .cd-title -->
+					  </div>
+				</div>  
 			</header>
 
 			 

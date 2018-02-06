@@ -44,28 +44,50 @@ h1{
 				<div class="cd-title">
 				
 			<div class="panel panel-primary"   style="width: 80%; height:90%; margin-left:20px; margin-top:20px;background-color:white;"                      >	 
-		  <table id="table-demo" class="table table-bordered" style="margin-top:30px; width:100%;  
-    margin-left:0px;">  
-		 <thead  >
-        <tr>  
-            <th >Account Id</th>  
-            <th>Account Name</th>  
-            <th>Detail</th>  
-            <th>Manage</th>
-            </tr>
-             </thead>
-           <tbody>
-            <c:forEach var="ac" items="${list}">
-                    <tr>
-                        <td>${ac.requestId}</td>
-                        <td>${ac.requestName}</td>  
-                        <td><a href="accountdetail.jsp" style="padding:0;"><button type="button" class="btn btn-success" >View</button></a></td> 
-                        <td><button type="button" class="btn btn-info">Freeze</button></td>
-                         
-                    </tr>
-                </c:forEach> 
-           </tbody>
-               </table>   
+		    <table id="tbeTest "  class="table table-bordered">
+           <tr>
+            <td>card name</td>
+            <td>  </td>
+        </tr>
+        <tr>
+            <td>card onwer</td>
+            <td>32</td>
+        </tr>
+        <tr>
+            <td>card infomation</td>
+            <td>26</td>
+        </tr>
+        <tr>
+            <td>card1</td>
+            <td>42</td>
+        </tr>
+        <tr>
+            <td>card2</td>
+            <td></td>
+            <td> <button type="button" class="btn btn-success" >View</button></td>
+        </tr>
+        <tr>
+            <td>card3</td>
+           <td></td>
+            <td>  <button type="button" class="btn btn-success" >View</button></td>
+        </tr>
+    </table>
+		    
+		    
+		    
+		    
+		    
+		    
+		    
+		    
+		    
+		    
+		   
+		   
+		   
+		   
+		   
+		   
 					  
 					  </div>
 				</div>  
