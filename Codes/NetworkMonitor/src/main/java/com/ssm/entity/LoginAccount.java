@@ -15,6 +15,15 @@ public class LoginAccount {
     private String securityAnswer1;
     private String securityAnswer2;
     private String securityAnswer3;
+    private String isActive;
+
+    public String getIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(String isActive) {
+        this.isActive = isActive;
+    }
 
     public int getLoginId() {
         return loginId;
@@ -96,6 +105,19 @@ public class LoginAccount {
         this.securityAnswer3 = securityAnswer3;
     }
 
-
-
+    @Override
+    public String toString() {
+        return "LoginAccount{" +
+                "loginId=" + loginId +
+                ", loginType='" + loginType + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", securityQuestion1='" + securityQuestion1 + '\'' +
+                ", securityQuestion2='" + securityQuestion2 + '\'' +
+                ", securityQuestion3='" + securityQuestion3 + '\'' +
+                ", securityAnswer1='" + securityAnswer1 + '\'' +
+                ", securityAnswer2='" + securityAnswer2 + '\'' +
+                ", securityAnswer3='" + securityAnswer3 + '\'' +
+                '}';
+    }
 }

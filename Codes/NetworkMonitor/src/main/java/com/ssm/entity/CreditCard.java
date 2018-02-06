@@ -10,7 +10,7 @@ public class CreditCard {
     private int cardId;
     private String cardName;
     private Date expirationDate;
-    private String securityId;
+    private String securityCode;
     private int cardAccount;
 
     public int getCardId() {
@@ -37,12 +37,12 @@ public class CreditCard {
         this.expirationDate = expirationDate;
     }
 
-    public String getSecurityId() {
-        return securityId;
+    public String getSecurityCode() {
+        return securityCode;
     }
 
-    public void setSecurityId(String securityId) {
-        this.securityId = securityId;
+    public void setSecurityCode(String securityCode) {
+        this.securityCode = securityCode;
     }
 
     public int getCardAccount() {
@@ -51,5 +51,16 @@ public class CreditCard {
 
     public void setCardAccount(int cardAccount) {
         this.cardAccount = cardAccount;
+    }
+
+    @Override
+    public String toString() {
+        return "CreditCard{" +
+                "cardId=" + cardId +
+                ", cardName='" + cardName + '\'' +
+                ", expirationDate=" + expirationDate +
+                ", securityCode='" + securityCode + '\'' +
+                ", cardAccount=" + cardAccount +
+                '}';
     }
 }

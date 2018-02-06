@@ -22,7 +22,6 @@
         function doLogin() {
             var userName = $("#username").val();
             var password = $("#password").val();
-            alert("fuck");
             $.ajax({
                 type:"POST",
                 url:"/doLogin.action",
@@ -34,9 +33,10 @@
                         window.location.href="loginSuccess.action";
                     }else{
                         //incorrect
-//                        $("#statu3").text("The Username or Password is incorrect");
-                        alert("username or pw wrong!")
+                        $("#message").text("The username or password wrong!");
+//                        document.getElementById("message").innerHTML="The username or password wrong!";
                     }
+
                 }
             });
         }
@@ -67,13 +67,12 @@
             <div class="tab-2 resp-tab-content" aria-labelledby="tab_item-1">
                 <div class="facts">
                     <div class="register">
-                        <form name="loginform" method="POST" id="loginform">
                             <input placeholder="Username" id = "username"class="mail" type="text"  required="">
                             <input placeholder="Password" id="password" class="lock" type="password"  required="">
                             <div class="sign-up">
-                                <input type="submit" class="submit-btn" id="J_submit" value="Sign in" onclick="doLogin()">
+                                <p id="message" ><font color="red">text</font></p>
+                                <input type="submit" onclick="doLogin()"></input>
                             </div>
-                        </form>
                         <h3><a href="#"> Help</a></h3>
                     </div>
                 </div>

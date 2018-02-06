@@ -7,7 +7,7 @@
     	<select id="findCreditCardsByAccountId" resultType="CreditCard">
     	SELECT card_id, card_name, expiration_date, security_code, card_account
     	FROM credit_cards natural join card_accounts
-    	WHERE card_account = account_id AND account_id = ${accountId};
+    	WHERE card_account = account_id AND account_id = #{accountId};
     	</select>
 
 </mapper>

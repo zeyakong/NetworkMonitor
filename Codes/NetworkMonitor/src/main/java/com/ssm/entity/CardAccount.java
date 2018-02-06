@@ -59,4 +59,16 @@ public class CardAccount {
     public void setBalance(double balance) {
         this.balance = balance;
     }
+
+    @Override
+    public String toString() {
+        return "CardAccount{" +
+                "accountName='" + accountName + '\'' +
+                ", accountAddress='" + accountAddress + '\'' +
+                ", accountId=" + accountId +
+                ", accountPhone=" + accountPhone +
+                ", limit=" + limit +
+                ", balance=" + balance +
+                '}';
+    }
 }
