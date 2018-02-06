@@ -35,10 +35,10 @@
             width: 100%;
         }
 
-        h1 {
+        h {
             font-size: 40px;
-            color: #fff;
-            text-align: center;
+            color: #000000;
+            text-align: left;
             padding-top: 20px;
         }
 
@@ -64,8 +64,9 @@
             <div class="cd-title">
 
                 <div class="panel panel-primary"
-                     style="width: 80%; height:90%; margin-left:20px; margin-top:20px;background-color:white;">
-                    <h1>Account:</h1>
+                     style="width: 80%; height:90%; margin-left:20px; margin-top:20px;background-color:white;overflow:scroll">
+
+                    <button type="button" class="btn btn-info" onclick='window.location.href="accountinfo.action"'>Go Back</button>
                     <table id="tbeTest " class="table table-bordered">
                         <tr>
                             <td>Account Name</td>
@@ -89,8 +90,7 @@
                         </tr>
                     </table>
 
-                    <hr>
-                    <h1>Cards</h1>
+<br>
 
                     <table id="2 " class="table table-bordered">
                         <c:forEach var="ac" items="${list}">
@@ -116,8 +116,10 @@
                             <td>Security code</td>
                             <td>${ac.securityCode}</td>
                         </tr>
-                            <hr>
-                        </c:forEach>
+                        <tr>
+                            <<br>
+                        </tr>
+                    </c:forEach>
                 </div>
                 </table>
 
