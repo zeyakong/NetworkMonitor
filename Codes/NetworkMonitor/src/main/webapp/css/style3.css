@@ -28,67 +28,14 @@ nav.horizontal ul li{	display: inline-block;}/* horizontal menu */
 img{max-width:100%;}
 /*end reset*/
 /****-----start-body----****/
-
 body{
-	background:url("../images/sb.jpg") 0px 0px no-repeat;
+	background:url("../images/11.jpg") 0px 0px no-repeat;
 	text-align: center;
 	font-family:Nunito-Light;
 	background-attachment: fixed;
     background-position: center;
-    background-color: rgba(0,0,0,0.5);
     background-size: cover;
 }
-
-
-.header {
-    padding-top: 2em;
-} 
-.header-w3lsrow{
-	position: relative;
-}
-.logo {
-    float: left;
-}
-.header-right {
-    float: right;
-    padding-right: 8em;
-    margin-top: 1.1em;
-}
-.logo h1 {
-    font-size: 3.5em;
-    text-transform: capitalize; 
-}
-.logo h1 a,.logo h1 a:hover{
-    color: #fff;
-	text-decoration: none;
-	outline:none;
-	display:inline-block;
-} 
-.header-right ul{
-	display:inline-block;
-	padding: 0;
-}
-.header-right ul li { 
-    display: inline-block; 
-	margin-left: 2em;
-} 
-.header-right ul li a {
-    font-size: 1.1em;
-    color: #fff;
-    font-weight: 400;
-    -webkit-transition: .5s all;
-    transition: .5s all;
-    -moz-transition: .5s all;
-}
-.header-right ul li a:hover,.header-right ul li a.active{ 
-	color: #FF9800;
-}  
-
-
-
-
-
-
 
 @font-face{
 	font-family: "Nunito-Light";
@@ -96,8 +43,9 @@ body{
 }
 
 .main-content{
-	width:32%;
-	background-color: rgba(243, 206, 110, 0.23);
+	width:1000px;
+	height:1000px;
+	background-color: rgba(42, 54, 80, 0.44);
 	margin:50px auto;
 }
 
@@ -128,7 +76,7 @@ h1{
   cursor: pointer;
   padding:5px 30px;
   margin:5px;
-  display: inline-block;
+  
   list-style: none;
   outline: none;
   border:2px solid #fff;
@@ -200,12 +148,12 @@ h2.resp-accordion {
 	border: 2px solid #fff;
     font-size: 18px;
 	font-family:Nunito-Light;
-    padding: 15px 10px 15px 15px;
+    padding: 0px 0px 0px 0px;
     width: 85%;
     cursor: pointer;
-    outline: none;
-    display: inline-block;
-    margin-top:24px;
+    outline: none; 
+    margin-top:0px;
+    margin-left:17px;
     transition: 0.5s all;
     -webkit-transition: 0.5s all;
     -moz-transition: 0.5s all;
@@ -219,6 +167,33 @@ h2.resp-accordion {
 .sign-up input[type="submit"]:hover{
 	color: #fff;
     background:#d8cc52;
+}
+
+.sign-up input[type="freeze"] {
+    background:rgba(2, 2, 2, 0.60);
+    color: #fff;
+	border: 2px solid #fff;
+    font-size: 18px;
+	font-family:Nunito-Light;
+    padding: 0px 0px 0px 0px;
+    width: 85%;
+    cursor: pointer;
+    outline: none; 
+    margin-top:0px;
+    margin-left:17px;
+    transition: 0.5s all;
+    -webkit-transition: 0.5s all;
+    -moz-transition: 0.5s all;
+    -o-transition: 0.5s all;
+    -ms-transition: 0.5s all;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	-khtml-border-radius: 3px;
+	border-radius: 3px;
+}
+.sign-up input[type="freeze"]:hover{
+	color: #fff;
+    background:#3184ce;
 }
  ::-webkit-input-placeholder{
 	color:#fff;
@@ -268,11 +243,11 @@ h3{
 
 
 /*--responsive--*/
-
+/* 
 @media screen and (max-width:1920px){
 
 h1 { font-size: 52px;	padding-top:50px;	}
-.main-content{	width:30%;	}
+.main-content{	width:100%;	}
 .sign-up input[type="submit"] {	font-size: 20px;	}
 }
 
@@ -418,7 +393,7 @@ h1 { font-size: 22px; padding-top:15px;	}
 .copy-right {	margin:15px 10px 10px 10px;	}
 .register a{	font-size: 14px;	}
 }
-
+ */
 
 
 
