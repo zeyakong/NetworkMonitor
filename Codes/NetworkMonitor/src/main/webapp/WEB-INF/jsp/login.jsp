@@ -33,7 +33,6 @@
                 url: "doLogin.action",
                 data: "username=" + userName + "&password=" + password,
                 success: function (data) {
-                    //如果成功,转发到其他页面，否则提示内容
                     if (data) {
                         //success
                         document.cookie="username="+data.username+" ;loginId="+data.loginId;

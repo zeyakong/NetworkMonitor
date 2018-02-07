@@ -39,10 +39,6 @@
 <
 <script>
 
-    function accountDetail(id) {
-        window.location.href="accountCards.action?id="+id;
-    }
-
 </script>
 <body>
 <a href="#cd-nav" class="cd-nav-trigger">

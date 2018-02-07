@@ -4,12 +4,12 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ssm.dao.CardAccountDao">
 
-	<select id="findAllCardAccounts" resultType="com.ssm.entity.CardAccount">
+	<select id="findAllCardAccounts" resultType="CardAccount">
 	SELECT *
 	FROM card_accounts
 	</select>
 
-	<select id="findCardAccountById" resultType="com.ssm.entity.CardAccount">
+	<select id="findCardAccountById" resultType="CardAccount">
 		SELECT *
 		FROM card_accounts
 		WHERE account_id = #{id}

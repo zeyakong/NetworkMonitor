@@ -69,7 +69,7 @@ public class LoginController {
             }
         }else System.out.println("---------------empty list!");
         model.addAttribute("list",list);
-        return "accountinfo";
+        return "main";
     }
 
     @RequestMapping("/accountCards")
@@ -79,7 +79,7 @@ public class LoginController {
         model.addAttribute("list",list);
         CardAccount cardAccount = cardAccountServices.findCardAccountById(id);
         model.addAttribute("cardAccount",cardAccount);
-        return "accountdetail";
+        return "accountde";
     }
 
 }
