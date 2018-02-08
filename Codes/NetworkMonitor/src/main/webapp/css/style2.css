@@ -281,142 +281,491 @@ h1 { font-size: 48px;	padding-top:50px;	}
 .main-content{	width:30%;	}
 }
 
-@media screen and (max-width:1440px){
-h1 {	font-size: 42px;	}
+@media screen and (max-width:1440px) {
+    h1 {
+        font-size: 42px;
+    }
 
-@media screen and (max-width:1366px){
-h1 { font-size: 40px;	}
-.main-content{	width:32%;	}
-.resp-tab-item{	font-size: 22px;	border:1px solid #fff;	}
-.sign-up input[type="submit"] {	border: 1px solid #fff;	}
-.resp-tab-item:hover {	border:1px solid #fff;	}
-.resp-tab-active {	border:1px solid #fff;	}
-}
+    @media screen and (max-width: 1366px) {
+        h1 {
+            font-size: 40px;
+        }
 
-@media screen and (max-width:1280px){
-h1 {	font-size: 38px;	}
-.main-content{	width:32%;	}
-.resp-tab-item{	font-size: 22px;	border:1px solid #fff;	}
-.sign-up input[type="submit"] {	border: 1px solid #fff;	}
-.resp-tab-item:hover {	border:1px solid #fff;	}
-.resp-tab-active {	border:1px solid #fff;	}
-}
+        .main-content {
+            width: 32%;
+        }
 
-@media screen and (max-width:1080px){
-h1 {	font-size: 34px;	}
-.main-content{	width:34%;	}
-.resp-tab-item{	font-size: 18px;	border:1px solid #fff;	}
-.register input[type="text"],.register input[type="password"] {	font-size:14px;	}
-.sign-up input[type="submit"] {	border: 1px solid #fff;	font-size: 18px;	}
-.resp-tab-item:hover {	border:1px solid #fff;	}
-.resp-tab-active {	border:1px solid #fff;	}
-.copy-right p {	font-size: 14px; }
-}
+        .resp-tab-item {
+            font-size: 22px;
+            border: 1px solid #fff;
+        }
 
-@media screen and (max-width:1024px){
-h1 { font-size: 34px;	}
-.main-content{	width:34%; margin:25px auto;	}
-.resp-tab-item{	font-size: 18px;	border:1px solid #fff;	}
-.register input[type="text"],.register input[type="password"] {	font-size:14px;	}
-.sign-up input[type="submit"] {	border: 1px solid #fff;	font-size: 18px;	}
-.resp-tab-item:hover {	border:1px solid #fff;	}
-.resp-tab-active {	border:1px solid #fff;	}
-.copy-right p {	font-size: 14px; }
-}
+        .sign-up input[type="submit"] {
+            border: 1px solid #fff;
+        }
 
-@media screen and (max-width:800px){
-h1 { font-size: 30px; padding-top:75px;	}
-.main-content{	width:42%;margin:25px auto;	}
-.resp-tab-item{	font-size: 18px;	border:1px solid #fff;	}
-.register input[type="text"],.register input[type="password"] {	font-size:14px;	}
-.sign-up input[type="submit"] {	border: 1px solid #fff;		font-size: 18px;	}
-.resp-tab-item:hover {	border:1px solid #fff;	}
-.resp-tab-active {	border:1px solid #fff;	}
-.copy-right p {	font-size: 13px; }
-}
+        .resp-tab-item:hover {
+            border: 1px solid #fff;
+        }
 
-@media screen and (max-width:768px){
-h1 { font-size: 30px; padding-top:75px;	}
-.main-content{	width:46%;margin:20px auto;	}
-.resp-tab-item{	font-size: 18px;	border:1px solid #fff;	}
-.register input[type="text"],.register input[type="password"] {	font-size:14px; margin: 0 0 12px 0 ;	}
-.sign-up input[type="submit"] {	border: 1px solid #fff;	font-size: 18px;	padding: 10px 10px 10px 10px;	margin-top:20px;	}
-.resp-tab-item:hover {	border:1px solid #fff;	}
-.resp-tab-active {	border:1px solid #fff;	}
-.copy-right p {	font-size: 13px; }
-}
+        .resp-tab-active {
+            border: 1px solid #fff;
+        }
+    }
 
-@media screen and (max-width:640px){
-h1 { font-size: 28px; padding-top:50px;	}
-.main-content{	width:48%;margin:20px auto;	}
-.resp-tab-item{	font-size: 17px;	border:1px solid #fff;	}
-.register input[type="text"],.register input[type="password"] {	font-size:13px; margin: 0 0 12px 0 ;	}
-.sign-up input[type="submit"] {	border: 1px solid #fff;	font-size: 17px;	padding: 10px 10px 10px 10px;	margin-top:20px;	}
-.resp-tab-item:hover {	border:1px solid #fff;	}
-.resp-tab-active {	border:1px solid #fff;	}
-.copy-right p {	font-size: 13px; }
-}
+    @media screen and (max-width: 1280px) {
+        h1 {
+            font-size: 38px;
+        }
 
-@media screen and (max-width:600px){
-h1 { font-size: 28px; padding-top:50px;	}
-.main-content{	width:55%;margin:20px auto;	}
-.sap_tabs {	padding:25px 0px; }
-.resp-tab-item{	font-size: 17px;	border:1px solid #fff;	}
-.register input[type="text"],.register input[type="password"] {	font-size:13px; margin: 0 0 12px 0 ;	}
-.sign-up input[type="submit"] {	border: 1px solid #fff;	font-size: 17px;	padding: 10px 10px 10px 10px;	margin-top:20px;	}
-.resp-tab-item:hover {	border:1px solid #fff;	}
-.resp-tab-active {	border:1px solid #fff;	}
-.copy-right p {	font-size: 13px; }
-}
+        .main-content {
+            width: 32%;
+        }
 
-@media screen and (max-width:480px){
-h1 { font-size: 26px; padding-top:25px;	}
-.main-content{	width:58%;margin:20px auto;	}
-.sap_tabs {	padding:25px 0px; }
-.resp-tab-item{	font-size: 17px;	border:1px solid #fff;	}
-.register input[type="text"],.register input[type="password"] {	font-size:13px; margin: 0 0 12px 0 ;	}
-.sign-up input[type="submit"] {	border: 1px solid #fff;	font-size: 17px; 	padding: 10px 10px 10px 10px;	margin-top:20px;	}
-.resp-tab-item:hover {	border:1px solid #fff;	}
-.resp-tab-active {	border:1px solid #fff;	}
-.copy-right p {	font-size: 13px; }
-}
+        .resp-tab-item {
+            font-size: 22px;
+            border: 1px solid #fff;
+        }
 
-@media screen and (max-width:414px){
-h1 { font-size: 26px; padding-top:25px;	}
-.main-content{	width:70%;margin:20px auto;	}
-.sap_tabs {	padding:25px 0px; }
-.resp-tab-item{	font-size: 17px;	border:1px solid #fff;	}
-.register input[type="text"],.register input[type="password"] {	font-size:13px; margin: 0 0 12px 0 ;	}
-.sign-up input[type="submit"] {	border: 1px solid #fff;	font-size: 17px; 	padding: 10px 10px 10px 10px;	margin-top:20px;	}
-.resp-tab-item:hover {	border:1px solid #fff;	}
-.resp-tab-active {	border:1px solid #fff;	}
-.copy-right p {	font-size: 13px; }
-}
+        .sign-up input[type="submit"] {
+            border: 1px solid #fff;
+        }
 
-@media screen and (max-width:375px){
-h1 { font-size: 24px; padding-top:25px;	}
-.main-content{	width:80%;margin:20px auto;	}
-.sap_tabs {	padding:25px 0px; }
-.resp-tab-item{	font-size: 16px;	border:1px solid #fff;	}
-.register input[type="text"],.register input[type="password"] {	font-size:13px; margin: 0 0 12px 0 ;	}
-.sign-up input[type="submit"] {	border: 1px solid #fff;	font-size: 16px; 	padding: 10px 10px 10px 10px;	margin-top:20px;	}
-.resp-tab-item:hover {	border:1px solid #fff;	}
-.resp-tab-active {	border:1px solid #fff;	}
-.copy-right p {	font-size: 13px; }
-}
+        .resp-tab-item:hover {
+            border: 1px solid #fff;
+        }
 
-@media screen and (max-width:320px){
-h1 { font-size: 22px; padding-top:15px;	}
-.main-content{	width:90%;margin:20px auto;	}
-.sap_tabs {	padding:25px 0px; }
-.resp-tab-item{	font-size: 16px;	border:1px solid #fff;	}
-.register input[type="text"],.register input[type="password"] {	font-size:13px; margin: 0 0 12px 0 ; padding:10px;	}
-.sign-up input[type="submit"] {	border: 1px solid #fff;	font-size: 16px; 	padding: 10px 10px 10px 10px;	margin-top:20px;	}
-.resp-tab-item:hover {	border:1px solid #fff;	}
-.resp-tab-active {	border:1px solid #fff;	}
-.copy-right p {	font-size: 13px; }
-.copy-right {	margin:15px 10px 10px 10px;	}
-.register a{	font-size: 14px;	}
+        .resp-tab-active {
+            border: 1px solid #fff;
+        }
+    }
+
+    @media screen and (max-width: 1080px) {
+        h1 {
+            font-size: 34px;
+        }
+
+        .main-content {
+            width: 34%;
+        }
+
+        .resp-tab-item {
+            font-size: 18px;
+            border: 1px solid #fff;
+        }
+
+        .register input[type="text"], .register input[type="password"] {
+            font-size: 14px;
+        }
+
+        .sign-up input[type="submit"] {
+            border: 1px solid #fff;
+            font-size: 18px;
+        }
+
+        .resp-tab-item:hover {
+            border: 1px solid #fff;
+        }
+
+        .resp-tab-active {
+            border: 1px solid #fff;
+        }
+
+        .copy-right p {
+            font-size: 14px;
+        }
+    }
+
+    @media screen and (max-width: 1024px) {
+        h1 {
+            font-size: 34px;
+        }
+
+        .main-content {
+            width: 34%;
+            margin: 25px auto;
+        }
+
+        .resp-tab-item {
+            font-size: 18px;
+            border: 1px solid #fff;
+        }
+
+        .register input[type="text"], .register input[type="password"] {
+            font-size: 14px;
+        }
+
+        .sign-up input[type="submit"] {
+            border: 1px solid #fff;
+            font-size: 18px;
+        }
+
+        .resp-tab-item:hover {
+            border: 1px solid #fff;
+        }
+
+        .resp-tab-active {
+            border: 1px solid #fff;
+        }
+
+        .copy-right p {
+            font-size: 14px;
+        }
+    }
+
+    @media screen and (max-width: 800px) {
+        h1 {
+            font-size: 30px;
+            padding-top: 75px;
+        }
+
+        .main-content {
+            width: 42%;
+            margin: 25px auto;
+        }
+
+        .resp-tab-item {
+            font-size: 18px;
+            border: 1px solid #fff;
+        }
+
+        .register input[type="text"], .register input[type="password"] {
+            font-size: 14px;
+        }
+
+        .sign-up input[type="submit"] {
+            border: 1px solid #fff;
+            font-size: 18px;
+        }
+
+        .resp-tab-item:hover {
+            border: 1px solid #fff;
+        }
+
+        .resp-tab-active {
+            border: 1px solid #fff;
+        }
+
+        .copy-right p {
+            font-size: 13px;
+        }
+    }
+
+    @media screen and (max-width: 768px) {
+        h1 {
+            font-size: 30px;
+            padding-top: 75px;
+        }
+
+        .main-content {
+            width: 46%;
+            margin: 20px auto;
+        }
+
+        .resp-tab-item {
+            font-size: 18px;
+            border: 1px solid #fff;
+        }
+
+        .register input[type="text"], .register input[type="password"] {
+            font-size: 14px;
+            margin: 0 0 12px 0;
+        }
+
+        .sign-up input[type="submit"] {
+            border: 1px solid #fff;
+            font-size: 18px;
+            padding: 10px 10px 10px 10px;
+            margin-top: 20px;
+        }
+
+        .resp-tab-item:hover {
+            border: 1px solid #fff;
+        }
+
+        .resp-tab-active {
+            border: 1px solid #fff;
+        }
+
+        .copy-right p {
+            font-size: 13px;
+        }
+    }
+
+    @media screen and (max-width: 640px) {
+        h1 {
+            font-size: 28px;
+            padding-top: 50px;
+        }
+
+        .main-content {
+            width: 48%;
+            margin: 20px auto;
+        }
+
+        .resp-tab-item {
+            font-size: 17px;
+            border: 1px solid #fff;
+        }
+
+        .register input[type="text"], .register input[type="password"] {
+            font-size: 13px;
+            margin: 0 0 12px 0;
+        }
+
+        .sign-up input[type="submit"] {
+            border: 1px solid #fff;
+            font-size: 17px;
+            padding: 10px 10px 10px 10px;
+            margin-top: 20px;
+        }
+
+        .resp-tab-item:hover {
+            border: 1px solid #fff;
+        }
+
+        .resp-tab-active {
+            border: 1px solid #fff;
+        }
+
+        .copy-right p {
+            font-size: 13px;
+        }
+    }
+
+    @media screen and (max-width: 600px) {
+        h1 {
+            font-size: 28px;
+            padding-top: 50px;
+        }
+
+        .main-content {
+            width: 55%;
+            margin: 20px auto;
+        }
+
+        .sap_tabs {
+            padding: 25px 0px;
+        }
+
+        .resp-tab-item {
+            font-size: 17px;
+            border: 1px solid #fff;
+        }
+
+        .register input[type="text"], .register input[type="password"] {
+            font-size: 13px;
+            margin: 0 0 12px 0;
+        }
+
+        .sign-up input[type="submit"] {
+            border: 1px solid #fff;
+            font-size: 17px;
+            padding: 10px 10px 10px 10px;
+            margin-top: 20px;
+        }
+
+        .resp-tab-item:hover {
+            border: 1px solid #fff;
+        }
+
+        .resp-tab-active {
+            border: 1px solid #fff;
+        }
+
+        .copy-right p {
+            font-size: 13px;
+        }
+    }
+
+    @media screen and (max-width: 480px) {
+        h1 {
+            font-size: 26px;
+            padding-top: 25px;
+        }
+
+        .main-content {
+            width: 58%;
+            margin: 20px auto;
+        }
+
+        .sap_tabs {
+            padding: 25px 0px;
+        }
+
+        .resp-tab-item {
+            font-size: 17px;
+            border: 1px solid #fff;
+        }
+
+        .register input[type="text"], .register input[type="password"] {
+            font-size: 13px;
+            margin: 0 0 12px 0;
+        }
+
+        .sign-up input[type="submit"] {
+            border: 1px solid #fff;
+            font-size: 17px;
+            padding: 10px 10px 10px 10px;
+            margin-top: 20px;
+        }
+
+        .resp-tab-item:hover {
+            border: 1px solid #fff;
+        }
+
+        .resp-tab-active {
+            border: 1px solid #fff;
+        }
+
+        .copy-right p {
+            font-size: 13px;
+        }
+    }
+
+    @media screen and (max-width: 414px) {
+        h1 {
+            font-size: 26px;
+            padding-top: 25px;
+        }
+
+        .main-content {
+            width: 70%;
+            margin: 20px auto;
+        }
+
+        .sap_tabs {
+            padding: 25px 0px;
+        }
+
+        .resp-tab-item {
+            font-size: 17px;
+            border: 1px solid #fff;
+        }
+
+        .register input[type="text"], .register input[type="password"] {
+            font-size: 13px;
+            margin: 0 0 12px 0;
+        }
+
+        .sign-up input[type="submit"] {
+            border: 1px solid #fff;
+            font-size: 17px;
+            padding: 10px 10px 10px 10px;
+            margin-top: 20px;
+        }
+
+        .resp-tab-item:hover {
+            border: 1px solid #fff;
+        }
+
+        .resp-tab-active {
+            border: 1px solid #fff;
+        }
+
+        .copy-right p {
+            font-size: 13px;
+        }
+    }
+
+    @media screen and (max-width: 375px) {
+        h1 {
+            font-size: 24px;
+            padding-top: 25px;
+        }
+
+        .main-content {
+            width: 80%;
+            margin: 20px auto;
+        }
+
+        .sap_tabs {
+            padding: 25px 0px;
+        }
+
+        .resp-tab-item {
+            font-size: 16px;
+            border: 1px solid #fff;
+        }
+
+        .register input[type="text"], .register input[type="password"] {
+            font-size: 13px;
+            margin: 0 0 12px 0;
+        }
+
+        .sign-up input[type="submit"] {
+            border: 1px solid #fff;
+            font-size: 16px;
+            padding: 10px 10px 10px 10px;
+            margin-top: 20px;
+        }
+
+        .resp-tab-item:hover {
+            border: 1px solid #fff;
+        }
+
+        .resp-tab-active {
+            border: 1px solid #fff;
+        }
+
+        .copy-right p {
+            font-size: 13px;
+        }
+    }
+
+    @media screen and (max-width: 320px) {
+        h1 {
+            font-size: 22px;
+            padding-top: 15px;
+        }
+
+        .main-content {
+            width: 90%;
+            margin: 20px auto;
+        }
+
+        .sap_tabs {
+            padding: 25px 0px;
+        }
+
+        .resp-tab-item {
+            font-size: 16px;
+            border: 1px solid #fff;
+        }
+
+        .register input[type="text"], .register input[type="password"] {
+            font-size: 13px;
+            margin: 0 0 12px 0;
+            padding: 10px;
+        }
+
+        .sign-up input[type="submit"] {
+            border: 1px solid #fff;
+            font-size: 16px;
+            padding: 10px 10px 10px 10px;
+            margin-top: 20px;
+        }
+
+        .resp-tab-item:hover {
+            border: 1px solid #fff;
+        }
+
+        .resp-tab-active {
+            border: 1px solid #fff;
+        }
+
+        .copy-right p {
+            font-size: 13px;
+        }
+
+        .copy-right {
+            margin: 15px 10px 10px 10px;
+        }
+
+        .register a {
+            font-size: 14px;
+        }
+    }
 }
 
 

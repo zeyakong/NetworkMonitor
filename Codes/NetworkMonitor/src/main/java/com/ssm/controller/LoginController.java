@@ -56,11 +56,11 @@ public class LoginController {
 
     @RequestMapping("/loginSuccess")
     public String loginSuccess(){
-        return "securityQ";
+        return "securityQuestion";
     }
 
-    @RequestMapping("/accountinfo")
-    public String goMap(Model model){
+    @RequestMapping("/accountInfo")
+    public String accountInfo(Model model){
         List<CardAccount> list = new ArrayList<CardAccount>();
         list =  cardAccountServices.findAllCardAccounts();
         if(list!=null){
@@ -69,7 +69,7 @@ public class LoginController {
             }
         }else System.out.println("---------------empty list!");
         model.addAttribute("list",list);
-        return "main";
+        return "accountInfo";
     }
 
     @RequestMapping("/accountCards")
@@ -79,7 +79,7 @@ public class LoginController {
         model.addAttribute("list",list);
         CardAccount cardAccount = cardAccountServices.findCardAccountById(id);
         model.addAttribute("cardAccount",cardAccount);
-        return "accountde";
+        return "accountDetail";
     }
 
 }
