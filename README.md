@@ -31,4 +31,6 @@ Maven
 #### The SQL statement
 * [SQL](https://github.com/Kong96/NetworkMonitor/tree/master/SQL).
 #### The Front-end Code
-* [html/css](https://github.com/Kong96/NetworkMonitor/tree/master/Codes/NetworkMonitor/src/main/webapp).
+* [html/css](https://github.com/Kong96/NetworkMonitor/tree/master/Codes/NetworkMonitor/src/main/webapp).  
+#### The Integration of the First Demo
+* [DEMO1](https://github.com/Kong96/NetworkMonitor/tree/767fa8b45147e7d687c4e12418b294a470f4c5a2).
