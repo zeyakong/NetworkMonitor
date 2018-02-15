@@ -5,6 +5,9 @@
 <head>
     <title>Main</title>
 </head>
+<button value="account info"></button>
 
+<hr>
+<p>Show the network below</p>
 </body>
 </html>
