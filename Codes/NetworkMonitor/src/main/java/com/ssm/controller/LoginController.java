@@ -23,14 +23,9 @@ import java.util.List;
 
 @Controller
 public class LoginController {
+
     @Autowired
     private LoginServices loginServices;
-
-    @Autowired
-    private CardAccountServices cardAccountServices;
-
-    @Autowired
-    private CreditCardServices creditCardServices;
 
     @RequestMapping("/login")
     public String goLoginPage() {
@@ -58,28 +53,4 @@ public class LoginController {
     public String loginSuccess(){
         return "securityQuestion";
     }
-
-    @RequestMapping("/accountInfo")
-    public String accountInfo(Model model){
-        List<CardAccount> list = new ArrayList<CardAccount>();
-        list =  cardAccountServices.findAllCardAccounts();
-        if(list!=null){
-            for(int i = 0 ;i<list.size();i++){
-                System.out.println("----------------"+list.get(i));
-            }
-        }else System.out.println("---------------empty list!");
-        model.addAttribute("list",list);
-        return "accountInfo";
-    }
-
-    @RequestMapping("/accountCards")
-    public String accountCards(int id,Model model){
-        List<CreditCard> list = new ArrayList<CreditCard>();
-        list = creditCardServices.findCreditCardsByAccountId(id);
-        model.addAttribute("list",list);
-        CardAccount cardAccount = cardAccountServices.findCardAccountById(id);
-        model.addAttribute("cardAccount",cardAccount);
-        return "accountDetail";
-    }
-
 }
