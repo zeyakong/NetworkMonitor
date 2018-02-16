@@ -53,4 +53,9 @@ public class LoginController {
     public String loginSuccess(){
         return "securityQuestion";
     }
+
+    @RequestMapping("/goMain")
+    public String goMain(){
+        return "main";
+    }
 }

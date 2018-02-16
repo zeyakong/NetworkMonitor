@@ -5,7 +5,7 @@
 <head>
     <title>Main</title>
 </head>
-<button value="account info"></button>
+<button value="account info" onclick=""></button>
 
 <hr>
 <p>Show the network below</p>
