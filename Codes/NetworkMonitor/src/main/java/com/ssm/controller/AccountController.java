@@ -24,19 +24,6 @@ public class AccountController {
     @Autowired
     private CreditCardServices creditCardServices;
 
-    @RequestMapping("/accountInfo")
-    public String accountInfo(Model model){
-        List<CardAccount> list;
-        list =  cardAccountServices.findAllCardAccounts();
-        if(list!=null){
-            for(int i = 0 ;i<list.size();i++){
-                System.out.println("----------------"+list.get(i));
-            }
-        }else System.out.println("---------------empty list!");
-        model.addAttribute("list",list);
-        return "accountInfo";
-    }
-
     @RequestMapping("/accountCards")
     public String accountCards(int id,Model model){
         List<CreditCard> list;

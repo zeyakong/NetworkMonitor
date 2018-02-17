@@ -49,7 +49,8 @@
 <body>
 <h1> Account Information</h1>
 
-
+<input type="submit" class="submit-btn"  value="Back" style="width:100px;height:50px;"
+       onclick='window.location.href="goMain.action"' ;>
 <div class="main-content">
     <div class="sap_tabs">
         <table id="table-demo" class="table table-bordered" style="margin-top:10px; width:100%;
