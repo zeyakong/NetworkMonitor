@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ssm.dao.ConnectionDao">
 
-    <select id="com.ssm.dao.findAllConnections" resultType="com.ssm.entity.Connection">
+    <select id="findAllConnections" resultType="com.ssm.entity.Connection">
         SELECT *
         FROM connections;
     </select>
