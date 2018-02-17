@@ -29,7 +29,7 @@ public class LoginController {
 
     @RequestMapping("/login")
     public String goLoginPage() {
-        return "login";
+        return "login.jsp";
     }
 
     @RequestMapping("/doLogin")

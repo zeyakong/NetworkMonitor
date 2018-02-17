@@ -5,10 +5,7 @@
 <mapper namespace="com.ssm.dao.ConnectionDao">
 
     <select id="com.ssm.dao.findAllConnections" resultType="com.ssm.entity.Connection">
-
         SELECT *
         FROM connections;
-
     </select>
-
 </mapper>
