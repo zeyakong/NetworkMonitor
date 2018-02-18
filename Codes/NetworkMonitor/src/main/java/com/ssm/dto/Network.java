@@ -16,17 +16,40 @@ import java.util.List;
  * On 2018/2/15 17:16.
  */
 public class Network {
-    @Autowired
-    private ConnectionDao connectionDao;
-    @Autowired
-    private RelayStationDao relayStationDao;
-    @Autowired
-    private StoreDao storeDao;
+    private List<Connection> connections;
+    private List<RelayStation> relayStations;
+    private List<Store> stores;
 
-    public Network(){
-        //generate the network.
-        List<Connection> connections =  connectionDao.findAllConnections();
-        List<RelayStation> relayStations =  relayStationDao.findAllRelayStations();
-        List<Store> stores = storeDao.findAllStores();
+    public List<Connection> getConnections() {
+        return connections;
+    }
+
+    public void setConnections(List<Connection> connections) {
+        this.connections = connections;
+    }
+
+    public List<RelayStation> getRelayStations() {
+        return relayStations;
+    }
+
+    public void setRelayStations(List<RelayStation> relayStations) {
+        this.relayStations = relayStations;
+    }
+
+    public List<Store> getStores() {
+        return stores;
+    }
+
+    public void setStores(List<Store> stores) {
+        this.stores = stores;
+    }
+
+    @Override
+    public String toString() {
+        return "Network{" +
+                "connections=" + connections +
+                ", relayStations=" + relayStations +
+                ", stores=" + stores +
+                '}';
     }
 }

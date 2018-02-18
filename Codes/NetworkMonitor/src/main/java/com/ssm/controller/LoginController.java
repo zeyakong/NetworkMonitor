@@ -1,12 +1,14 @@
 package com.ssm.controller;
 
+import com.ssm.dto.Network;
 import com.ssm.entity.CardAccount;
 import com.ssm.entity.CreditCard;
 import com.ssm.entity.LoginAccount;
 import com.ssm.services.CardAccountServices;
 import com.ssm.services.CreditCardServices;
 import com.ssm.services.LoginServices;
-        import org.springframework.beans.factory.annotation.Autowired;
+import com.ssm.services.NetworkServices;
+import org.springframework.beans.factory.annotation.Autowired;
         import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +28,9 @@ public class LoginController {
 
     @Autowired
     private LoginServices loginServices;
+
+    @Autowired
+    private NetworkServices networkServices;
 
     @RequestMapping("/login")
     public String goLoginPage() {
