@@ -60,7 +60,9 @@ public class LoginController {
     }
 
     @RequestMapping("/goMain")
-    public String goMain(){
+    public String goMain(HttpServletRequest request){
+        String network = networkServices.generateDOT(networkServices.getNetwork());
+        request.setAttribute("network",network);
         return "main";
     }
 }

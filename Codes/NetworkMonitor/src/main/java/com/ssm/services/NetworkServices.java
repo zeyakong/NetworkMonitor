@@ -8,4 +8,5 @@ import com.ssm.dto.Network;
  */
 public interface NetworkServices {
     Network getNetwork();
+    String generateDOT(Network network);
 }

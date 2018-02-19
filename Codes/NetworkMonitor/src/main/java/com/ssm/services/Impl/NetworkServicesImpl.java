@@ -28,4 +28,9 @@ public class NetworkServicesImpl implements NetworkServices {
         network.setRelayStations(relayStationDao.findAllRelayStations());
         return network;
     }
+
+    public String generateDOT(Network network) {
+        if(network==null)return "error";
+        return null;
+    }
 }
