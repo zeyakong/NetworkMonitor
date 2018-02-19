@@ -55,10 +55,12 @@
 <a href="#cd-nav" class="cd-nav-trigger">
 		Menu<span><!-- used to create the menu icon --></span>
 	</a> <!-- .cd-nav-trigger -->
-<h1> Account Information</h1>
+ 
  
 <div class="main-content">
+<h1> Account Informations</h1>
     <div class="sap_tabs">
+     
         <table id="table-demo" class="table table-bordered" style="margin-top:10px; width:100%;
     margin-left:0px;">
             <thead>
