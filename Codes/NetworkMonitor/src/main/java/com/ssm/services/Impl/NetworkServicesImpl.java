@@ -34,21 +34,76 @@ public class NetworkServicesImpl implements NetworkServices {
         return network;
     }
 
+//    public String generateDOT(Network network) {
+//        if(network==null)return "error";
+//
+//        List<Connection> connections = network.getConnections();
+//        List<RelayStation> relayStations = network.getRelayStations();
+//        List<Store> stores = network.getStores();
+//        String start, end;
+//
+//        String result = "graph {";
+//        for(int i = 0;i<connections.size();i++){
+//            Connection c = connections.get(i);
+//            result += c.getStartIp().substring(10) + " -- " +c.getEndIp().substring(10)+";";
+//        }
+//        result = result + "}";
+//
+//        return result;
+//    }
+
     public String generateDOT(Network network) {
-        if(network==null)return "error";
+        if(network == null)
+            return "error";
+
+        final String pCenter = "253";
 
         List<Connection> connections = network.getConnections();
         List<RelayStation> relayStations = network.getRelayStations();
         List<Store> stores = network.getStores();
-        String start, end;
+        String startIp, endIp;
 
-        String result = "graph {";
-        for(int i = 0;i<connections.size();i++){
+        //Initiate graph
+        String result = "graph { ";
+        result += "node[style=filled]";
+
+        //Add connection info
+        for( int i = 0; i < connections.size(); i++ ) {
             Connection c = connections.get(i);
-            result += c.getStartIp().substring(10) + " -- " +c.getEndIp().substring(10)+";";
-        }
-        result = result + "}";
+            startIp = c.getStartIp().substring(10);
+            endIp = c.getEndIp().substring(10);
 
+            //Check for processing center and label
+            if( startIp.equals(pCenter) )
+                startIp = "\"Processing Center\"";
+
+            if( endIp.equals(pCenter) )
+                endIp = "\"Processing Center\"";
+
+            result += startIp + " -- " + endIp + "[ label=" + c.getWeight() + " ];";
+        }
+
+        //Add node beautification
+        for( int i = 0; i < stores.size(); i++ ) {
+            Store s = stores.get(i);
+            startIp = s.getStoreIp().substring(10);
+
+            result += startIp + " [color = \"0.355 0.563 1.000\"];";
+        }
+
+        for( int i = 0; i < relayStations.size(); i++ ) {
+            RelayStation rs = relayStations.get(i);
+            startIp = rs.getStationIp().substring(10);
+
+            if( startIp.equals(pCenter) ) {
+                startIp = "\"Processing Center\"";
+                result += startIp + " [color = \"0.201 0.753 1.000\" shape=square];";
+            }
+            else
+                result += startIp + " [color = \"0.578 0.289 1.000\" shape=diamond];";
+        }
+
+        result = result + "}";
         return result;
     }
 }
