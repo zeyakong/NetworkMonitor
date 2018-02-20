@@ -11,4 +11,5 @@ public interface LoginAccountDao {
 
     LoginAccount findLoginAccountByUsernameAndPassword(@Param("username")String username, @Param("password")String password);
 //    SecurityQuestion findSecurityQuestionByUsernameAndPassword(@Param("username")String username, @Param("password")String password, @Param("questionNum")int questionNum);
+    void blockAccountById(@Param("accountId")int id);
 }

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,15 +56,25 @@ public class LoginController {
     }
 
     @RequestMapping("/loginSuccess")
-    public String loginSuccess(){
-        return "securityQuestion";
+    public String loginSuccess(HttpServletRequest request){
+        Object loginId = request.getSession().getAttribute("loginId");
+        if(loginId!=null) return "securityQuestion";
+        else return "login";
     }
 
     @RequestMapping("/goMain")
     public String goMain(HttpServletRequest request){
-        String network = networkServices.generateDOT(networkServices.getNetwork());
-//        System.out.println(network);
-        request.getSession().setAttribute("network",network);
-        return "main";
+        if(request.getSession().getAttribute("loginId")==null)return "login";
+        else{
+            String network = networkServices.generateDOT(networkServices.getNetwork());
+            request.getSession().setAttribute("network",network);
+            return "main";
+        }
+    }
+
+    @RequestMapping("/logout")
+    public String doLogout(HttpServletRequest request, HttpServletResponse response){
+        request.getSession().invalidate();
+        return "login";
     }
 }

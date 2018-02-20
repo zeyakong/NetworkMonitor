@@ -12,4 +12,8 @@
 	AND password = #{password}
 	</select>
 
+	<update id="blockAccountById">
+		<!--dont have enough time to do that....-->
+	</update>
+
 </mapper>

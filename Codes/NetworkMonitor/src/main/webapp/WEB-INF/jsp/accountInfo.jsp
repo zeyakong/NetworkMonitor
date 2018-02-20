@@ -9,6 +9,15 @@
 <html lang="en">
 <title> Network Monitor</title>
 <html>
+<%
+    Object obj = session.getAttribute("loginId");
+    if (obj == null) {
+%>
+<meta http-equiv="refresh" content="0; url=doLogin"/>
+<%
+    }
+%>
+
 <head>
     <title>Let's make things better.</title>
     <link href="css/style3.css" rel='stylesheet' type='text/css'/>
@@ -126,7 +135,7 @@
 		<ul  class="cd-nav">
 		
 			<li class="cd-selected"  data-menu="accountinfo">
-				<a href=" "  >
+                <a href=" " onclick='window.location.href="accountInfo.action"'>
 					<span >
 						<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1000 1000" enable-background="new 0 0 1000 1000" xml:space="preserve"   style="stroke: #000066; fill: #666666;" >
 <metadata> Svg Vector Icons : http://www.sfont.cn </metadata>
@@ -139,7 +148,7 @@
 			</li> 
 
 <li  data-menu="cardinfo">
-				<a href="#">
+    <a href=" " onclick='window.location.href="logout.action"'>
 					<span ><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1000 1000" enable-background="new 0 0 1000 1000" xml:space="preserve">
 <metadata> Svg Vector Icons : http://www.sfont.cn </metadata>
 <g><g transform="translate(0.000000,511.000000) scale(0.100000,-0.100000)"><path d="M4453.8,4811.6c-524.1-45.9-1021.5-283.1-1279.8-606.4c-170.2-214.2-285-462.9-344.3-738.4c-19.1-91.8-32.5-304.2-40.2-644.7l-11.5-510.8l-59.3-24.9c-99.5-44-130.1-137.7-132-386.4c0-262.1,34.4-417,147.3-656.1c93.7-197,164.5-306.1,309.9-476.3c68.9-82.3,110.9-155,141.6-248.7c63.1-197,214.3-478.2,334.8-629.4c57.4-72.7,105.2-137.7,105.2-145.4c0-17.2-489.7-267.8-765.2-392.2c-132-59.3-482.1-210.4-778.6-336.7c-797.7-334.8-916.3-396-1094.2-562.4c-462.9-436.1-839.8-1316.1-876.1-2048.7L100-3825.4l179.8-68.9c1295.1-491.6,4139.6-694.4,6549.9-466.7l229.6,21l5.7,185.6l5.7,187.5l-1155.4,3.8l-1153.5,5.7l-82.3,53.6c-55.5,38.3-95.6,84.2-128.2,153l-45.9,99.5v719.3v717.4l47.8,97.6c30.6,61.2,78.4,116.7,128.2,151.1l78.4,55.5l1155.4,5.7l1153.5,3.8l-3.8,537.5l-5.7,537.5l-286.9,128.2c-302.2,135.8-570.1,267.8-770.9,378.8l-120.5,67l65,70.8c160.7,177.9,309.9,447.6,396,715.4c28.7,89.9,67,156.9,118.6,210.4c116.7,124.3,288.8,392.1,355.8,552.9c97.6,231.5,122.4,376.8,114.8,627.4c-7.6,250.6-38.3,334.8-132,367.3c-55.5,19.1-55.5,21-57.4,174.1c-3.8,485.9-34.5,966-70.8,1094.2c-208.5,749.9-757.5,1168.8-1639.4,1253C4798.2,4834.5,4712.1,4834.5,4453.8,4811.6z"/><path d="M7489.7-1304.1l-57.4-57.4v-461v-461H6236.7c-1319.9,0-1293.2,1.9-1367.8-118.6c-36.3-59.3-38.3-95.6-38.3-531.8c0-436.1,1.9-472.5,38.3-531.8c74.6-120.5,47.8-118.6,1367.8-118.6h1195.6v-457.2c0-426.6,1.9-459.1,38.3-505c45.9-57.4,120.5-78.4,177.9-49.7c114.8,61.2,2180.8,1482.5,2213.3,1524.6c26.8,32.5,38.3,76.5,38.3,139.6c0,80.4-9.6,103.3-61.2,158.8c-91.8,93.7-2176.9,1509.3-2238.1,1518.9C7562.4-1248.6,7533.7-1262,7489.7-1304.1z"/></g></g>
@@ -151,7 +160,7 @@
 
 
 			<li   data-menu="map">
-				<a href="#" >
+                <a href=" " onclick='window.location.href="goMain.action"'>
 					<span  >
 						<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1000 1000" enable-background="new 0 0 1000 1000" xml:space="preserve" style="stroke: #000066; fill: #666666;">
 <metadata> Svg Vector Icons : http://www.sfont.cn </metadata>
@@ -161,8 +170,6 @@
 					<em>Net Map</em>
 				</a>
 			</li>
-
-			 
 		</ul> <!-- .cd-3d-nav -->
 	</nav>
 	<div class="cd-overlay"><!-- shadow layer visible when navigation is visible --></div>

@@ -103,9 +103,9 @@ public class NetworkServicesImpl implements NetworkServices {
                 result += startIp + " [color = \"0.578 0.289 1.000\" shape=diamond];";
         }
 
-        //Add key
-        result += "Store [color = \"0.355 0.563 1.000\"];";
-        result += "Relay [color = \"0.578 0.289 1.000\" shape=diamond];";
+//        //Add key
+//        result += "Store [color = \"0.355 0.563 1.000\"];";
+//        result += "Relay [color = \"0.578 0.289 1.000\" shape=diamond];";
 
         result = result + "}";
         return result;

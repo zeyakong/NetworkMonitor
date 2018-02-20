@@ -75,7 +75,7 @@
                         <div class="sign-up">
                             <p id="message"></p>
                             <input type="submit" onclick="doLogin()" value="Sign in"></div>
-                        <h3><a href="#"> Help</a></h3>
+                        <h3><a  href="help.pdf" target="view_window">Help</a></h3>
                     </div>
                 </div>
             </div>
