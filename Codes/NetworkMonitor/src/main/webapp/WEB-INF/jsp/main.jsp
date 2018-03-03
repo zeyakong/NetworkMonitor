@@ -18,9 +18,13 @@
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" href="css/css/style.css"> <!-- CSS reset -->
     <script src="js/jquery-2.1.1.js"></script>
-    <script src="js/viz.js"></script>
     <script src="js/main.js"></script> <!-- Resource jQuery -->
     <script src="js/modernizr.js"></script> <!-- Modernizr -->
+
+    <!--import vis.js and vis.css-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.js"></script>
+    <link rel = "stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.css">
+
 </head>
 <body>
 <a href="#cd-nav" class="cd-nav-trigger">
@@ -28,14 +32,13 @@
 </a> <!-- .cd-nav-trigger -->
 <h1>Network</h1>
 <style>
-    #main {
+    .main-content {
         padding-top: 20px;
-        width: 90%;
-        height: 90%;
+        padding-left: 20px;
         padding-bottom: 20px;
     }
 </style>
-<div class="main-content" id="main"></div>
+<div class="main-content" id="networkView"></div>
 
 <nav class="cd-nav-container" id="cd-nav">
     <header>
@@ -93,16 +96,33 @@
                 <em>Network</em>
             </a>
         </li>
-
     </ul> <!-- .cd-3d-nav -->
 </nav>
 <div class="cd-overlay"><!-- shadow layer visible when navigation is visible --></div>
 
-
 <script>
-    history.go(1);
-    var net = '<%=request.getSession().getAttribute("network")%>';
-    document.getElementById("main").innerHTML += Viz(net);
+var networkDOT = '<%=request.getSession().getAttribute("network")%>';
+var parsedData = vis.network.convertDot(networkDOT);
+
+var data = {
+    nodes: parsedData.nodes,
+    edges: parsedData.edges
+};
+
+var container = document.getElementById('networkView');
+
+var options = parsedData.options;
+
+// you can extend the options like a normal JSON variable:
+// options = {
+//     height: '1000px',
+//     width: '1000px'
+// };
+
+// create a network
+var network = new vis.Network(container, data, options);
+
 </script>
+
 </body>
 </html>

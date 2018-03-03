@@ -88,7 +88,8 @@ public class NetworkServicesImpl implements NetworkServices {
             Store s = stores.get(i);
             startIp = s.getStoreIp().substring(10);
 
-            result += startIp + " [color = \"0.355 0.563 1.000\"];";
+//            result += startIp + " [color = \"0.355 0.563 1.000\"];";
+            result += startIp+" ";
         }
 
         for( int i = 0; i < relayStations.size(); i++ ) {
@@ -97,10 +98,12 @@ public class NetworkServicesImpl implements NetworkServices {
 
             if( startIp.equals(pCenter) ) {
                 startIp = "\"Processing Center\"";
-                result += startIp + " [color = \"0.201 0.753 1.000\" shape=square];";
+//                result += startIp + " [color = \"0.201 0.753 1.000\" shape=square];";
+                result += startIp + " [shape=square];";
             }
             else
-                result += startIp + " [color = \"0.578 0.289 1.000\" shape=diamond];";
+//                result += startIp + " [color = \"0.578 0.289 1.000\" shape=diamond];";
+                result += startIp + " [shape=diamond];";
         }
 
 //        //Add key
