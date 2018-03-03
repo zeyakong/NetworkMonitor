@@ -25,7 +25,7 @@ Tomcat
 Maven  
 ##### All The Dependencies We need  
 * [pom.xml](https://github.com/Kong96/NetworkMonitor/blob/master/Codes/NetworkMonitor/pom.xml).
-### Upload Log  
+### Update Log  
 #### The basic SSM web-app framework
 * [core-code](https://github.com/Kong96/NetworkMonitor/tree/95a7fdbb6f1f92f6e1d9c55e56d65e1110afa667).
 #### The SQL statement
@@ -33,4 +33,7 @@ Maven
 #### The Front-end Code
 * [html/css](https://github.com/Kong96/NetworkMonitor/tree/master/Codes/NetworkMonitor/src/main/webapp).  
 #### The Integration of the First Demo
-* [DEMO1](https://github.com/Kong96/NetworkMonitor/tree/767fa8b45147e7d687c4e12418b294a470f4c5a2).
+* [DEMO1](https://github.com/Kong96/NetworkMonitor/tree/767fa8b45147e7d687c4e12418b294a470f4c5a2).  
+#### Demo2: Show the static network
+* [DEMO2](https://github.com/Kong96/NetworkMonitor/tree/543fe07b2b34acac874516c52bae4bdc9ad90ed4). 
+
