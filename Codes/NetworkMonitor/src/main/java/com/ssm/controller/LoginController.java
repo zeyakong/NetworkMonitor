@@ -62,15 +62,6 @@ public class LoginController {
         else return "login";
     }
 
-    @RequestMapping("/goMain")
-    public String goMain(HttpServletRequest request){
-        if(request.getSession().getAttribute("loginId")==null)return "login";
-        else{
-            String network = networkServices.generateDOT(networkServices.getNetwork());
-            request.getSession().setAttribute("network",network);
-            return "main";
-        }
-    }
 
     @RequestMapping("/logout")
     public String doLogout(HttpServletRequest request, HttpServletResponse response){

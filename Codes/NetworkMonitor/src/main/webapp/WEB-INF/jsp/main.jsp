@@ -1,4 +1,5 @@
 <!doctype html>
+<%--<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>--%>
 <html lang="en">
 <title> Network Monitor</title>
 <html>
@@ -23,7 +24,7 @@
 
     <!--import vis.js and vis.css-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.js"></script>
-    <link rel = "stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.css">
 
 </head>
 <body>
@@ -101,26 +102,54 @@
 <div class="cd-overlay"><!-- shadow layer visible when navigation is visible --></div>
 
 <script>
-var networkDOT = '<%=request.getSession().getAttribute("network")%>';
-var parsedData = vis.network.convertDot(networkDOT);
+    var networkInfo;
+    $(document).ready(function () {
+        <!--ajax function to get the information-->
+        $.ajax({
+            url: '/getNetworkInfo',
+            method: 'GET',
+            success: function (network) {
+                networkInfo = network;
+                console.log(networkInfo);
+            }
+        });
+    });
 
-var data = {
-    nodes: parsedData.nodes,
-    edges: parsedData.edges
-};
+    // function getStoreById(id){
+    //     <!--ajax function to get the information-->
+    //     $.ajax({
+    //         url: '/getStoreById',
+    //         method: 'GET',
+    //         data : { id :id},
+    //         success: function (store) {
+    //             return store;
+    //         }
+    //     });
+    // }
 
-var container = document.getElementById('networkView');
 
-var options = parsedData.options;
+    var networkDOT = '<%=request.getSession().getAttribute("network")%>';
+    var parsedData = vis.network.convertDot(networkDOT);
 
-// you can extend the options like a normal JSON variable:
-// options = {
-//     height: '1000px',
-//     width: '1000px'
-// };
+    var data = {
+        nodes: parsedData.nodes,
+        edges: parsedData.edges
+    };
 
-// create a network
-var network = new vis.Network(container, data, options);
+    var container = document.getElementById('networkView');
+
+    var options = parsedData.options;
+
+    // you can extend the options like a normal JSON variable:
+    // options = {
+    //     height: '1000px',
+    //     width: '1000px'
+    // };
+
+    // create a network
+    console.log(${stationList});
+
+    var network = new vis.Network(container, data, options);
 
 </script>
 
