@@ -334,7 +334,7 @@
     //Decides which popup-window to display and populates it when a node is clicked on
     network.on("click", function(params) {
         params.event = "[original event]";
-        console.log(params.nodes[0]);
+        //console.log(params.nodes[0]);
         if( params.nodes[0] != undefined ) {
             var myNode = params.nodes[0];
             if( myNode == 'Processing Center' ) {
@@ -375,9 +375,20 @@
         var date = document.getElementById('monthDate').value +'/'+ document.getElementById('yearDate').value;
         var transactionType = $('#transactionType').find(":selected").text();
 
-        var text = '{"cardName":'+ cardName + ', "cardNumber":' + cardNumber + ', "securityCode":'+ securityCode + ', "date":' + date + ', "transactionType":' + transactionType + ' }';
-        var obj = JSON.parse(text);
-        console.log(obj);
+        //Get current store ip
+        var storeIp;
+        for( i = 0; i < networkInfo.stores.length; i++ ) {
+            if(networkInfo.stores[i].merchantName == $('#merchantName').html()) {
+                storeIp = networkInfo.stores[i].storeIp;
+            }
+        }
+        var destinationIp = "192.168.0.253"; //THE PROCESSING CENTER
+        var transaction = {currentIp: storeIp, destinationIp: destinationIp, cardName: cardName, cardNumber: cardNumber, securityCode: securityCode, date: date, transactionType: transactionType};
+        //console.log(transaction);
+
+        document.getElementById("form_one").reset();
+        document.getElementById("form_two").reset();
+        $('#transactionModal').modal('hide');
     });
 
     $('#btnCancel').click( function() {
