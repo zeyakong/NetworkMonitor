@@ -15,8 +15,6 @@
 <head>
     <title>Index</title>
     <link href="css/stylez.css" rel='stylesheet' type='text/css'/>
-    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css"
-          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" href="css/css/style.css"> <!-- CSS reset -->
     <script src="js/jquery-2.1.1.js"></script>
     <script src="js/main.js"></script> <!-- Resource jQuery -->
@@ -25,6 +23,14 @@
     <!--import vis.js and vis.css-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.css">
+
+    <!--import bootstrap -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 </head>
 <body>
@@ -101,6 +107,180 @@
 </nav>
 <div class="cd-overlay"><!-- shadow layer visible when navigation is visible --></div>
 
+<!-- THIS IS STORE CODE -->
+<div class="modal fade" id="storeModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Store Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <table class="table table-striped table-bordered table-condensed">
+                    <tr>
+                        <th>Ip</th>
+                        <th>Merchant Name</th>
+                    </tr>
+                    <tr>
+                        <td id="storeIp">192.168.0.000</td>
+                        <td id="merchantName">Starbucks</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button id="btnNewTransaction" type="button" class="btn btn-success">New Transaction</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--------------------------------->
+
+<!-- THIS IS RELAY CODE -->
+<div class="modal fade" id="relayModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Relay Station Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <table class="table table-striped table-bordered table-condensed">
+                    <tr>
+                        <th>Ip</th>
+                    </tr>
+                    <tr>
+                        <td id="relayIp">192.168.0.000</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger">Deactivate</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--------------------------------->
+
+<!-- THIS IS TRANSACTION CODE -->
+<div class="modal fade" id="transactionModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Create Transaction</h5>
+                <button id="btnExit" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="form_one">
+                    <div class="form-group">
+                        <label>Card Holder Name</label>
+                        <input type="text" class="form-control" placeholder="Name" id="cardName">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Credit Card Number</label>
+                        <input type="number" class="form-control" placeholder="Card Number" id="cardNumber">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Transaction Type</label>
+                        <select class="form-control" id="transactionType">
+                            <option id ="storeNameOption" value="store">Store</option>
+                            <option value="SELF">SELF</option>
+                        </select>
+                    </div>
+                </form>
+                <form id = "form_two" class="form-inline">
+                    <div class="form-group">
+                        <label>Expiration Date</label>
+                        <select class="form-control" id="monthDate">
+                            <option value="01">01</option>
+                            <option value="02">02</option>
+                            <option value="03">03</option>
+                            <option value="04">04</option>
+                            <option value="05">05</option>
+                            <option value="06">06</option>
+                            <option value="07">07</option>
+                            <option value="08">08</option>
+                            <option value="09">09</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                        </select>
+
+                        <select class="form-control" id="yearDate">
+                            <option value="2015">2015</option>
+                            <option value="2016">2016</option>
+                            <option value="2017">2017</option>
+                            <option value="2018">2018</option>
+                            <option value="2019">2019</option>
+                            <option value="2020">2020</option>
+                            <option value="2021">2021</option>
+                            <option value="2022">2022</option>
+                            <option value="2023">2023</option>
+                            <option value="2024">2024</option>
+                            <option value="2025">2025</option>
+                            <option value="2026">2026</option>
+                            <option value="2027">2027</option>
+                            <option value="2028">2028</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Security Code</label>
+                        <input type="text" class="form-control" placeholder="Code" id="securityCode">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button id="btnSubmitTransaction" type="button" class="btn btn-success">Submit Transaction</button>
+                <button id="btnCancel" type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--------------------------------->
+
+<!-- THIS IS CONNECTION CODE -->
+<div class="modal fade" id="connectionModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Connection Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <table class="table">
+                    <tr>
+                        <th>Node One</th>
+                        <th>Node Two</th>
+                        <th>Weight</th>
+                    </tr>
+                    <tr>
+                        <td>192.168.0.000</td>
+                        <td>192.168.0.000</td>
+                        <td>0</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger">Deactivate</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--------------------------------->
+
 <script>
     var networkInfo;
     $(document).ready(function () {
@@ -150,6 +330,60 @@
     console.log(${stationList});
 
     var network = new vis.Network(container, data, options);
+
+    //Decides which popup-window to display and populates it when a node is clicked on
+    network.on("click", function(params) {
+        params.event = "[original event]";
+        console.log(params.nodes[0]);
+        if( params.nodes[0] != undefined ) {
+            var myNode = params.nodes[0];
+            if( myNode == 'Processing Center' ) {
+                $('#relayIp').html('Processing Center');
+                $('#relayModal').modal('show');
+            }
+            else if( myNode >= 200 ) {  //RELAY STATION
+                var stationIp = '192.168.0.' + myNode;
+                $('#relayIp').html(stationIp);
+                $('#relayModal').modal('show');
+            }
+            else{                       //STORE
+                var storeIp = '192.168.0.' + myNode;
+                for(i = 0; i < networkInfo.stores.length; i++ ) {
+                    if(networkInfo.stores[i].storeIp == storeIp) {
+                        var storeName = networkInfo.stores[i].merchantName;
+                    }
+                }
+                $('#storeNameOption').value = storeName;
+                $('#storeNameOption').html(storeName);
+
+                $('#storeIp').html(storeIp);
+                $('#merchantName').html(storeName);
+                $('#storeModal').modal('show');
+            }
+        }
+    });
+
+    $('#btnNewTransaction').click( function() {
+        $('#storeModal').modal('hide');
+        $('#transactionModal').modal('show');
+    });
+
+    $('#btnSubmitTransaction').click( function() {
+        var cardName = document.getElementById('cardName').value;
+        var cardNumber = document.getElementById('cardNumber').value;
+        var securityCode = document.getElementById('securityCode').value;
+        var date = document.getElementById('monthDate').value +'/'+ document.getElementById('yearDate').value;
+        var transactionType = $('#transactionType').find(":selected").text();
+
+        var text = '{"cardName":'+ cardName + ', "cardNumber":' + cardNumber + ', "securityCode":'+ securityCode + ', "date":' + date + ', "transactionType":' + transactionType + ' }';
+        var obj = JSON.parse(text);
+        console.log(obj);
+    });
+
+    $('#btnCancel').click( function() {
+        document.getElementById("form_one").reset();
+        document.getElementById("form_two").reset();
+    });
 
 </script>
 
