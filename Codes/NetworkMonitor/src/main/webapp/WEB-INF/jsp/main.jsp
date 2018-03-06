@@ -151,7 +151,8 @@
             <div class="modal-body">
                 <table class="table table-striped table-bordered table-condensed">
                     <tr>
-                        <th>Ip</th>
+                        <th>Relay Station Ip</th>
+                        <th>Transaction Queue</th>
                     </tr>
                     <tr>
                         <td id="relayIp">192.168.0.000</td>
@@ -266,9 +267,9 @@
                         <th>Weight</th>
                     </tr>
                     <tr>
-                        <td>192.168.0.000</td>
-                        <td>192.168.0.000</td>
-                        <td>0</td>
+                        <td id="first_ip">192.168.0.000</td>
+                        <td id="second_ip">192.168.0.000</td>
+                        <td id="weightValue">0</td>
                     </tr>
                 </table>
             </div>
@@ -334,10 +335,34 @@
     //Decides which popup-window to display and populates it when a node is clicked on
     network.on("click", function(params) {
         params.event = "[original event]";
-        //console.log(params.nodes[0]);
-        if( params.nodes[0] != undefined ) {
+        console.log(params);
+        //IT IS AN EDGE OR NOTHING
+        if( params.nodes[0] == undefined ) {
+            if(params.edges[0] == undefined){
+                //DID NOT CLICK ON ANYTHING USEFUL
+            }
+            //CLICKED ON AN EDGE
+            else{
+                var edgeId = params.edges[0];
+                var ip1, ip2, weight;
+                for(i = 0; i < parsedData.edges.length; i++ ) {
+                    if(edgeId == parsedData.edges[i].id) {
+                        ip1 = parsedData.edges[i].from;
+                        ip2 = parsedData.edges[i].to;
+                        weight = parsedData.edges[i].label;
+                    }
+                }
+                //Create edge window
+                $('#first_ip').html(ip1);
+                $('#second_ip').html(ip2);
+                $('#weightValue').html(weight);
+                $('#connectionModal').modal('show');
+            }
+        }
+        //IT IS ONE OF THE NODES
+        else{
             var myNode = params.nodes[0];
-            if( myNode == 'Processing Center' ) {
+            if( myNode == 'Processing Center' ) { //PROCESSING CENTER
                 $('#relayIp').html('Processing Center');
                 $('#relayModal').modal('show');
             }
