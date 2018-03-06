@@ -311,6 +311,7 @@
 
     var networkDOT = '<%=request.getSession().getAttribute("network")%>';
     var parsedData = vis.network.convertDot(networkDOT);
+    console.log(parsedData);
 
     var data = {
         nodes: parsedData.nodes,
@@ -322,14 +323,11 @@
     var options = parsedData.options;
 
     // you can extend the options like a normal JSON variable:
-    // options = {
-    //     height: '1000px',
-    //     width: '1000px'
-    // };
+    options.nodes = {
+        color:"white"
+    };
 
     // create a network
-    console.log(${stationList});
-
     var network = new vis.Network(container, data, options);
 
     //Decides which popup-window to display and populates it when a node is clicked on
@@ -407,9 +405,161 @@
                 storeIp = networkInfo.stores[i].storeIp;
             }
         }
+        var myNode = storeIp.substring(10);
         var destinationIp = "192.168.0.253"; //THE PROCESSING CENTER
         var transaction = {currentIp: storeIp, destinationIp: destinationIp, cardName: cardName, cardNumber: cardNumber, securityCode: securityCode, date: date, transactionType: transactionType};
         //console.log(transaction);
+        alert(myNode);
+        // setTimeout(function () {
+        //     network.clustering.updateClusteredNode(45, {color: "green", background: "white"});
+        //     setTimeout(function () {
+        //         network.clustering.updateClusteredNode(45, {color: "white", background: "white"});
+        //         network.clustering.updateClusteredNode(212, {color: "green", background: "white"});
+        //         setTimeout(function () {
+        //             network.clustering.updateClusteredNode(212, {color: "white", background: "white"});
+        //             network.clustering.updateClusteredNode(221, {color: "green", background: "white"});
+        //             setTimeout(function () {
+        //                 network.clustering.updateClusteredNode(221, {color: "white", background: "white"});
+        //                 network.clustering.updateClusteredNode("Processing Center", {
+        //                     color: "green",
+        //                     background: "white"
+        //                 });
+        //                 setTimeout(function () {
+        //                     network.clustering.updateClusteredNode("Processing Center", {
+        //                         color: "white",
+        //                         background: "white"
+        //                     });
+        //                     network.clustering.updateClusteredNode(221, {color: "green", background: "white"});
+        //                     setTimeout(function () {
+        //                         network.clustering.updateClusteredNode(221, {
+        //                             color: "white",
+        //                             background: "white"
+        //                         });
+        //                         network.clustering.updateClusteredNode(212, {
+        //                             color: "green",
+        //                             background: "white"
+        //                         });
+        //                         setTimeout(function () {
+        //                             network.clustering.updateClusteredNode(212, {
+        //                                 color: "white",
+        //                                 background: "white"
+        //                             });
+        //                             network.clustering.updateClusteredNode(45, {
+        //                                 color: "green",
+        //                                 background: "white"
+        //                             });
+        //                             setTimeout(function () {
+        //                                 network.clustering.updateClusteredNode(45, {
+        //                                     color: "white",
+        //                                     background: "white"
+        //                                 });
+        //
+        //
+        //                             }, 1000);
+        //
+        //                         }, 1000);
+        //
+        //                     }, 1000);
+        //
+        //                 }, 1000);
+        //
+        //             }, 1000);
+        //
+        //         }, 1000);
+        //
+        //     }, 1000);
+        //
+        // }, 1000);
+        switch (myNode) {
+            case "11":
+                setTimeout(function () {
+                    network.clustering.updateClusteredNode(11, {color: "green", background: "white"});
+
+                    setTimeout(function () {
+                        network.clustering.updateClusteredNode(11, {color: "white", background: "white"});
+                        network.clustering.updateClusteredNode("Processing Center", {
+                            color: "green",
+                            background: "white"
+                        });
+                        setTimeout(function () {
+                            network.clustering.updateClusteredNode("Processing Center", {
+                                color: "white",
+                                background: "white"
+                            });
+                            network.clustering.updateClusteredNode(11, {color: "green", background: "white"});
+                            setTimeout(function () {
+                                network.clustering.updateClusteredNode(11, {color: "white", background: "white"});
+                            }, 1000);
+                        }, 1000);
+
+                    }, 1000);
+
+                }, 1000);
+
+                break;
+            case "45":
+                setTimeout(function () {
+                    network.clustering.updateClusteredNode(45, {color: "green", background: "white"});
+                    setTimeout(function () {
+                        network.clustering.updateClusteredNode(45, {color: "white", background: "white"});
+                        network.clustering.updateClusteredNode(212, {color: "green", background: "white"});
+                        setTimeout(function () {
+                            network.clustering.updateClusteredNode(212, {color: "white", background: "white"});
+                            network.clustering.updateClusteredNode(221, {color: "green", background: "white"});
+                            setTimeout(function () {
+                                network.clustering.updateClusteredNode(221, {color: "white", background: "white"});
+                                network.clustering.updateClusteredNode("Processing Center", {
+                                    color: "green",
+                                    background: "white"
+                                });
+                                setTimeout(function () {
+                                    network.clustering.updateClusteredNode("Processing Center", {
+                                        color: "white",
+                                        background: "white"
+                                    });
+                                    network.clustering.updateClusteredNode(221, {color: "green", background: "white"});
+                                    setTimeout(function () {
+                                        network.clustering.updateClusteredNode(221, {
+                                            color: "white",
+                                            background: "white"
+                                        });
+                                        network.clustering.updateClusteredNode(212, {
+                                            color: "green",
+                                            background: "white"
+                                        });
+                                        setTimeout(function () {
+                                            network.clustering.updateClusteredNode(212, {
+                                                color: "white",
+                                                background: "white"
+                                            });
+                                            network.clustering.updateClusteredNode(45, {
+                                                color: "green",
+                                                background: "white"
+                                            });
+                                            setTimeout(function () {
+                                                network.clustering.updateClusteredNode(45, {
+                                                    color: "white",
+                                                    background: "white"
+                                                });
+
+
+                                            }, 1000);
+
+                                        }, 1000);
+
+                                    }, 1000);
+
+                                }, 1000);
+
+                            }, 1000);
+
+                        }, 1000);
+
+                    }, 1000);
+
+                }, 1000);
+                break;
+        }
 
         document.getElementById("form_one").reset();
         document.getElementById("form_two").reset();
@@ -420,6 +570,7 @@
         document.getElementById("form_one").reset();
         document.getElementById("form_two").reset();
     });
+
 
 </script>
 
