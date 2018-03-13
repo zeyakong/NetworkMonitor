@@ -1,0 +1,59 @@
+STORES		STORE NAME		REGION
+
+192.168.0.11	Kohls			1
+192.168.0.12	Costco			1
+192.168.0.121	CheesecakeFactory	1
+192.168.0.124	Clarke			1
+192.168.0.13	Steins			1
+192.168.0.132	BurgerKing		1
+192.168.0.77	TacoBell		1
+192.168.0.81	CrackerBarrel		1
+	
+192.168.0.134	Wendys			2
+192.168.0.14	Toppers			2
+192.168.0.159	Dominos			2
+192.168.0.16	Walmart			2
+192.168.0.163	Roberts			2
+192.168.0.167	Picknsave		2
+192.168.0.83	Subway			2
+
+192.168.0.183	KwikTrip		3
+192.168.0.187	McDonalds		3
+192.168.0.188	Speedway		3
+192.168.0.197	HomeDepot		3
+192.168.0.22	Starbucks		3
+192.168.0.24	JimmyJohns		3
+192.168.0.89	Arbys			3
+192.168.0.98	Gap			3
+
+192.168.0.35	Target			4
+192.168.0.43	BestBuy			4
+192.168.0.45	Cousins			4
+192.168.0.55	PizzaHut		4
+192.168.0.67	Theatre			4
+192.168.0.76	Quiznos			4
+192.168.0.95	DollarTree		4
+
+
+------------------------------------------------------------------
+STATIONS
+
+**(TYPE 0 = RELAY STATION, TYPE 1 = GATEWAY, TYPE 2 = P. CENTER)
+
+STATION IP		STATION TYPE**	REGION
+
+192.168.0.203		1		1
+192.168.0.208		0		1
+192.168.0.209		0		1
+
+192.168.0.212		1		2
+192.168.0.221		0		2
+192.168.0.231		0		2
+
+192.168.0.237		1		3
+192.168.0.239		0		3
+
+192.168.0.244		1		4
+192.168.0.248		0		4
+
+192.168.0.253		2		0
