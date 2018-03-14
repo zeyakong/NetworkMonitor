@@ -7,6 +7,7 @@ package com.ssm.entity;
 public class Store {
     private String storeIp;
     private String merchantName;
+    private int region;
 
     public String getStoreIp() {
         return storeIp;
@@ -22,5 +23,13 @@ public class Store {
 
     public void setMerchantName(String merchantName) {
         this.merchantName = merchantName;
+    }
+
+    public int getRegion() {
+        return region;
+    }
+
+    public void setRegion(int region) {
+        this.region = region;
     }
 }

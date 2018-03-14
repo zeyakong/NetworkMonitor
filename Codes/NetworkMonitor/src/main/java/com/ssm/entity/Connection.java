@@ -5,10 +5,11 @@ package com.ssm.entity;
  * On 2018/2/12 14:26.
  */
 public class Connection {
+    private int connectionId;
     private String  startIp;
     private String endIp;
     private int isActive;
-    private double weight;
+    private int weight;
 
     public String getStartIp() {
         return startIp;
@@ -34,11 +35,19 @@ public class Connection {
         this.isActive = isActive;
     }
 
-    public double getWeight() {
+    public int getConnectionId() {
+        return connectionId;
+    }
+
+    public void setConnectionId(int connectionId) {
+        this.connectionId = connectionId;
+    }
+
+    public int getWeight() {
         return weight;
     }
 
-    public void setWeight(double weight) {
+    public void setWeight(int weight) {
         this.weight = weight;
     }
 }

@@ -6,7 +6,10 @@ package com.ssm.entity;
  */
 public class RelayStation {
     private String stationIp;
-    private int stationStatus;
+    private int isActive;
+    private int stationType;
+    private int region;
+    private int transactionLimit;
 
     public String getStationIp() {
         return stationIp;
@@ -16,11 +19,35 @@ public class RelayStation {
         this.stationIp = stationIp;
     }
 
-    public int getStationStatus() {
-        return stationStatus;
+    public int getIsActive() {
+        return isActive;
     }
 
-    public void setStationStatus(int stationStatus) {
-        this.stationStatus = stationStatus;
+    public void setIsActive(int isActive) {
+        this.isActive = isActive;
+    }
+
+    public int getStationType() {
+        return stationType;
+    }
+
+    public void setStationType(int stationType) {
+        this.stationType = stationType;
+    }
+
+    public int getRegion() {
+        return region;
+    }
+
+    public void setRegion(int region) {
+        this.region = region;
+    }
+
+    public int getTransactionLimit() {
+        return transactionLimit;
+    }
+
+    public void setTransactionLimit(int transactionLimit) {
+        this.transactionLimit = transactionLimit;
     }
 }
