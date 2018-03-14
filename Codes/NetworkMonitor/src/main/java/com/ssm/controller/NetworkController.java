@@ -24,12 +24,12 @@ public class NetworkController {
 
     @RequestMapping("/goMain")
     public String goMain(HttpServletRequest request){
-        if(request.getSession().getAttribute("loginId")==null)return "login";
-        else{
+//        if(request.getSession().getAttribute("loginId")==null)return "login";
+//        else{
             String networkDOT = networkServices.generateDOT(networkServices.getNetwork());
             request.getSession().setAttribute("network",networkDOT);
             return "main";
-        }
+//        }
     }
 
     @RequestMapping("/getNetworkInfo")

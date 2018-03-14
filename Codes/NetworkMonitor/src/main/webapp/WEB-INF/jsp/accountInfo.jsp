@@ -9,14 +9,14 @@
 <html lang="en">
 <title> Network Monitor</title>
 <html>
-<%
-    Object obj = session.getAttribute("loginId");
-    if (obj == null) {
-%>
-<meta http-equiv="refresh" content="0; url=login"/>
-<%
-    }
-%>
+<%--<%--%>
+    <%--Object obj = session.getAttribute("loginId");--%>
+    <%--if (obj == null) {--%>
+<%--%>--%>
+<%--<meta http-equiv="refresh" content="0; url=login"/>--%>
+<%--<%--%>
+    <%--}--%>
+<%--%>--%>
 
 <head>
     <title>Let's make things better.</title>

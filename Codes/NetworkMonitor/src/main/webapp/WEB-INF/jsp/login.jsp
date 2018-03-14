@@ -23,6 +23,11 @@
         function hideURLbar() {
             window.scrollTo(0, 1);
         }
+
+        function jump(){
+            <%request.getSession().setAttribute("loginId",1);%>
+            window.location.href="/goMain";
+        }
         function doLogin() {
             var userName = $("#username").val();
             var password = $("#password").val();
@@ -58,7 +63,7 @@
 </head>
 <body>
 <h1> Let's Make Things Better</h1>
-
+<button class="btn btn-primary" onclick="jump()">Developer:Jump this</button>
 <div class="main-content">
     <div class="sap_tabs">
         <div id="horizontalTab" style="display: block; width: 100%; margin: 0px;">
