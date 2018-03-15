@@ -8,10 +8,11 @@ import com.ssm.entity.Connection;
 import com.ssm.entity.RelayStation;
 import com.ssm.entity.Store;
 import com.ssm.services.NetworkServices;
+import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by Zeya Kong
@@ -34,6 +35,21 @@ public class NetworkServicesImpl implements NetworkServices {
         return network;
     }
 
+    /**
+     * @return the color string such as 000fff
+     */
+    private String getRandomColor() {
+        String r, g, b;
+        Random random = new Random();
+        r = Integer.toHexString(random.nextInt(256)).toUpperCase();
+        g = Integer.toHexString(random.nextInt(256)).toUpperCase();
+        b = Integer.toHexString(random.nextInt(256)).toUpperCase();
+        r = r.length() == 1 ? "0" + r : r;
+        g = g.length() == 1 ? "0" + g : g;
+        b = b.length() == 1 ? "0" + b : b;
+        return "#" + r + g + b;
+    }
+
     public String generateDOT(Network network) {
         if (network == null)
             return "error";
@@ -43,14 +59,26 @@ public class NetworkServicesImpl implements NetworkServices {
         List<Store> stores = network.getStores();
         String startIp, endIp;
 
+        //generate the random color for each region
+        Map<Integer, String> region = new HashMap();
+        for (int i = 0; i < relayStations.size(); i++) {
+            if (!region.containsKey(relayStations.get(i).getRegion())) {
+                region.put(relayStations.get(i).getRegion(), getRandomColor());
+            }
+        }
+
         //find pCenter,default 256
         String pCenter = "256";
         for (int i = 0; i < relayStations.size(); i++) {
             if (relayStations.get(i).getStationType() == 2) pCenter = relayStations.get(i).getStationIp().substring(10);
         }
-
+        //key
+//        result += "Relay [color =yellow, shape=diamond,x=5,y=5];";
+//        result += "Gateway [color =green, shape=diamond,x=10,y=10];";
+//        result += "ProcessingCenter [color =grey, shape=square,margin=5];";
         //Initiate graph
         String result = "graph { ";
+        //Add key
         result += "node[style=filled]";
 
         //Add connection info
@@ -73,9 +101,8 @@ public class NetworkServicesImpl implements NetworkServices {
         for (int i = 0; i < stores.size(); i++) {
             Store s = stores.get(i);
             startIp = s.getStoreIp().substring(10);
-
 //            result += startIp + " [color = \"0.355 0.563 1.000\"];";
-            result += startIp + " ";
+            result += startIp + " [color=" + region.get(s.getRegion()) + "];";
         }
 
         for (int i = 0; i < relayStations.size(); i++) {
@@ -91,10 +118,6 @@ public class NetworkServicesImpl implements NetworkServices {
             } else
                 result += startIp + " [color=yellow, shape=diamond];";
         }
-
-//        //Add key
-//        result += "Store [color = \"0.355 0.563 1.000\"];";
-//        result += "Relay [color = \"0.578 0.289 1.000\" shape=diamond];";
 
         result = result + "}";
         return result;

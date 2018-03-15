@@ -82,6 +82,7 @@
 <div>
     <img src="">
 </div>
+
 <div id="networkView"></div>
 
 <!-- THIS IS STORE CODE -->

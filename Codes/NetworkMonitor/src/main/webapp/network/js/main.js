@@ -32,6 +32,12 @@ for(var i = 0 ; i<data.nodes.length; i++){
 }
 
 // you can extend the options like a normal JSON variable:
+// options.layout = {
+//     hierarchical: {
+//         enabled:true
+//     }
+// };
+
 //add the shadow
 options.nodes = {
     shadow:{
