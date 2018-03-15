@@ -51,7 +51,7 @@
         answers[1] = "<%=request.getSession().getAttribute("answer2")%>";
         answers[2] = "<%=request.getSession().getAttribute("answer3")%>";
 
-        var num = 1;
+        var num = Math.floor(Math.random() * 3 + 1);
         var times = 0;
 
         $(document).ready(function () {

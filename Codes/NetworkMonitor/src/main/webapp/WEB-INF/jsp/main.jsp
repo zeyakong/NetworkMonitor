@@ -40,10 +40,22 @@
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+            <ul class="nav navbar-nav navbar-left">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Network<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a >Add a Store</a></li>
+                        <li><a >Add a Relay Station/GateWay</a></li>
+                    </ul>
+                </li>
+            </ul>
+
             <ul class="nav navbar-nav">
-                <li><a href="#" disable="true">Animation</a></li>
+                <li><a href="#" disabled="true">Transaction:</a></li>
                 <li><button type="button" class="btn btn-success navbar-btn">Start</button></li>
             </ul>
+
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">User:Developer<span class="caret"></span></a>
@@ -55,6 +67,7 @@
                     </ul>
                 </li>
             </ul>
+
             <form class="navbar-form navbar-right">
                 <div class="form-group">
                     <input type="text" class="form-control" placeholder="Search Ip">
@@ -66,6 +79,9 @@
 </nav>
 
 <!--network body div: to show the network-->
+<div>
+    <img src="">
+</div>
 <div id="networkView"></div>
 
 <!-- THIS IS STORE CODE -->

@@ -23,8 +23,34 @@ var container = document.getElementById('networkView');
 
 var options = parsedData.options;
 
+//retrieve the border color, options cant change it because of low priority.
+for(var i = 0 ; i<data.nodes.length; i++){
+    if(data.nodes[i].hasOwnProperty('color'))
+    {
+        data.nodes[i].color.border='#2B7CE9';
+    }
+}
+
 // you can extend the options like a normal JSON variable:
-// options.nodes = {};
+//add the shadow
+options.nodes = {
+    shadow:{
+        enabled: true,
+        color: 'rgba(0,0,0,0.5)',
+        size:10,
+        x:5,
+        y:5
+    },
+};
+options.edges = {
+    shadow:{
+        enabled: true,
+        color: 'rgba(0,0,0,0.5)',
+        size:10,
+        x:5,
+        y:5
+    },
+};
 
 // create a network
 var network = new vis.Network(container, data, options);
