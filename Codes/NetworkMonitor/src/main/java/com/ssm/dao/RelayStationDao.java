@@ -10,4 +10,6 @@ import java.util.List;
  */
 public interface RelayStationDao {
     List<RelayStation> findAllRelayStations();
+    void createRelayStation();
+    void updateRelayStation();
 }

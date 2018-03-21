@@ -10,4 +10,6 @@ import java.util.List;
  */
 public interface ConnectionDao {
     List<Connection> findAllConnections();
+    void updateStatus(int ip);
+    void createConnection();
 }

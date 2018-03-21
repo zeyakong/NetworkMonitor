@@ -10,4 +10,5 @@ import java.util.List;
  */
 public interface StoreDao {
     List<Store> findAllStores();
+    void createStore();
 }
