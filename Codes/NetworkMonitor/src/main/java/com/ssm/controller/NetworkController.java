@@ -36,4 +36,24 @@ public class NetworkController {
     public @ResponseBody Network getNetworkInfo(){
         return networkServices.getNetwork();
     }
+
+    @RequestMapping("/changeConnectionStatusById")
+    public void changeConnectionStatusById(int id){
+        networkServices.changeConnectionStatusById(id);
+    }
+
+    @RequestMapping("/changeStationStatusByIp")
+    public void changeStationStatusByIp(String ip){
+        networkServices.changeStationStatusByIp(ip);
+    }
+
+    @RequestMapping("/getNextIp")
+    public String getNextIp(String startIp){
+       return networkServices.getPath(startIp);
+    }
+
+    @RequestMapping("/updateTransaction")
+    public void updateTransaction(){
+
+    }
 }

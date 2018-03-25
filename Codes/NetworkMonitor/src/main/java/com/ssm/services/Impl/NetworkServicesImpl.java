@@ -126,4 +126,16 @@ public class NetworkServicesImpl implements NetworkServices {
     public List<String> getBFSPath(String startIp, String destinationIp) {
         return null;
     }
+
+    public String getPath() {
+        return null;
+    }
+
+    public void changeConnectionStatusById(int id) {
+        connectionDao.updateStatus(id);
+    }
+
+    public void changeStationStatusByIp(String ip) {
+        relayStationDao.updateRelayStationActive(ip);
+    }
 }
