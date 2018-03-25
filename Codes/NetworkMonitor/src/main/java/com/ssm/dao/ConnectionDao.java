@@ -1,6 +1,7 @@
 package com.ssm.dao;
 
 import com.ssm.entity.Connection;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -10,6 +11,9 @@ import java.util.List;
  */
 public interface ConnectionDao {
     List<Connection> findAllConnections();
-    void updateStatus(int ip);
-    void createConnection();
+    void updateStatus(int id);
+    void createConnection(@Param("start_ip")String start_ip,
+                          @Param("end_ip") String end_ip,
+                          @Param("is_active")int is_active,
+                          @Param("weight")int weight);
 }

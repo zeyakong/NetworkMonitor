@@ -9,4 +9,20 @@
         FROM relay_stations;
     </select>
 
+    <insert id="createRelayStation">
+        INSERT INTO relay_stations(station_ip, station_type, region, transaction_limit)
+        VALUES(#{station_ip}, #{station_type}, #{region}, #{limit})
+    </insert>
+
+    <update id="updateRelayStationLimit">
+        UPDATE relay_stations
+        SET transaction_limit = #{limit}
+        WHERE station_ip = #{station_ip}
+    </update>
+
+    <update id="updateRelayStationActive">
+        UPDATE relay_stations
+        SET is_active = NOT is_active
+        WHERE station_ip = #{station_ip}
+    </update>
 </mapper>

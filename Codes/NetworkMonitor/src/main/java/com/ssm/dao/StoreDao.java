@@ -1,6 +1,7 @@
 package com.ssm.dao;
 
 import com.ssm.entity.Store;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -10,5 +11,7 @@ import java.util.List;
  */
 public interface StoreDao {
     List<Store> findAllStores();
-    void createStore();
+    void createStore(@Param("store_ip") String store_ip,
+                     @Param("name") String name,
+                     @Param("region") int region);
 }

@@ -4,6 +4,7 @@ import com.ssm.entity.CardAccount;
 import com.ssm.entity.CreditCard;
 import org.apache.ibatis.annotations.Param;
 
+import java.sql.Date;
 import java.util.List;
 
 /**
@@ -18,5 +19,12 @@ public interface CreditCardDao {
      */
     List<CreditCard> findCreditCardsByAccountId(@Param("accountId")int accountId);
 
-    void deleteCreditCard(int id);
+    void createCreditCard(@Param("id") String id, @Param("name") String name,
+                          @Param("expiration") Date expiration,
+                          @Param("security_code") String security_code,
+                          @Param("account_id") String account_id);
+    void updateCreditCard(@Param("id") String id, @Param("name") String name,
+                          @Param("expiration") Date expiration,
+                          @Param("security_code") String security_code);
+    void deleteCreditCard(String id);
 }

@@ -12,9 +12,9 @@ public class Transaction {
     private Timestamp transactionDateResponded;
     private String transactionType;
     private double transactionAmount;
-    private int transactionStatus;
-    private int storeIp;
-    private int cardId;
+    private String transactionStatus;
+    private String storeIp;
+    private long cardId;
     private String currentPositionIp;
     private String currentDestinationIp;
 
@@ -58,27 +58,27 @@ public class Transaction {
         this.transactionAmount = transactionAmount;
     }
 
-    public int getTransactionStatus() {
+    public String getTransactionStatus() {
         return transactionStatus;
     }
 
-    public void setTransactionStatus(int transactionStatus) {
+    public void setTransactionStatus(String transactionStatus) {
         this.transactionStatus = transactionStatus;
     }
 
-    public int getStoreIp() {
+    public String getStoreIp() {
         return storeIp;
     }
 
-    public void setStoreIp(int storeIp) {
+    public void setStoreIp(String storeIp) {
         this.storeIp = storeIp;
     }
 
-    public int getCardId() {
+    public long getCardId() {
         return cardId;
     }
 
-    public void setCardId(int cardId) {
+    public void setCardId(long cardId) {
         this.cardId = cardId;
     }
 

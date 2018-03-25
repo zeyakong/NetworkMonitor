@@ -8,4 +8,15 @@
         SELECT *
         FROM connections;
     </select>
+
+    <update id="updateStatus">
+      UPDATE connections
+      SET is_active = NOT is_active
+      WHERE connection_id = #{id}
+    </update>
+
+    <insert id="createConnection">
+      INSERT INTO connections(start_ip, end_ip, is_active, weight)
+      VALUES(#{start_ip}, #{end_ip}, #{is_active}, #{weight})
+    </insert>
 </mapper>

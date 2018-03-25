@@ -13,7 +13,9 @@
 	</select>
 
 	<update id="blockAccountById">
-		<!--dont have enough time to do that....-->
+		UPDATE login_accounts
+		SET is_active = NOT is_active;
+		WHERE login_id = #{accountId}
 	</update>
 
 </mapper>

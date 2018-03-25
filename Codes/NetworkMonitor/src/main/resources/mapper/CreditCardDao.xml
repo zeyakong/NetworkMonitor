@@ -10,4 +10,19 @@
     	WHERE card_account = account_id AND account_id = #{accountId};
     	</select>
 
+	<insert id="createCreditCard">
+		INSERT INTO credit_cards(card_id, card_name, expiration_date, security_code, card_account)
+		VALUES(#{id}, #{name}, #{expiration}, #{security_code}, #{account_id})
+	</insert>
+
+	<update id="updateCreditCard">
+		UPDATE credit_cards
+		SET card_name = #{name}, expiration_date = #{expiration}, security_code = #{security_code}
+		WHERE card_id = #{id}
+	</update>
+
+	<delete id="deleteCreditCard">
+		DELETE FROM credit_cards
+		WHERE card_id = #{id}
+	</delete>
 </mapper>

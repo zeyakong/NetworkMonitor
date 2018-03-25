@@ -9,4 +9,9 @@
       FROM stores;
     </select>
 
+    <insert id="createStore">
+      INSERT INTO stores(store_ip, merchant_name, region)
+      VALUES(#{store_ip}, #{name}, #{region})
+    </insert>
+
 </mapper>
