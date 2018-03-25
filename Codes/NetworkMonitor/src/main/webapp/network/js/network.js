@@ -34,9 +34,9 @@ function updateTransaction(id,status,currentIP,nextIp){
     });
 }
 
-function getNextIp(ip){
+function getNextIp(ip,destination){
     $.ajax({
-        url: '/getNextIp?ip='+ip,
+        url: '/getNextIp?ip='+ip+'&destination='+destination,
         method: 'GET',
         success: function (data) {
             //show the animation of transaction.

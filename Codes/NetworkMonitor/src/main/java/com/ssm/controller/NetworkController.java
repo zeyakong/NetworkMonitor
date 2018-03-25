@@ -49,8 +49,8 @@ public class NetworkController {
     }
 
     @RequestMapping("/getNextIp")
-    public String getNextIp(String startIp){
-       return networkServices.getNextIp(startIp);
+    public String getNextIp(String startIp,String destination){
+       return networkServices.getNextIp(startIp,destination);
     }
 
     @RequestMapping("/updateTransaction")

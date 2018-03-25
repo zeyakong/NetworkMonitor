@@ -128,9 +128,19 @@ public class NetworkServicesImpl implements NetworkServices {
     }
 
     //path algorithm
-    public String getNextIp(String startIp) {
-        
-        return "";
+    public String getNextIp(String startIp,String destination) {
+        List<Connection> list = connectionDao.findAllConnections();
+        List<String> next = new ArrayList<String>();
+        for(int i= 0 ; i<list.size(); i++){
+            Connection c = list.get(i);
+            if(startIp == c.getStartIp()){
+                next.add(c.getEndIp());
+            }
+        }
+        //get random
+        Collections.shuffle(next);
+        if(next!=null)return next.get(0);
+        else return "error";
     }
 
     public void changeConnectionStatusById(int id) {

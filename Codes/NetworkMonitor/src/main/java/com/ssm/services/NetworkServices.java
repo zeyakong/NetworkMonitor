@@ -15,7 +15,7 @@ public interface NetworkServices {
 
     String generateDOT(Network network);
 
-    String getNextIp(String startIp);
+    String getNextIp(String startIp,String destination);
 
     void changeConnectionStatusById(int id);
 
