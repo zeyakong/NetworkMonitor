@@ -3,16 +3,18 @@ package com.ssm.services.Impl;
 import com.ssm.dao.ConnectionDao;
 import com.ssm.dao.RelayStationDao;
 import com.ssm.dao.StoreDao;
+import com.ssm.dao.TransactionDao;
 import com.ssm.dto.Network;
 import com.ssm.entity.Connection;
 import com.ssm.entity.RelayStation;
 import com.ssm.entity.Store;
+import com.ssm.entity.Transaction;
 import com.ssm.services.NetworkServices;
-import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.sql.Date;
 
 /**
  * Created by Zeya Kong
@@ -26,6 +28,8 @@ public class NetworkServicesImpl implements NetworkServices {
     private StoreDao storeDao;
     @Autowired
     private RelayStationDao relayStationDao;
+    @Autowired
+    private TransactionDao transactionDao;
 
     public Network getNetwork() {
         Network network = new Network();
@@ -123,12 +127,10 @@ public class NetworkServicesImpl implements NetworkServices {
         return result;
     }
 
-    public List<String> getBFSPath(String startIp, String destinationIp) {
-        return null;
-    }
-
-    public String getPath() {
-        return null;
+    //path algorithm
+    public String getNextIp(String startIp) {
+        
+        return "";
     }
 
     public void changeConnectionStatusById(int id) {
@@ -137,5 +139,17 @@ public class NetworkServicesImpl implements NetworkServices {
 
     public void changeStationStatusByIp(String ip) {
         relayStationDao.updateRelayStationActive(ip);
+    }
+
+    public void createTransaction(Date transaction_date_sent, String transaction_type, double transaction_amount, String store_ip, String card_id, String current_position_ip, String current_destination_ip) {
+        transactionDao.createTransaction(transaction_date_sent,transaction_type,transaction_amount,store_ip,card_id,current_position_ip,current_destination_ip);
+    }
+
+    public void updateTransaction(int transaction_id, String status, String current_position_ip, String current_destination_ip) {
+        transactionDao.updateTransaction(transaction_id,status,current_position_ip,current_destination_ip);
+    }
+
+    public List<Transaction> findAllTransactions() {
+        return transactionDao.findAllTransactions();
     }
 }

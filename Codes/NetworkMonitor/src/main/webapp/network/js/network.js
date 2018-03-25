@@ -1,7 +1,13 @@
-var networkInfo;
 
-$(document).ready(function () {
-    <!--ajax function to get the information-->
+//##########################Class variables#########################
+//object
+var networkInfo;
+//array
+var transactions;
+
+//##########################ajax functions##########################
+<!--ajax function to get the information-->
+function getNetworkInfo(){
     $.ajax({
         url: '/getNetworkInfo',
         method: 'GET',
@@ -9,6 +15,60 @@ $(document).ready(function () {
             networkInfo = network;
         }
     });
+}
+
+function getTransactions(){
+    $.ajax({
+        url: '/getTransactions',
+        method: 'GET',
+        success: function (data) {
+            transactions=data;
+        }
+    });
+}
+
+function updateTransaction(id,status,currentIP,nextIp){
+    $.ajax({
+        url: '/updateTransaction?id='+id+"&status="+status+"&currentIP="+currentIP+"&nextIp="+nextIp,
+        method: 'POST'
+    });
+}
+
+function getNextIp(ip){
+    $.ajax({
+        url: '/getNextIp?ip='+ip,
+        method: 'GET',
+        success: function (data) {
+            //show the animation of transaction.
+            //update the transaction.
+        }
+    });
+}
+
+function changeConnectionStatusById(id){
+    $.ajax({
+        url: '/changeConnectionStatusById?id='+id,
+        method: 'POST',
+        success: function (data) {
+            //alert("success");
+        }
+    });
+}
+
+function changeStationStatusByIp(ip){
+    $.ajax({
+        url: '/changeStationStatusByIp?ip='+ip,
+        method: 'POST',
+        success: function (data) {
+            //alert("success");
+        }
+    });
+}
+
+//##############################other functions#############################
+$(document).ready(function () {
+    getNetworkInfo();
+    getTransactions();
 });
 
 var parsedData = vis.network.convertDot(networkDOT);

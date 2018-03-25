@@ -21,7 +21,7 @@
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
             crossorigin="anonymous"></script>
     <!--import local css layout file -->
-    <link rel="stylesheet" href="network/css/main.css">
+    <link rel="stylesheet" href="network/css/network.css">
 </head>
 <body>
 <!--nav bar-->
@@ -79,10 +79,6 @@
 </nav>
 
 <!--network body div: to show the network-->
-<div>
-    <img src="">
-</div>
-
 <div id="networkView"></div>
 
 <!-- THIS IS STORE CODE -->
@@ -255,7 +251,8 @@
         </div>
     </div>
 </div>
+
 </body>
 <!--import local Javascript functions-->
-<script src="network/js/main.js"></script>
+<script src="network/js/network.js"></script>
 </html>

@@ -4,6 +4,7 @@ import com.ssm.dto.Network;
 import com.ssm.entity.Connection;
 import com.ssm.entity.RelayStation;
 import com.ssm.entity.Store;
+import com.ssm.entity.Transaction;
 import com.ssm.services.NetworkServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -49,11 +50,16 @@ public class NetworkController {
 
     @RequestMapping("/getNextIp")
     public String getNextIp(String startIp){
-       return networkServices.getPath(startIp);
+       return networkServices.getNextIp(startIp);
     }
 
     @RequestMapping("/updateTransaction")
-    public void updateTransaction(){
+    public void updateTransaction(int id,String status,String currentIP,String nextIp){
+        networkServices.updateTransaction(id,status,currentIP,nextIp);
+    }
 
+    @RequestMapping("getTransactions")
+    public @ResponseBody List<Transaction> getTransactions(){
+        return  networkServices.findAllTransactions();
     }
 }
