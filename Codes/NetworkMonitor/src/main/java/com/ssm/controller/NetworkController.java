@@ -58,6 +58,11 @@ public class NetworkController {
         networkServices.updateTransaction(id,status,currentIP,nextIp);
     }
 
+    @RequestMapping("/setTransactionStartTime")
+    public void setTransactionStartTime(int id){
+        networkServices.setTransactionStartTime(id);
+    }
+
     @RequestMapping("getTransactions")
     public @ResponseBody List<Transaction> getTransactions(){
         return  networkServices.findAllTransactions();

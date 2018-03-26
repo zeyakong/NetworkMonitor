@@ -32,4 +32,6 @@ public interface NetworkServices {
     void updateTransaction(int transaction_id, String status, String current_position_ip, String current_destination_ip);
 
     List<Transaction> findAllTransactions();
+
+    void setTransactionStartTime(int id);
 }

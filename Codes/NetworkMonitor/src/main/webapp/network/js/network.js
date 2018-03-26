@@ -6,7 +6,9 @@ var networkInfo;
 var transactions;
 
 //##########################ajax functions##########################
-<!--ajax function to get the information-->
+/**
+ * get the whole network info
+ */
 function getNetworkInfo(){
     $.ajax({
         url: '/getNetworkInfo',
@@ -17,6 +19,9 @@ function getNetworkInfo(){
     });
 }
 
+/**
+ * use this function to get all the transactions. all info will be stored into var transactions
+ */
 function getTransactions(){
     $.ajax({
         url: '/getTransactions',
@@ -27,6 +32,13 @@ function getTransactions(){
     });
 }
 
+/**
+ *
+ * @param id :the transaction id
+ * @param status
+ * @param currentIP
+ * @param nextIp
+ */
 function updateTransaction(id,status,currentIP,nextIp){
     $.ajax({
         url: '/updateTransaction?id='+id+"&status="+status+"&currentIP="+currentIP+"&nextIp="+nextIp,
@@ -34,6 +46,11 @@ function updateTransaction(id,status,currentIP,nextIp){
     });
 }
 
+/**
+ *
+ * @param ip: the current ip
+ * @param destination: the destination(Processing center or go back)
+ */
 function getNextIp(ip,destination){
     $.ajax({
         url: '/getNextIp?ip='+ip+'&destination='+destination,
@@ -45,6 +62,10 @@ function getNextIp(ip,destination){
     });
 }
 
+/**
+ * make the connection active or inactive
+ * @param id
+ */
 function changeConnectionStatusById(id){
     $.ajax({
         url: '/changeConnectionStatusById?id='+id,
@@ -55,6 +76,10 @@ function changeConnectionStatusById(id){
     });
 }
 
+/**
+ * make the station active or inactive
+ * @param id
+ */
 function changeStationStatusByIp(ip){
     $.ajax({
         url: '/changeStationStatusByIp?ip='+ip,
@@ -64,6 +89,21 @@ function changeStationStatusByIp(ip){
         }
     });
 }
+
+/**
+ * when the transaction started . system need store the start time
+ * @param id the transaction id
+ */
+function setTransactionStartTime(id){
+    $.ajax({
+        url: '/setTransactionStartTime?id='+id,
+        method: 'POST',
+        success: function (data) {
+            //alert("success");
+        }
+    });
+}
+
 
 //##############################other functions#############################
 $(document).ready(function () {

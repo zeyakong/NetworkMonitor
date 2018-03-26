@@ -162,4 +162,8 @@ public class NetworkServicesImpl implements NetworkServices {
     public List<Transaction> findAllTransactions() {
         return transactionDao.findAllTransactions();
     }
+
+    public void setTransactionStartTime(int id) {
+        transactionDao.setTransactionProcessedTime(id);
+    }
 }
