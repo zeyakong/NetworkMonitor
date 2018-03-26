@@ -98,7 +98,7 @@ public class NetworkServicesImpl implements NetworkServices {
             if (endIp.equals(pCenter))
                 endIp = "\"Processing Center\"";
 
-            result += startIp + " -- " + endIp + "[ label=\"" + c.getWeight() + "\"];";
+            result += startIp + " -- " + endIp + "[ id="+c.getConnectionId()+",label=\"" + c.getWeight() + "\"];";
         }
 
         //Add node beautification
@@ -133,8 +133,12 @@ public class NetworkServicesImpl implements NetworkServices {
         List<String> next = new ArrayList<String>();
         for(int i= 0 ; i<list.size(); i++){
             Connection c = list.get(i);
-            if(startIp == c.getStartIp()){
-                next.add(c.getEndIp());
+            if(c.getIsActive()==1){
+                if(startIp == c.getStartIp()){
+                    next.add(c.getEndIp());
+                }else if(startIp == c.getEndIp()){
+                    next.add(c.getStartIp());
+                }
             }
         }
         //get random

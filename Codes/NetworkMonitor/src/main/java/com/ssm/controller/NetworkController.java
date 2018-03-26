@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.sql.Date;
 import java.util.List;
 
 /**
@@ -52,6 +53,12 @@ public class NetworkController {
     public String getNextIp(String startIp,String destination){
        return networkServices.getNextIp(startIp,destination);
     }
+
+    @RequestMapping("/createNewTransaction")
+    public void createNewTransaction(Date transaction_date_sent, String transaction_type, double transaction_amount, String store_ip, String card_id, String current_position_ip, String current_destination_ip){
+        networkServices.createTransaction(transaction_date_sent,transaction_type,transaction_amount,store_ip,card_id,current_position_ip,current_destination_ip);
+    }
+
 
     @RequestMapping("/updateTransaction")
     public void updateTransaction(int id,String status,String currentIP,String nextIp){

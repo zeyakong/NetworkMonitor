@@ -15,6 +15,7 @@ function getNetworkInfo(){
         method: 'GET',
         success: function (network) {
             networkInfo = network;
+            // console.log(networkInfo);
         }
     });
 }
@@ -58,6 +59,7 @@ function getNextIp(ip,destination){
         success: function (data) {
             //show the animation of transaction.
             //update the transaction.
+            return data;
         }
     });
 }
@@ -104,6 +106,24 @@ function setTransactionStartTime(id){
     });
 }
 
+/**
+ *
+ * @param sent: Date
+ * @param type:String
+ * @param amount: double
+ * @param start: ip [String]
+ * @param card: id [int]
+ * @param currentIp
+ * @param destination:ip[String]
+ */
+function createNewTransaction(sent,type,amount,start,card,currentIp,destination){
+    $.ajax({
+        url: '/createNewTransaction?transaction_date_sent='+sent+'&transaction_type='+type+'&transaction_amount='+amount+
+        '&store_ip='+start+'&card_id='+card+'&current_position_ip='+currentIp+'&current_destination_ip='+destination,
+        method: 'POST'
+    });
+}
+
 
 //##############################other functions#############################
 $(document).ready(function () {
@@ -111,30 +131,33 @@ $(document).ready(function () {
     getTransactions();
 });
 
-var parsedData = vis.network.convertDot(networkDOT);
-console.log(parsedData);
 
+var parsedData = vis.network.convertDot(networkDOT);
+// console.log(parsedData);
+var nodes = new vis.DataSet(parsedData.nodes);
+var edges = new vis.DataSet(parsedData.edges);
 var data = {
-    nodes: parsedData.nodes,
-    edges: parsedData.edges
+    nodes: nodes,
+    edges: edges
 };
+console.log(data);
 
 var container = document.getElementById('networkView');
 
 var options = parsedData.options;
 
 //retrieve the border color, options cant change it because of low priority.
-for(var i = 0 ; i<data.nodes.length; i++){
-    if(data.nodes[i].hasOwnProperty('color'))
+for(var i in data.nodes._data){
+    if(data.nodes._data[i].hasOwnProperty('color'))
     {
-        data.nodes[i].color.border='#2B7CE9';
+        data.nodes._data[i].color.border='#2B7CE9';
     }
 }
 
 // you can extend the options like a normal JSON variable:
-// options.layout = {
-//     hierarchical: {
-//         enabled:true
+// options.nodes = {
+//     color:{
+//         border:'#2B7CE9'
 //     }
 // };
 
@@ -202,6 +225,16 @@ network.on("click", function (params) {
         }
         else {                       //STORE
             var storeIp = '192.168.0.' + myNode;
+
+            //TEST
+            var clickedNode = nodes.get(myNode);
+            clickedNode.color = {
+                border : '#000000',
+                background : '#000000'
+            }
+            nodes.update(clickedNode);
+            //
+
             for (i = 0; i < networkInfo.stores.length; i++) {
                 if (networkInfo.stores[i].storeIp == storeIp) {
                     var storeName = networkInfo.stores[i].merchantName;
