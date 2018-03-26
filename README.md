@@ -39,6 +39,6 @@ Maven
 #### Demo3: Show the interactive network and transaction animation
 * [DEMO3](https://github.com/Kong96/NetworkMonitor/tree/7d73809aaa4aeccbcf332d082aeffca6eb2e3925). 
 ### Requirements changes: introduce the region.
-* [change requirements](https://github.com/zeyakong/NetworkMonitor/blob/master/Project%20Description.pdf). 
+* [change requirements](https://github.com/zeyakong/NetworkMonitor/blob/master/Project%20Description%20-%20changes%202.pdf). 
 ### Demo4: Show the multiple transaction animations and the account management
 * [change requirements](). 
