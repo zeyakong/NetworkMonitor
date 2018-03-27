@@ -300,9 +300,13 @@ network.on("click", function (params) {
         var myNode = params.nodes[0];
         if (myNode === 'Processing Center') { //PROCESSING CENTER
             $('#relayIp').html('Processing Center');
+            var x = document.getElementById('toggleRelay');
+            x.style.display = 'none';
             $('#relayModal').modal('show');
         }
         else if (myNode >= 200) {  //RELAY STATION
+            var x = document.getElementById('toggleRelay');
+            x.style.display = 'inline';
             var stationIp = '192.168.0.' + myNode;
             $('#relayIp').html(stationIp);
 
