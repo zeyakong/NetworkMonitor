@@ -166,6 +166,7 @@ function createNewTransaction(type,amount,start,card,currentIp,destination){
         '&store_ip='+start+'&card_id='+card+'&current_position_ip='+currentIp+'&current_destination_ip='+destination,
         method: 'POST'
     });
+    console.log("here");
 }
 
 
@@ -227,6 +228,26 @@ options.edges = {
 
 // create a network
 var network = new vis.Network(container, data, options);
+
+//LOAD ALL TRANSACTIONS ONTO THE MAP
+var prepareMapWithTransactions = function() {
+    for( var i = 0; i < transactions.length; i++ ) {
+        var ip = transactions[i].currentPositionIp;
+
+        var n;
+        if(ip.substr(10) === '253'){
+            n = nodes.get("Processing Center");
+        }
+        else{
+            n = nodes.get(ip.substr(10));
+        }
+
+        n.shape = "star";
+        nodes.update(n);
+    }
+};
+
+setTimeout(prepareMapWithTransactions, 500);
 
 //Decides which popup-window to display and populates it when a node is clicked on
 network.on("click", function (params) {
@@ -463,7 +484,7 @@ var setShapes = function(oldNode, newNode, t, data) {
     else{
         updateTransaction(t.transactionId,"APPROVED",data, t.storeIp);
     }
-}
+};
 
 
 
