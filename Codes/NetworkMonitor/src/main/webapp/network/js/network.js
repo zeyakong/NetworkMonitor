@@ -45,7 +45,14 @@ function getTransactions(){
 function updateTransaction(id,status,currentIP,nextIp){
     $.ajax({
         url: '/updateTransaction?id='+id+'&status='+status+'&currentIP='+currentIP+'&nextIp='+nextIp,
-        method: 'POST'
+        method: 'POST',
+        success:function(msg){
+            if(msg=="ok"){
+                alert("add successfully");
+            }else{
+                alert("inner error!!!!");
+            }
+        }
     });
 }
 
@@ -87,8 +94,12 @@ function changeConnectionStatusById(id){
     $.ajax({
         url: '/changeConnectionStatusById?id='+id,
         method: 'POST',
-        success: function (data) {
-            //alert("success");
+        success:function(msg){
+            if(msg=="ok"){
+                alert("add successfully");
+            }else{
+                alert("inner error!!!!");
+            }
         }
     });
 }
@@ -101,8 +112,12 @@ function changeStationStatusByIp(ip){
     $.ajax({
         url: '/changeStationStatusByIp?ip='+ip,
         method: 'POST',
-        success: function (data) {
-            //alert("success");
+        success:function(msg){
+            if(msg=="ok"){
+                alert("add successfully");
+            }else{
+                alert("inner error!!!!");
+            }
         }
     });
 }
@@ -115,8 +130,12 @@ function setTransactionStartTime(id){
     $.ajax({
         url: '/setTransactionStartTime?id='+id,
         method: 'POST',
-        success: function (data) {
-            //alert("success");
+        success:function(msg){
+            if(msg=="ok"){
+                alert("add successfully");
+            }else{
+                alert("inner error!!!!");
+            }
         }
     });
 }
@@ -135,7 +154,14 @@ function createNewTransaction(sent,type,amount,start,card,currentIp,destination)
     $.ajax({
         url: '/createNewTransaction?transaction_date_sent='+sent+'&transaction_type='+type+'&transaction_amount='+amount+
         '&store_ip='+start+'&card_id='+card+'&current_position_ip='+currentIp+'&current_destination_ip='+destination,
-        method: 'POST'
+        method: 'POST',
+        success:function(msg){
+            if(msg=="ok"){
+                alert("add successfully");
+            }else{
+                alert("inner error!!!!");
+            }
+        }
     });
 }
 
@@ -343,7 +369,7 @@ var runAnimation = function() {
 }
 
 var test = function() {
-    createNewTransaction('2016-08-01',"debit",100,"192.168.0.11","3448997612325598","192.168.0.5","192.168.0.6");
+    createNewTransaction('2016-08-01',"debit",100,1,333,"192.168.0.5","192.168.0.6");
     // updateTransaction(1,"good","192.168.1.1","22222.222.2");
     console.log("Test message");
 }

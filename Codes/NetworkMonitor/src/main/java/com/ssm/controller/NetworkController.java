@@ -42,13 +42,21 @@ public class NetworkController {
 
     @RequestMapping("/changeConnectionStatusById")
     public @ResponseBody String changeConnectionStatusById(int id){
-        networkServices.changeConnectionStatusById(id);
+        try{
+            networkServices.changeConnectionStatusById(id);
+        }catch (Exception e){
+            return "error";
+        }
         return "ok";
     }
 
     @RequestMapping("/changeStationStatusByIp")
     public @ResponseBody String changeStationStatusByIp(String ip){
-        networkServices.changeStationStatusByIp(ip);
+        try{
+            networkServices.changeStationStatusByIp(ip);
+        }catch (Exception e){
+            return "error";
+        }
         return "ok";
     }
 
@@ -59,19 +67,31 @@ public class NetworkController {
 
     @RequestMapping("/createNewTransaction")
     public @ResponseBody String createNewTransaction(Date transaction_date_sent, String transaction_type, double transaction_amount, String store_ip, String card_id, String current_position_ip, String current_destination_ip){
-        networkServices.createTransaction(transaction_date_sent,transaction_type,transaction_amount,store_ip,card_id,current_position_ip,current_destination_ip);
+        try{
+            networkServices.createTransaction(transaction_date_sent,transaction_type,transaction_amount,store_ip,card_id,current_position_ip,current_destination_ip);
+        }catch (Exception e){
+            return "error";
+        }
         return "ok";
     }
 
     @RequestMapping("/updateTransaction")
     public @ResponseBody String updateTransaction(int id,String status,String currentIP,String nextIp){
-        networkServices.updateTransaction(id,status,currentIP,nextIp);
+        try{
+            networkServices.updateTransaction(id,status,currentIP,nextIp);
+        }catch (Exception e){
+            return "error";
+        }
         return "ok";
     }
 
     @RequestMapping("/setTransactionStartTime")
     public @ResponseBody String setTransactionStartTime(int id){
-        networkServices.setTransactionStartTime(id);
+        try{
+            networkServices.setTransactionStartTime(id);
+        }catch (Exception e){
+            return "error";
+        }
         return "ok";
     }
 
