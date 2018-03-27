@@ -134,17 +134,17 @@ public class NetworkServicesImpl implements NetworkServices {
         for(int i= 0 ; i<list.size(); i++){
             Connection c = list.get(i);
             if(c.getIsActive()==1){
-                if(startIp == c.getStartIp()){
+                if(startIp.equals(c.getStartIp()) ){
                     next.add(c.getEndIp());
-                }else if(startIp == c.getEndIp()){
+                }else if(startIp.equals(c.getEndIp())){
                     next.add(c.getStartIp());
                 }
             }
         }
         //get random
         Collections.shuffle(next);
-        if(next!=null)return next.get(next.size());
-        else return "error";
+        if(next!=null)return next.get(0);
+        else return startIp;
     }
 
     public void changeConnectionStatusById(int id) {

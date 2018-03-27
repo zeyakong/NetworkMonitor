@@ -44,7 +44,7 @@ function getTransactions(){
  */
 function updateTransaction(id,status,currentIP,nextIp){
     $.ajax({
-        url: '/updateTransaction?id='+id+"&status="+status+"&currentIP="+currentIP+"&nextIp="+nextIp,
+        url: '/updateTransaction?id='+id+'&status='+status+'&currentIP='+currentIP+'&nextIp='+nextIp,
         method: 'POST'
     });
 }
@@ -58,20 +58,21 @@ function getNextIp(ip,destination){
     $.ajax({
         url: '/getNextIp?ip='+ip+'&destination='+destination,
         method: 'GET',
-        success: function (data) {
+        success: function (nextIp) {
             //show the animation of transaction.
-            var oldNode = nodes.get(ip);
-            var newNode = nodes.get(destination);
-            oldNode.color = {
-                border: '#2B7CE9',
-                background: '#000000'
-            }
-            newNode.color = {
-                border: '#e91a1b',
-                background : '#12e90b'
-            }
-            nodes.update(oldNode);
-            nodes.update(newNode);
+            alert(nextIp);
+            // var oldNode = nodes.get(ip);
+            // var newNode = nodes.get(destination);
+            // oldNode.color = {
+            //     border: '#2B7CE9',
+            //     background: '#000000'
+            // }
+            // newNode.color = {
+            //     border: '#e91a1b',
+            //     background : '#12e90b'
+            // }
+            // nodes.update(oldNode);
+            // nodes.update(newNode);
             //update the transaction.
             //return data;
         }
@@ -327,13 +328,13 @@ var runAnimation = function() {
    {
        //Refresh transaction list
        getTransactions();
-       var i;
-       for( i = 0; i < transactions.length; i++ )
-       {
-           var currentIp = transactions[i].currentPositionIp;
-           var destinationIp = transactions[i].currentDestinationIp;
-           getNextIp(currentIp, destinationIp);
-       }
+       // var i;
+       // for( i = 0; i < transactions.length; i++ )
+       // {
+       //     var currentIp = transactions[i].currentPositionIp;
+       //     var destinationIp = transactions[i].currentDestinationIp;
+       //     getNextIp(currentIp, destinationIp);
+       // }
       test();
       setTimeout(runAnimation, 3000);
    }
@@ -341,6 +342,8 @@ var runAnimation = function() {
 }
 
 var test = function() {
+    // createNewTransaction('2016-08-01',"debit",100,1,20,"192.168.0.5","192.168.0.6");
+    updateTransaction(1,"good","192.168.1.1","22222.222.2");
     console.log("Test message");
 }
 
