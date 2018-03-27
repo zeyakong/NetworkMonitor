@@ -61,20 +61,22 @@ function getNextIp(ip,destination){
         success: function (data) {
             //show the animation of transaction.
             console.log(data);
-           //  var oldNode = nodes.get(ip);
-           //  //var newNode = nodes.get(data);
-           //  oldNode.color = {
-           //      border: '#2B7CE9',
-           //      background: '#000000'
-           //  }
-           //  // newNode.color = {
-           //  //     border: '#e91a1b',
-           //  //     background : '#12e90b'
-           //  // }
-           //  nodes.update(oldNode);
-           // // nodes.update(newNode);
-           //  //update the transaction.
-           //  //return data;
+
+            var oldNode = nodes.get(ip);
+            var newNode = nodes.get(data);
+            oldNode.color = {
+                border: '#2B7CE9',
+                background: '#000000'
+            }
+            newNode.color = {
+                border: '#e91a1b',
+                background : '#12e90b'
+            }
+            nodes.update(oldNode);
+            nodes.update(newNode);
+
+            //update the transaction.
+            //return data;
         }
     });
 }
@@ -387,6 +389,8 @@ var runAnimation = function() {
        {
            var currentIp = transactions[i].currentPositionIp;
            var destinationIp = transactions[i].currentDestinationIp;
+           console.log(currentIp);
+           console.log(destinationIp);
            getNextIp(currentIp, destinationIp);
        }
       console.log("Test Message");
