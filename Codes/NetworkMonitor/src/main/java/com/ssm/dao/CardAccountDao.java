@@ -2,7 +2,6 @@ package com.ssm.dao;
 
 import com.ssm.entity.CardAccount;
 import org.apache.ibatis.annotations.Param;
-
 import java.util.List;
 
 /**
@@ -15,11 +14,13 @@ public interface CardAccountDao {
 
     List<CardAccount> findAllCardAccounts();
     CardAccount findCardAccountById(int id);
-    void createCardAccount(@Param("name")String name,
-                           @Param("address")String address, @Param("limit")double limit,
-                           @Param("phone")String phone, @Param("balance")double balance);
-    void updateCardAccount(@Param("id")int id,@Param("name")String name,
-                           @Param("address")String address, @Param("limit")double limit,
-                           @Param("phone")String phone, @Param("balance")double balance);
-    void deleteCardAccount(int id);
+    void xxx();
+    void zzz();
+ /*   void createaccount(String name,String address,int phone,double limit,double balance);*/
+  void createaccount(@Param("name")String name,
+                           @Param("address")String address, @Param("limit")String limit,
+                           @Param("phone")String phone, @Param("balance")String balance);
+    void deleteCardAccountById(int id);
+    int getmax();
 }
+
