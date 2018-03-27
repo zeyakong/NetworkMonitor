@@ -15,19 +15,28 @@
 		WHERE account_id = #{id}
 	</select>
 
-	<insert id="createCardAccount">
-		INSERT INTO card_accounts (account_name, account_address, account_phone, limit, balance)
-		VALUES(#{name}, #{address}, #{phone}, #{limit}, #{balance})
+	<select id="deleteCardAccountById" resultType="CardAccount">
+		DELETE
+		FROM card_accounts
+		WHERE account_id = #{id}
+	</select>
+
+	<select id="xxx">
+		SET FOREIGN_KEY_CHECKS = 0;
+	</select>
+
+	<select id="zzz">
+		SET FOREIGN_KEY_CHECKS = 1;
+	</select>
+
+	<insert id="createaccount">
+		INSERT INTO card_accounts (account_id,account_name,account_address,account_phone,`limit`,balance)
+		VALUES("2","Xianrui Zhu","eagle hall","4335095","1000","1000")
 	</insert>
 
-	<update id="updateCardAccount">
-		UPDATE card_accounts
-		SET name = #{name}, account_address = #{address}, account_phone = #{phone}, limit = #{limit}, balance = #{balance}
-		WHERE account_id = #{id}
-	</update>
+	<!--<select id="getmax">
+		SELECT MAX(account_id) FROM card_accounts;
+	</select>
+-->
 
-	<delete id="deleteCardAccount">
-		DELETE FROM card_accounts
-		WHERE account_id = #{id}
-	</delete>
 </mapper>

@@ -10,19 +10,48 @@
     	WHERE card_account = account_id AND account_id = #{accountId};
     	</select>
 
-	<insert id="createCreditCard">
-		INSERT INTO credit_cards(card_id, card_name, expiration_date, security_code, card_account)
-		VALUES(#{id}, #{name}, #{expiration}, #{security_code}, #{account_id})
-	</insert>
+	<select id="findcardbyid" resultType="CreditCard">
+		SELECT *
+		FROM credit_cards
+		WHERE card_account=#{i}
+	</select>
 
-	<update id="updateCreditCard">
-		UPDATE credit_cards
-		SET card_name = #{name}, expiration_date = #{expiration}, security_code = #{security_code}
-		WHERE card_id = #{id}
-	</update>
+	<select id="findAllCreditCard" resultType="CreditCard">
+		SELECT *
+		FROM credit_cards
+	</select>
 
-	<delete id="deleteCreditCard">
+	<select id="findAccountnumber"  resultType="int">
+		SELECT card_account
+		FROM credit_cards
+		WHERE card_id=#{id}
+	</select>
+
+
+	<delete id="deleteCard">
+		DELETE FROM credit_cards
+		WHERE card_account = #{id}
+	</delete>
+
+	<delete id="deleteAccount" >
+		DELETE
+		FROM card_accounts
+		WHERE account_id = #{id}
+	</delete>
+
+	<delete id="deleteCardnumber">
 		DELETE FROM credit_cards
 		WHERE card_id = #{id}
 	</delete>
+
+	<insert id="createcard">
+		INSERT INTO credit_cards(card_id, card_name, expiration_date, security_code, card_account)
+		VALUES("1111111111111111","Xianrui Zhu","2018-05-31","123","2")
+	</insert>
+
+	<insert id="createcards">
+		INSERT INTO credit_cards(card_id, card_name, expiration_date, security_code, card_account)
+		VALUES("2222222222222222","Xianrui Zhu","2019-05-31","321","2")
+	</insert>
+
 </mapper>
