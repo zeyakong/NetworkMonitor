@@ -1,7 +1,9 @@
 package com.ssm.controller;
 
 import com.ssm.entity.CardAccount;
+import com.ssm.entity.CreditCard;
 import com.ssm.services.CardAccountServices;
+import com.ssm.services.CreditCardServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +19,21 @@ import java.util.List;
 public class IndexPageController {
     @Autowired
     private CardAccountServices cardAccountServices;
+    @Autowired
+    private CreditCardServices cardInfoServices;
+    @RequestMapping("/cardInfo")
+    public String cardInfo(Model model){
+        List<CreditCard> list;
+        list =  cardInfoServices.findAllCreditCard();
+        if(list!=null){
+            for(int i = 0 ;i<list.size();i++){
+                System.out.println("----------------"+list.get(i));
+            }
+        }else System.out.println("---------------empty list!");
+        model.addAttribute("list",list);
+        return "cardInfo";
+    }
+
 
     @RequestMapping("/accountInfo")
     public String accountInfo(Model model){
