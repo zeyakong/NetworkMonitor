@@ -4,6 +4,8 @@
 var networkInfo;
 //array
 var transactions;
+//Controls start/stop
+var running;
 
 //##########################ajax functions##########################
 /**
@@ -58,8 +60,20 @@ function getNextIp(ip,destination){
         method: 'GET',
         success: function (data) {
             //show the animation of transaction.
+            var oldNode = nodes.get(ip);
+            var newNode = nodes.get(destination);
+            oldNode.color = {
+                border: '#2B7CE9',
+                background: '#000000'
+            }
+            newNode.color = {
+                border: '#e91a1b',
+                background : '#12e90b'
+            }
+            nodes.update(oldNode);
+            nodes.update(newNode);
             //update the transaction.
-            return data;
+            //return data;
         }
     });
 }
@@ -189,8 +203,8 @@ network.on("click", function (params) {
     params.event = "[original event]";
     console.log(params);
     //IT IS AN EDGE OR NOTHING
-    if (params.nodes[0] == undefined) {
-        if (params.edges[0] == undefined) {
+    if (params.nodes[0] === undefined) {
+        if (params.edges[0] === undefined) {
             //DID NOT CLICK ON ANYTHING USEFUL
         }
         //CLICKED ON AN EDGE
@@ -198,7 +212,7 @@ network.on("click", function (params) {
             var edgeId = params.edges[0];
             var ip1, ip2, weight;
             for (i = 0; i < parsedData.edges.length; i++) {
-                if (edgeId == parsedData.edges[i].id) {
+                if (edgeId === parsedData.edges[i].id) {
                     ip1 = parsedData.edges[i].from;
                     ip2 = parsedData.edges[i].to;
                     weight = parsedData.edges[i].label;
@@ -214,7 +228,7 @@ network.on("click", function (params) {
     //IT IS ONE OF THE NODES
     else {
         var myNode = params.nodes[0];
-        if (myNode == 'Processing Center') { //PROCESSING CENTER
+        if (myNode === 'Processing Center') { //PROCESSING CENTER
             $('#relayIp').html('Processing Center');
             $('#relayModal').modal('show');
         }
@@ -236,7 +250,7 @@ network.on("click", function (params) {
             //
 
             for (i = 0; i < networkInfo.stores.length; i++) {
-                if (networkInfo.stores[i].storeIp == storeIp) {
+                if (networkInfo.stores[i].storeIp === storeIp) {
                     var storeName = networkInfo.stores[i].merchantName;
                 }
             }
@@ -265,7 +279,7 @@ $('#btnSubmitTransaction').click(function () {
     //Get current store ip
     var storeIp;
     for (i = 0; i < networkInfo.stores.length; i++) {
-        if (networkInfo.stores[i].merchantName == $('#merchantName').html()) {
+        if (networkInfo.stores[i].merchantName === $('#merchantName').html()) {
             storeIp = networkInfo.stores[i].storeIp;
         }
     }
@@ -291,4 +305,44 @@ $('#btnCancel').click(function () {
     document.getElementById("form_one").reset();
     document.getElementById("form_two").reset();
 });
+
+$('#toggle_button').click(function () {
+    var button = document.getElementById("toggle_button");
+
+   if( button.innerText === "Start") {  //BEGIN ANIMATION
+       button.innerText = "Pause";
+       button.style.backgroundColor = '#f44336';
+       running = true;
+       runAnimation();
+   }
+   else{                                //PAUSE ANIMATION
+       button.innerText = "Start";
+       button.style.backgroundColor = '#4CAF50';
+       running = false;
+   }
+});
+
+var runAnimation = function() {
+   if(running)
+   {
+       //Refresh transaction list
+       getTransactions();
+       var i;
+       for( i = 0; i < transactions.length; i++ )
+       {
+           var currentIp = transactions[i].currentPositionIp;
+           var destinationIp = transactions[i].currentDestinationIp;
+           getNextIp(currentIp, destinationIp);
+       }
+      test();
+      setTimeout(runAnimation, 3000);
+   }
+
+}
+
+var test = function() {
+    console.log("Test message");
+}
+
+
 

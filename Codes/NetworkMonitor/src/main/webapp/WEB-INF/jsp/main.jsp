@@ -53,7 +53,7 @@
 
             <ul class="nav navbar-nav">
                 <li><a href="#" disabled="true">Transaction:</a></li>
-                <li><button type="button" class="btn btn-success navbar-btn">Start</button></li>
+                <li><button id="toggle_button" type="button" class="btn navbar-btn" style="background-color: #4CAF50">Start</button></li>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
