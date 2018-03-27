@@ -384,8 +384,8 @@ $('#btnSubmitTransaction').click(function () {
     };
     console.log(transaction);
     createNewTransaction(transactionType,transactionAmount,storeIp,cardNumber,storeIp,destinationIp);
-    //TEST
-    //updateTransaction(1,'PENDING', storeIp, destinationIp);
+    setTimeout(getTransactions, 250);
+    setTimeout(prepareMapWithTransactions, 500);
 
     document.getElementById("form_one").reset();
     document.getElementById("form_two").reset();
