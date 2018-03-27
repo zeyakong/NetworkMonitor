@@ -4,8 +4,12 @@
 var networkInfo;
 //array
 var transactions;
+
 //Controls start/stop
 var running;
+var animationTimer = 3000;
+
+//Global Constant
 var pCenter = "192.168.0.253";
 
 //##########################ajax functions##########################
@@ -60,12 +64,8 @@ function getNextIp(ip,destination,t){
         url: '/getNextIp?ip='+ip+'&destination='+destination,
         method: 'GET',
         success: function (data) {
-            //show the animation of transaction.
-            //console.log(data.substr(10));
 
-            //console.log(data.substr(10));
-
-            //GET THE NODE WE WERE AT, AND THE NODE WE ARE MOVING TO
+            //GET THE NODE WE WERE AT
             var oldNode;
             if(ip.substr(10) === '253'){
                 oldNode = nodes.get("Processing Center");
@@ -74,6 +74,7 @@ function getNextIp(ip,destination,t){
                 oldNode = nodes.get(ip.substr(10));
             }
 
+            //GET THE NEW NODE WE ARE MOVING TO
             var newNode;
             if(data.substr(10) === '253'){
                 newNode = nodes.get("Processing Center");
@@ -82,34 +83,27 @@ function getNextIp(ip,destination,t){
                 newNode = nodes.get(data.substr(10));
             }
 
-            //console.log(oldNode);
-            //console.log(newNode);
-            if(oldNode.id < 200 ) {
-                oldNode.shape = "ellipse";
+            //GET THE CONNECTION BETWEEN THEM
+            var temp;
+            var connection;
+            for( var i = 0; i < parsedData.edges.length; i++ ){
+                temp = parsedData.edges[i];
+                if( (temp.from === oldNode.id && temp.to === newNode.id) || (temp.from === newNode.id && temp.to === oldNode.id) ){
+                    connection = temp;
+                }
             }
-            else if(oldNode.id === "Processing Center"){
-                oldNode.shape = "square";
-            }
-            else{
-                oldNode.shape = "diamond";
-            }
-            newNode.shape = "star";
 
-            nodes.update(oldNode);
-            nodes.update(newNode);
+            setTimeout(function() {
+                setConnectionWidth(connection,15);
+            }, animationTimer*.25);
 
-            //update the transaction.
+            setTimeout(function() {
+                setConnectionWidth(connection,1);
+            }, animationTimer*.60);
 
-            if(data.substr(10) === '253'){
-                updateTransaction(t.transactionId,"APPROVED",data, t.storeIp);
-            }
-            else if(t.transactionStatus === "PENDING"){
-                updateTransaction(t.transactionId,"PENDING",data, pCenter);
-            }
-            else{
-                updateTransaction(t.transactionId,"APPROVED",data, t.storeIp);
-            }
-            //return data;
+            setTimeout(function() {
+                setShapes(oldNode, newNode, t, data);
+            }, animationTimer*.60);
         }
     });
 }
@@ -367,10 +361,10 @@ $('#btnSubmitTransaction').click(function () {
             expirationDate: date
         }
     };
-    //console.log(transaction);
+    console.log(transaction);
     createNewTransaction(transactionType,transactionAmount,storeIp,cardNumber,storeIp,destinationIp);
     //TEST
-    updateTransaction(1,'PENDING', storeIp, destinationIp);
+    //updateTransaction(1,'PENDING', storeIp, destinationIp);
 
     document.getElementById("form_one").reset();
     document.getElementById("form_two").reset();
@@ -419,13 +413,13 @@ var runAnimation = function() {
        var i;
        for( i = 0; i < transactions.length; i++ )
        {
-           console.log(transactions.length);
+           //console.log(transactions.length);
            var currentIp = transactions[i].currentPositionIp;
            var destinationIp = transactions[i].currentDestinationIp;
            var t = transactions[i];
            //getNextIp('192.168.0.83', '192.168.0.253');
-           console.log(currentIp);
-           console.log(destinationIp);
+           //console.log(currentIp);
+           //console.log(destinationIp);
            getNextIp(currentIp, destinationIp, t);
        }
       //console.log("Test Message");
@@ -434,10 +428,42 @@ var runAnimation = function() {
 };
 
 var refreshTransactionList = function() {
-    setTimeout(getTransactions, 1000);
-    setTimeout(runAnimation, 2000);
+    setTimeout(getTransactions, animationTimer*.85);
+    setTimeout(runAnimation, animationTimer);
 };
 
+var setConnectionWidth = function( connection, w ) {
+    connection.width = w;
+    edges.update(connection);
+};
+
+var setShapes = function(oldNode, newNode, t, data) {
+    //CHANGE THE SHAPES
+    if(oldNode.id < 200 ) {
+        oldNode.shape = "ellipse";
+    }
+    else if(oldNode.id === "Processing Center"){
+        oldNode.shape = "square";
+    }
+    else{
+        oldNode.shape = "diamond";
+    }
+    newNode.shape = "star";
+
+    nodes.update(oldNode);
+    nodes.update(newNode);
+
+    //update the transaction.
+    if(data.substr(10) === '253'){
+        updateTransaction(t.transactionId,"APPROVED",data, t.storeIp);
+    }
+    else if(t.transactionStatus === "PENDING"){
+        updateTransaction(t.transactionId,"PENDING",data, pCenter);
+    }
+    else{
+        updateTransaction(t.transactionId,"APPROVED",data, t.storeIp);
+    }
+}
 
 
 
