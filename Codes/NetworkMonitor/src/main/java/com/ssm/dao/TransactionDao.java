@@ -12,8 +12,7 @@ import java.util.List;
  */
 public interface TransactionDao {
     List<Transaction> findAllTransactions();
-    void createTransaction(@Param("transaction_date_sent")Date transaction_date_sent,
-                           @Param("transaction_type") String transaction_type,
+    void createTransaction(@Param("transaction_type") String transaction_type,
                            @Param("transaction_amount") double transaction_amount,
                            @Param("store_ip") String store_ip,
                            @Param("card_id") String card_id,

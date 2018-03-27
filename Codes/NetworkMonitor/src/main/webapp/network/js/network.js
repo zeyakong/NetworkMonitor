@@ -44,7 +44,7 @@ function getTransactions(){
  */
 function updateTransaction(id,status,currentIP,nextIp){
     $.ajax({
-        url: '/updateTransaction?id='+id+'&status='+status+'&currentIP='+currentIP+'&nextIp='+nextIp,
+        url: '/updateTransaction?id='+id+"&status="+status+"&currentIP="+currentIP+"&nextIp="+nextIp,
         method: 'POST'
     });
 }
@@ -58,23 +58,23 @@ function getNextIp(ip,destination){
     $.ajax({
         url: '/getNextIp?ip='+ip+'&destination='+destination,
         method: 'GET',
-        success: function (nextIp) {
+        success: function (data) {
             //show the animation of transaction.
-            alert(nextIp);
-            // var oldNode = nodes.get(ip);
-            // var newNode = nodes.get(destination);
-            // oldNode.color = {
-            //     border: '#2B7CE9',
-            //     background: '#000000'
-            // }
-            // newNode.color = {
-            //     border: '#e91a1b',
-            //     background : '#12e90b'
-            // }
-            // nodes.update(oldNode);
-            // nodes.update(newNode);
-            //update the transaction.
-            //return data;
+            console.log(data);
+           //  var oldNode = nodes.get(ip);
+           //  //var newNode = nodes.get(data);
+           //  oldNode.color = {
+           //      border: '#2B7CE9',
+           //      background: '#000000'
+           //  }
+           //  // newNode.color = {
+           //  //     border: '#e91a1b',
+           //  //     background : '#12e90b'
+           //  // }
+           //  nodes.update(oldNode);
+           // // nodes.update(newNode);
+           //  //update the transaction.
+           //  //return data;
         }
     });
 }
@@ -131,9 +131,9 @@ function setTransactionStartTime(id){
  * @param currentIp
  * @param destination:ip[String]
  */
-function createNewTransaction(sent,type,amount,start,card,currentIp,destination){
+function createNewTransaction(type,amount,start,card,currentIp,destination){
     $.ajax({
-        url: '/createNewTransaction?transaction_date_sent='+sent+'&transaction_type='+type+'&transaction_amount='+amount+
+        url: '/createNewTransaction?transaction_type='+type+'&transaction_amount='+amount+
         '&store_ip='+start+'&card_id='+card+'&current_position_ip='+currentIp+'&current_destination_ip='+destination,
         method: 'POST'
     });
@@ -220,6 +220,7 @@ network.on("click", function (params) {
                 }
             }
             //Create edge window
+            $('#connecionId').html(edgeId);
             $('#first_ip').html(ip1);
             $('#second_ip').html(ip2);
             $('#weightValue').html(weight);
@@ -240,23 +241,13 @@ network.on("click", function (params) {
         }
         else {                       //STORE
             var storeIp = '192.168.0.' + myNode;
-
-            //TEST
-            var clickedNode = nodes.get(myNode);
-            clickedNode.color = {
-                border : '#000000',
-                background : '#000000'
-            }
-            nodes.update(clickedNode);
-            //
-
             for (i = 0; i < networkInfo.stores.length; i++) {
                 if (networkInfo.stores[i].storeIp === storeIp) {
                     var storeName = networkInfo.stores[i].merchantName;
                 }
             }
             $('#storeNameOption').value = storeName;
-            $('#storeNameOption').html(storeName);
+            $('#storeNameOption').html(storeName + (' (Credit)'));
 
             $('#storeIp').html(storeIp);
             $('#merchantName').html(storeName);
@@ -276,6 +267,7 @@ $('#btnSubmitTransaction').click(function () {
     var securityCode = document.getElementById('securityCode').value;
     var date = document.getElementById('monthDate').value + '/' + document.getElementById('yearDate').value;
     var transactionType = $('#transactionType').find(":selected").text();
+    var transactionAmount = document.getElementById('transactionAmount').value;
 
     //Get current store ip
     var storeIp;
@@ -284,18 +276,29 @@ $('#btnSubmitTransaction').click(function () {
             storeIp = networkInfo.stores[i].storeIp;
         }
     }
-    var myNode = storeIp.substring(10);
     var destinationIp = "192.168.0.253"; //THE PROCESSING CENTER
+
+    //This object contains both verification information needed for the credit card
+    //and transaction information that will be logged in the database
     var transaction = {
-        currentIp: storeIp,
-        destinationIp: destinationIp,
-        cardName: cardName,
-        cardNumber: cardNumber,
-        securityCode: securityCode,
-        date: date,
-        transactionType: transactionType
+        transactionInfo: {
+           transactionType: transactionType,
+           transactionAmnount: transactionAmount,
+           cardId: cardNumber,
+           currentPositionIp: storeIp,
+           currentDestinationIp: destinationIp
+        },
+        creditCardInfo: {
+            cardId: cardNumber,
+            cardName: cardName,
+            securityCode: securityCode,
+            expirationDate: date
+        }
     };
     //console.log(transaction);
+    createNewTransaction(transactionType,transactionAmount,storeIp,cardNumber,storeIp,destinationIp);
+    //TEST
+    updateTransaction(1,'PENDING', storeIp, destinationIp);
 
     document.getElementById("form_one").reset();
     document.getElementById("form_two").reset();
@@ -305,6 +308,46 @@ $('#btnSubmitTransaction').click(function () {
 $('#btnCancel').click(function () {
     document.getElementById("form_one").reset();
     document.getElementById("form_two").reset();
+});
+
+$('#toggleRelay').click(function() {
+    var button = document.getElementById('toggleRelay');
+    if( button.innerText === "Deactivate")
+    {
+        //DEACTIVATE THE STATION
+        button.style.backgroundColor = "#00ff00";
+        button.innerText = "Activate";
+
+        var ip = document.getElementById("relayIp").innerText;
+        console.log(ip);
+        //changeStationStatusByIp()
+    }
+    else
+    {
+        //ACTIVATE THE STATION
+        button.style.backgroundColor = "#ff0000";
+        button.innerText = "Deactivate";
+    }
+});
+
+$('#toggleConnection').click(function(){
+    var button = document.getElementById('toggleConnection');
+    if( button.innerText === "Deactivate")
+    {
+        //DEACTIVATE THE CONNECTION
+        button.style.backgroundColor = "#00ff00";
+        button.innerText = "Activate";
+
+        var id = document.getElementById("connectionId").innerText;
+        console.log(id);
+        //changeConnectionStatusById()
+    }
+    else
+    {
+        //ACTIVATE THE CONNECTION
+        button.style.backgroundColor = "#ff0000";
+        button.innerText = "Deactivate";
+    }
 });
 
 $('#toggle_button').click(function () {
@@ -328,24 +371,18 @@ var runAnimation = function() {
    {
        //Refresh transaction list
        getTransactions();
-       // var i;
-       // for( i = 0; i < transactions.length; i++ )
-       // {
-       //     var currentIp = transactions[i].currentPositionIp;
-       //     var destinationIp = transactions[i].currentDestinationIp;
-       //     getNextIp(currentIp, destinationIp);
-       // }
-      test();
+       var i;
+       for( i = 0; i < transactions.length; i++ )
+       {
+           var currentIp = transactions[i].currentPositionIp;
+           var destinationIp = transactions[i].currentDestinationIp;
+           getNextIp(currentIp, destinationIp);
+       }
+      console.log("Test Message");
       setTimeout(runAnimation, 3000);
    }
+};
 
-}
-
-var test = function() {
-    // createNewTransaction('2016-08-01',"debit",100,1,20,"192.168.0.5","192.168.0.6");
-    updateTransaction(1,"good","192.168.1.1","22222.222.2");
-    console.log("Test message");
-}
 
 
 

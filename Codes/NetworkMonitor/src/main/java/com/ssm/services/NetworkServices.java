@@ -21,8 +21,7 @@ public interface NetworkServices {
 
     void changeStationStatusByIp(String ip);
 
-    void createTransaction(Date transaction_date_sent,
-                           String transaction_type,
+    void createTransaction(String transaction_type,
                            double transaction_amount,
                            String store_ip,
                            String card_id,

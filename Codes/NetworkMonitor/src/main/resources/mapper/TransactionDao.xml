@@ -10,9 +10,9 @@
     </select>
 
     <insert id="createTransaction">
-        INSERT INTO transactions(transaction_date_sent, transaction_type, transaction_amount,
+        INSERT INTO transactions(transaction_type, transaction_amount,
                                 store_ip, card_id, current_position_ip, current_destination_ip)
-        VALUES(#{transaction_date_sent}, #{transaction_type}, #{transaction_amount}, #{store_ip},
+        VALUES(#{transaction_type}, #{transaction_amount}, #{store_ip},
         #{card_id}, #{current_position_ip}, #{current_destination_ip})
     </insert>
 

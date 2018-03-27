@@ -133,7 +133,7 @@
                 </table>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger">Deactivate</button>
+                <button type="button" class="btn" style="background-color: red" id="toggleRelay">Deactivate</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
         </div>
@@ -166,8 +166,12 @@
                         <label>Transaction Type</label>
                         <select class="form-control" id="transactionType">
                             <option id="storeNameOption" value="store">Store</option>
-                            <option value="SELF">SELF</option>
+                            <option value="SELF">Self (Debit)</option>
                         </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Transaction Amount</label>
+                        <input type="number" class="form-control" placeholder="Amount" id="transactionAmount">
                     </div>
                 </form>
                 <form id="form_two" class="form-inline">
@@ -233,11 +237,13 @@
             <div class="modal-body">
                 <table class="table">
                     <tr>
+                        <th>Connection Id</th>>
                         <th>Node One</th>
                         <th>Node Two</th>
                         <th>Weight</th>
                     </tr>
                     <tr>
+                        <td id="connectionId">-1</td>
                         <td id="first_ip">192.168.0.000</td>
                         <td id="second_ip">192.168.0.000</td>
                         <td id="weightValue">0</td>
@@ -245,7 +251,7 @@
                 </table>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger">Deactivate</button>
+                <button type="button" class="btn" style="background-color: red" id="toggleConnection">Deactivate</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
         </div>

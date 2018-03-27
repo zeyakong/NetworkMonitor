@@ -9,7 +9,6 @@ import com.ssm.services.NetworkServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
@@ -41,38 +40,34 @@ public class NetworkController {
     }
 
     @RequestMapping("/changeConnectionStatusById")
-    public @ResponseBody String changeConnectionStatusById(int id){
+    public void changeConnectionStatusById(int id){
         networkServices.changeConnectionStatusById(id);
-        return "ok";
     }
 
     @RequestMapping("/changeStationStatusByIp")
-    public @ResponseBody String changeStationStatusByIp(String ip){
+    public void changeStationStatusByIp(String ip){
         networkServices.changeStationStatusByIp(ip);
-        return "ok";
     }
 
     @RequestMapping("/getNextIp")
-    public @ResponseBody String getNextIp(String ip,String destination){
-       return networkServices.getNextIp(ip,destination);
+    public String getNextIp(String startIp,String destination){
+       return networkServices.getNextIp(startIp,destination);
     }
 
     @RequestMapping("/createNewTransaction")
-    public @ResponseBody String createNewTransaction(Date transaction_date_sent, String transaction_type, double transaction_amount, String store_ip, String card_id, String current_position_ip, String current_destination_ip){
-        networkServices.createTransaction(transaction_date_sent,transaction_type,transaction_amount,store_ip,card_id,current_position_ip,current_destination_ip);
-        return "ok";
+    public void createNewTransaction(String transaction_type, double transaction_amount, String store_ip, String card_id, String current_position_ip, String current_destination_ip){
+        networkServices.createTransaction(transaction_type,transaction_amount,store_ip,card_id,current_position_ip,current_destination_ip);
     }
 
+
     @RequestMapping("/updateTransaction")
-    public @ResponseBody String updateTransaction(int id,String status,String currentIP,String nextIp){
+    public void updateTransaction(int id,String status,String currentIP,String nextIp){
         networkServices.updateTransaction(id,status,currentIP,nextIp);
-        return "ok";
     }
 
     @RequestMapping("/setTransactionStartTime")
-    public @ResponseBody String setTransactionStartTime(int id){
+    public void setTransactionStartTime(int id){
         networkServices.setTransactionStartTime(id);
-        return "ok";
     }
 
     @RequestMapping("getTransactions")
