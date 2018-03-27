@@ -131,12 +131,15 @@ public class NetworkServicesImpl implements NetworkServices {
     public String getNextIp(String startIp,String destination) {
         List<Connection> list = connectionDao.findAllConnections();
         List<String> next = new ArrayList<String>();
+        if(startIp.equals(destination)){
+            return startIp;
+        }
         for(int i= 0 ; i<list.size(); i++){
             Connection c = list.get(i);
             if(c.getIsActive()==1){
-                if(startIp.equals(c.getStartIp()) ){
+                if(startIp.equals(c.getStartIp()) && Integer.parseInt(c.getEndIp().substring(10))>200 ){
                     next.add(c.getEndIp());
-                }else if(startIp.equals(c.getEndIp())){
+                }else if(startIp.equals(c.getEndIp())&Integer.parseInt(c.getStartIp().substring(10))>200){
                     next.add(c.getStartIp());
                 }
             }

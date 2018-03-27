@@ -64,10 +64,6 @@ public class AccountController {
         return "cardInfo";
     }
 
-
-
-
-
     @RequestMapping("/createaccount")
     public String createaccount(String name,String address,String phone,String limit,String balance,String cnumber,String cname,String cdate,String ccode,Model model){
 
@@ -124,10 +120,4 @@ public class AccountController {
         model.addAttribute("list",list);
         return "accountInfo";
     }
-
-
-
-
-
-
 }
