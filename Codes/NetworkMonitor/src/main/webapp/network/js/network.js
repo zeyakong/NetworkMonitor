@@ -201,8 +201,9 @@ var network = new vis.Network(container, data, options);
 
 //Decides which popup-window to display and populates it when a node is clicked on
 network.on("click", function (params) {
+    getNetworkInfo();
     params.event = "[original event]";
-    console.log(params);
+    //console.log(params);
     //IT IS AN EDGE OR NOTHING
     if (params.nodes[0] === undefined) {
         if (params.edges[0] === undefined) {
@@ -219,8 +220,25 @@ network.on("click", function (params) {
                     weight = parsedData.edges[i].label;
                 }
             }
+
+            //Check if the node is active or not
+            var c;
+            for( i = 0; i < networkInfo.connections.length; i++ ) {
+                if( edgeId === networkInfo.connections[i].connectionId ) {
+                    c = networkInfo.connections[i];
+                }
+            }
+            if(c.isActive === 1){
+                document.getElementById("toggleConnection").style.backgroundColor = '#ff0000';
+                document.getElementById("toggleConnection").innerText = "Deactivate";
+            }
+            else{
+                document.getElementById("toggleConnection").style.backgroundColor = '#00ff00';
+                document.getElementById("toggleConnection").innerText = "Activate";
+            }
+
             //Create edge window
-            $('#connecionId').html(edgeId);
+            $('#connectionId').html(edgeId);
             $('#first_ip').html(ip1);
             $('#second_ip').html(ip2);
             $('#weightValue').html(weight);
@@ -237,7 +255,26 @@ network.on("click", function (params) {
         else if (myNode >= 200) {  //RELAY STATION
             var stationIp = '192.168.0.' + myNode;
             $('#relayIp').html(stationIp);
+
+            //Check if the node is active or not
+            var n;
+            var i;
+            for( i = 0; i < networkInfo.relayStations.length; i++ ) {
+                if( stationIp === networkInfo.relayStations[i].stationIp ) {
+                    n = networkInfo.relayStations[i];
+                }
+            }
+            if(n.isActive === 1){
+                document.getElementById("toggleRelay").style.backgroundColor = '#ff0000';
+                document.getElementById("toggleRelay").innerText = "Deactivate";
+            }
+            else{
+                document.getElementById("toggleRelay").style.backgroundColor = '#00ff00';
+                document.getElementById("toggleRelay").innerText = "Activate";
+            }
+
             $('#relayModal').modal('show');
+
         }
         else {                       //STORE
             var storeIp = '192.168.0.' + myNode;
@@ -310,46 +347,20 @@ $('#btnCancel').click(function () {
     document.getElementById("form_two").reset();
 });
 
+//ACTIVATE/DEACTIVATE RELAY STATIONS AND CONNECTIONS---------
 $('#toggleRelay').click(function() {
-    var button = document.getElementById('toggleRelay');
-    if( button.innerText === "Deactivate")
-    {
-        //DEACTIVATE THE STATION
-        button.style.backgroundColor = "#00ff00";
-        button.innerText = "Activate";
-
-        var ip = document.getElementById("relayIp").innerText;
-        console.log(ip);
-        //changeStationStatusByIp()
-    }
-    else
-    {
-        //ACTIVATE THE STATION
-        button.style.backgroundColor = "#ff0000";
-        button.innerText = "Deactivate";
-    }
+    var ip = document.getElementById("relayIp").innerText;
+    changeStationStatusByIp(ip);
+    $('#relayModal').modal('hide');
 });
 
 $('#toggleConnection').click(function(){
-    var button = document.getElementById('toggleConnection');
-    if( button.innerText === "Deactivate")
-    {
-        //DEACTIVATE THE CONNECTION
-        button.style.backgroundColor = "#00ff00";
-        button.innerText = "Activate";
-
-        var id = document.getElementById("connectionId").innerText;
-        console.log(id);
-        //changeConnectionStatusById()
-    }
-    else
-    {
-        //ACTIVATE THE CONNECTION
-        button.style.backgroundColor = "#ff0000";
-        button.innerText = "Deactivate";
-    }
+    var id = document.getElementById("connectionId").innerText;
+    changeConnectionStatusById(id);
+    $('#connectionModal').modal('hide');
 });
 
+//ANIMATION STUFF--------------------------------------------
 $('#toggle_button').click(function () {
     var button = document.getElementById("toggle_button");
 
