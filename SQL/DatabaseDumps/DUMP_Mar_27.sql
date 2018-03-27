@@ -85,7 +85,7 @@ CREATE TABLE `credit_cards` (
   `card_account` varchar(11) NOT NULL,
   PRIMARY KEY (`card_id`),
   KEY `AccountID_idx` (`card_account`),
-  CONSTRAINT `AccountID` FOREIGN KEY (`card_account`) REFERENCES `card_accounts` (`account_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `AccountID` FOREIGN KEY (`card_account`) REFERENCES `card_accounts` (`account_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -205,7 +205,7 @@ CREATE TABLE `transactions` (
   PRIMARY KEY (`transaction_id`),
   KEY `StoreID_idx` (`store_ip`),
   CONSTRAINT `StoreID` FOREIGN KEY (`store_ip`) REFERENCES `stores` (`store_ip`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -227,4 +227,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-03-27  6:06:24
+-- Dump completed on 2018-03-27 11:53:03
