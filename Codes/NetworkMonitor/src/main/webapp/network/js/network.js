@@ -328,6 +328,7 @@ var runAnimation = function() {
    {
        //Refresh transaction list
        getTransactions();
+       // getNextIp('192.168.0.83', '192.168.0.253');
        // var i;
        // for( i = 0; i < transactions.length; i++ )
        // {
@@ -342,8 +343,8 @@ var runAnimation = function() {
 }
 
 var test = function() {
-    // createNewTransaction('2016-08-01',"debit",100,1,20,"192.168.0.5","192.168.0.6");
-    updateTransaction(1,"good","192.168.1.1","22222.222.2");
+    createNewTransaction('2016-08-01',"debit",100,"192.168.0.11","3448997612325598","192.168.0.5","192.168.0.6");
+    // updateTransaction(1,"good","192.168.1.1","22222.222.2");
     console.log("Test message");
 }
 
