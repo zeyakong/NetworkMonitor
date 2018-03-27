@@ -143,7 +143,7 @@ public class NetworkServicesImpl implements NetworkServices {
         }
         //get random
         Collections.shuffle(next);
-        if(next!=null)return next.get(0);
+        if(next!=null)return next.get(next.size());
         else return "error";
     }
 
