@@ -15,8 +15,32 @@ import java.util.List;
 @Service
 public class CreditCardServicesImpl implements CreditCardServices {
     @Autowired
-    private CreditCardDao creditCardDao;
+    /*private CreditCardDao creditCardDao;*/
+    CreditCardDao creditCardDao;
+    public void  deleteCard(int id) {
+        creditCardDao.deleteCard(id);
+    }
+    public void  deleteCardnumber(long id) {
+        int i=creditCardDao.findAccountnumber(id);
+        creditCardDao.deleteCardnumber(id);
+        System.out.println(creditCardDao.findcardbyid(i));
+        if(creditCardDao.findcardbyid(i)==null){
+            System.out.println("a");
+                 creditCardDao.deleteAccount(i);
+        }
+        else{
+            System.out.println("c");
+        }
+        System.out.println("b");
 
+    }
+
+    public void createcard(String cnumber,String cname,String cdate,String ccode,int max){creditCardDao.createcard(cnumber,cname,cdate,ccode,max);}
+    public void createcards(String cnumber,String cname,String cdate,String ccode,int max){creditCardDao.createcards(cnumber,cname,cdate,ccode,max);}
+
+    public List<CreditCard> findAllCreditCard() {
+        return creditCardDao.findAllCreditCard();
+    }
     public List<CreditCard> findCreditCardsByAccountId(int id) {
         return creditCardDao.findCreditCardsByAccountId(id);
     }

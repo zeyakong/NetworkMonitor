@@ -19,6 +19,22 @@ public class CardAccountServicesImpl implements CardAccountServices {
     public List<CardAccount> findAllCardAccounts() {
         return cardAccountDao.findAllCardAccounts();
     }
+    public void  deleteCardAccountById(int id) {
+        cardAccountDao.deleteCardAccountById(id);
+    }
+    public void createaccount(String name,String address,String phone,String limit,String balance){
+        cardAccountDao.createaccount(name,address,phone,limit,balance);
+
+    }
+    public int getmax(){
+        return cardAccountDao.getmax();
+    }
+    public void  xxx() {
+        cardAccountDao.xxx();
+    }
+    public void  zzz() {
+        cardAccountDao.zzz();
+    }
 
     public CardAccount findCardAccountById(int id) {
         return cardAccountDao.findCardAccountById(id);
