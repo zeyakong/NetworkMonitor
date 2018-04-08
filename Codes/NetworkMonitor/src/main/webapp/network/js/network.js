@@ -102,7 +102,7 @@ function getNextIp(ip,destination,t){
             }, animationTimer*.60);
 
             setTimeout(function() {
-                setShapes(oldNode, newNode, t, data);
+                setColors(oldNode, newNode, t, data);
             }, animationTimer*.60);
         }
     });
@@ -170,7 +170,7 @@ function createNewTransaction(type,amount,start,card,currentIp,destination){
 }
 
 
-//##############################other functions#############################
+//##############################other functions#########################################################################
 $(document).ready(function () {
     getNetworkInfo();
     getTransactions();
@@ -178,7 +178,6 @@ $(document).ready(function () {
 
 
 var parsedData = vis.network.convertDot(networkDOT);
-// console.log(parsedData);
 var nodes = new vis.DataSet(parsedData.nodes);
 var edges = new vis.DataSet(parsedData.edges);
 var data = {
@@ -188,7 +187,6 @@ var data = {
 console.log(data);
 
 var container = document.getElementById('networkView');
-
 var options = parsedData.options;
 
 //retrieve the border color, options cant change it because of low priority.
@@ -242,7 +240,8 @@ var prepareMapWithTransactions = function() {
             n = nodes.get(ip.substr(10));
         }
 
-        n.shape = "star";
+        n.color.background = "#f44336";
+        n.color.border = '#2B7CE9';
         nodes.update(n);
     }
 };
@@ -263,13 +262,11 @@ network.on("click", function (params) {
         else {
             var edgeId = params.edges[0];
             var ip1, ip2, weight;
-            for (i = 0; i < parsedData.edges.length; i++) {
-                if (edgeId === parsedData.edges[i].id) {
-                    ip1 = parsedData.edges[i].from;
-                    ip2 = parsedData.edges[i].to;
-                    weight = parsedData.edges[i].label;
-                }
-            }
+
+            var edgeObj = edges._data[edgeId];
+            ip1 = edgeObj.from;
+            ip2 = edgeObj.to;
+            weight = edgeObj.label;
 
             //Check if the node is active or not
             var c;
@@ -298,45 +295,53 @@ network.on("click", function (params) {
     //IT IS ONE OF THE NODES
     else {
         var myNode = params.nodes[0];
+        var btnToggle;
+        var nodeIp = '192.168.0.' + myNode;
+        var nodeObj;
+        var isRelayStation = false;
+
+        //Is it the PCenter? If so alter relaystation menu and return
         if (myNode === 'Processing Center') { //PROCESSING CENTER
             $('#relayIp').html('Processing Center');
-            var x = document.getElementById('toggleRelay');
-            x.style.display = 'none';
+            btnToggle = document.getElementById('toggleRelay');
+            btnToggle.style.display = 'none';
             $('#relayModal').modal('show');
+            return;
         }
-        else if (myNode >= 200) {  //RELAY STATION
-            var x = document.getElementById('toggleRelay');
-            x.style.display = 'inline';
-            var stationIp = '192.168.0.' + myNode;
-            $('#relayIp').html(stationIp);
 
-            //Check if the node is active or not
-            var n;
-            var i;
-            for( i = 0; i < networkInfo.relayStations.length; i++ ) {
-                if( stationIp === networkInfo.relayStations[i].stationIp ) {
-                    n = networkInfo.relayStations[i];
-                }
+        //Check if its in the list of relay stations
+        //If found, get the relayStation object
+        for( var i = 0; i < networkInfo.relayStations.length; i++ ) {
+            if( nodeIp === networkInfo.relayStations[i].stationIp ) {
+                nodeObj = networkInfo.relayStations[i];
+                isRelayStation = true;
             }
-            if(n.isActive === 1){
-                document.getElementById("toggleRelay").style.backgroundColor = '#ff0000';
-                document.getElementById("toggleRelay").innerText = "Deactivate";
+        }
+
+        if ( isRelayStation === true ) {  //RELAY STATION
+            btnToggle = document.getElementById('toggleRelay');
+            btnToggle.style.display = 'inline';
+            $('#relayIp').html(nodeIp);
+
+            if(nodeObj.isActive === 1){
+                btnToggle.style.backgroundColor = '#ff0000';
+                btnToggle.innerText = "Deactivate";
             }
             else{
-                document.getElementById("toggleRelay").style.backgroundColor = '#00ff00';
-                document.getElementById("toggleRelay").innerText = "Activate";
+                btnToggle.style.backgroundColor = '#00ff00';
+                btnToggle.innerText = "Activate";
             }
-
             $('#relayModal').modal('show');
 
         }
-        else {                       //STORE
-            var storeIp = '192.168.0.' + myNode;
+        else {                          //STORE
+            //Get the store object
             for (i = 0; i < networkInfo.stores.length; i++) {
-                if (networkInfo.stores[i].storeIp === storeIp) {
-                    var storeName = networkInfo.stores[i].merchantName;
+                if ( nodeIp === networkInfo.stores[i].storeIp ) {
+                    nodeObj = networkInfo.stores[i];
                 }
             }
+            var storeName = nodeObj.merchantName;
             $('#storeNameOption').value = storeName;
             $('#storeNameOption').html(storeName + (' (Credit)'));
 
@@ -353,6 +358,7 @@ $('#btnNewTransaction').click(function () {
 });
 
 $('#btnSubmitTransaction').click(function () {
+    //Retrieve user entered values
     var cardName = document.getElementById('cardName').value;
     var cardNumber = document.getElementById('cardNumber').value;
     var securityCode = document.getElementById('securityCode').value;
@@ -367,17 +373,16 @@ $('#btnSubmitTransaction').click(function () {
             storeIp = networkInfo.stores[i].storeIp;
         }
     }
-    var destinationIp = "192.168.0.253"; //THE PROCESSING CENTER
 
     //This object contains both verification information needed for the credit card
     //and transaction information that will be logged in the database
     var transaction = {
         transactionInfo: {
            transactionType: transactionType,
-           transactionAmnount: transactionAmount,
+           transactionAmount: transactionAmount,
            cardId: cardNumber,
            currentPositionIp: storeIp,
-           currentDestinationIp: destinationIp
+           currentDestinationIp: pCenter
         },
         creditCardInfo: {
             cardId: cardNumber,
@@ -387,7 +392,7 @@ $('#btnSubmitTransaction').click(function () {
         }
     };
     console.log(transaction);
-    createNewTransaction(transactionType,transactionAmount,storeIp,cardNumber,storeIp,destinationIp);
+    createNewTransaction(transactionType,transactionAmount,storeIp,cardNumber,storeIp,pCenter);
     setTimeout(getTransactions, 250);
     setTimeout(prepareMapWithTransactions, 500);
 
@@ -415,6 +420,8 @@ $('#toggleConnection').click(function(){
 });
 
 //ANIMATION STUFF--------------------------------------------
+
+//Handle the play/pause button
 $('#toggle_button').click(function () {
     var button = document.getElementById("toggle_button");
 
@@ -462,23 +469,66 @@ var setConnectionWidth = function( connection, w ) {
     edges.update(connection);
 };
 
-var setShapes = function(oldNode, newNode, t, data) {
-    //CHANGE THE SHAPES
-    if(oldNode.id < 200 ) {
-        oldNode.shape = "ellipse";
-    }
-    else if(oldNode.id === "Processing Center"){
-        oldNode.shape = "square";
-    }
-    else{
-        oldNode.shape = "diamond";
-    }
-    newNode.shape = "star";
+//UPDATED THE GRAPH SHAPES --- DEPRICATED
+// var setShape = function(oldNode, newNode, t, data) {
+//     //CHANGE THE SHAPES
+//     if(oldNode.id < 200 ) {
+//         oldNode.shape = "ellipse";
+//     }
+//     else if(oldNode.id === "Processing Center"){
+//         oldNode.shape = "square";
+//     }
+//     else{
+//         oldNode.shape = "diamond";
+//     }
+//     newNode.shape = "star";
+//
+//     nodes.update(oldNode);
+//     nodes.update(newNode);
+//
+//     //update the transaction.
+//     if(data.substr(10) === '253'){
+//         updateTransaction(t.transactionId,"APPROVED",data, t.storeIp);
+//     }
+//     else if(t.transactionStatus === "PENDING"){
+//         updateTransaction(t.transactionId,"PENDING",data, pCenter);
+//     }
+//     else{
+//         updateTransaction(t.transactionId,"APPROVED",data, t.storeIp);
+//     }
+// };
 
+//UPDATE THE GRAPH WITH COLORS
+var setColors = function(oldNode, newNode, t, data) {
+    //Set the old colors back
+    for( var i = 0; i < networkInfo.relayStations.length; i++ ) {
+        var n = networkInfo.relayStations[i];
+        if( oldNode.label === "Processing Center") {
+            oldNode.color.background = getPresetColor(n.region);
+            oldNode.color.border = '#2B7CE9';
+        }
+        else if(oldNode.label === n.stationIp.substr(10)) {
+            oldNode.color.background = getPresetColor(n.region);
+            oldNode.color.border = '#2B7CE9';
+        }
+    }
+    for( var i = 0; i < networkInfo.stores.length; i++ ) {
+        var s = networkInfo.stores[i];
+        if(oldNode.label === s.storeIp.substr(10)) {
+            oldNode.color.background = getPresetColor(s.region);
+            oldNode.color.border = '#2B7CE9';
+        }
+    }
+    
+    //Set the new color
+    newNode.color.background = "#f44336";
+    newNode.color.border = "#2B7CE9";
+
+    //Update the nodes
     nodes.update(oldNode);
     nodes.update(newNode);
 
-    //update the transaction.
+    //Update the transaction.
     if(data.substr(10) === '253'){
         updateTransaction(t.transactionId,"APPROVED",data, t.storeIp);
     }
@@ -487,6 +537,40 @@ var setShapes = function(oldNode, newNode, t, data) {
     }
     else{
         updateTransaction(t.transactionId,"APPROVED",data, t.storeIp);
+    }
+};
+
+//GET A PRESET COLOR FOR THE GRAPH BASED ON REGION NUMBER
+var getPresetColor = function(i) {
+    var hGrey = "#CCCCCC";
+    var hCyan = "#00FFFF";
+    var hLGreen = "#99CC33";
+    var hYellow = "#FFFF00";
+    var hPink = "#FF66CC";
+    var hOrange = "#FF9900";
+    var hDGreen = "#006600";
+    var hBlue = "#0000FF";
+
+    i = i % 7;
+    switch(i) {
+        case 0 :
+            return hGrey;
+        case 1 :
+            return hCyan;
+        case 2 :
+            return hLGreen;
+        case 3 :
+            return hYellow;
+        case 4 :
+            return hPink;
+        case 5 :
+            return hOrange;
+        case 6 :
+            return hDGreen;
+        case 7 :
+            return hBlue;
+        default :
+            return hGrey;
     }
 };
 

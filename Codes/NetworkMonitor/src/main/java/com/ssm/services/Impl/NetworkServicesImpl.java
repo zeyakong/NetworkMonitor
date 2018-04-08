@@ -54,6 +54,43 @@ public class NetworkServicesImpl implements NetworkServices {
         return "#" + r + g + b;
     }
 
+    /*
+    @param i : the region 0-7
+    @return the hex color of that region
+     */
+    private String getPreSetColor( int i ) {
+        String hGrey = "#CCCCCC";
+        String hBlue = "#0000FF";
+        String hCyan = "#00FFFF";
+        String hLGreen = "#99CC33";
+        String hDGreen = "#006600";
+        String hYellow = "#FFFF00";
+        String hOrange = "#FF9900";
+        String hPink = "#FF66CC";
+
+        i = i % 7;
+        switch(i) {
+            case 0 :
+                return hGrey;
+            case 1 :
+                return hCyan;
+            case 2 :
+                return hLGreen;
+            case 3 :
+                return hYellow;
+            case 4 :
+                return hPink;
+            case 5 :
+                return hOrange;
+            case 6 :
+                return hDGreen;
+            case 7 :
+                return hBlue;
+            default :
+                return hGrey;
+        }
+    }
+
     public String generateDOT(Network network) {
         if (network == null)
             return "error";
@@ -63,12 +100,19 @@ public class NetworkServicesImpl implements NetworkServices {
         List<Store> stores = network.getStores();
         String startIp, endIp;
 
-        //generate the random color for each region
+
         Map<Integer, String> region = new HashMap();
-        for (int i = 0; i < relayStations.size(); i++) {
-            if (!region.containsKey(relayStations.get(i).getRegion())) {
-                region.put(relayStations.get(i).getRegion(), getRandomColor());
-            }
+
+        //generate random color for each region
+//        for (int i = 0; i < relayStations.size(); i++) {
+//            if (!region.containsKey(relayStations.get(i).getRegion())) {
+//                region.put(relayStations.get(i).getRegion(), getRandomColor());
+//            }
+//        }
+
+        //Generate Pre-Set Color For Each Region
+        for( int i = 0; i < 8; i++ ) {
+            region.put(i, getPreSetColor(i));
         }
 
         //find pCenter,default 256
@@ -102,6 +146,7 @@ public class NetworkServicesImpl implements NetworkServices {
         }
 
         //Add node beautification
+        //STORES
         for (int i = 0; i < stores.size(); i++) {
             Store s = stores.get(i);
             startIp = s.getStoreIp().substring(10);
@@ -109,18 +154,22 @@ public class NetworkServicesImpl implements NetworkServices {
             result += startIp + " [color=" + region.get(s.getRegion()) + "];";
         }
 
+        //RELAY STATIONS
         for (int i = 0; i < relayStations.size(); i++) {
             RelayStation rs = relayStations.get(i);
             startIp = rs.getStationIp().substring(10);
 
             //gateway decoration
             if (rs.getStationType() == 1) {
-                result += startIp + " [color=green, shape=diamond];";
+                //result += startIp + " [color=green, shape=diamond];";
+                result += startIp + " [color=" + region.get(rs.getRegion()) + ", shape=star];";
             } else if (startIp.equals(pCenter)) {
                 startIp = "\"Processing Center\"";
-                result += startIp + " [color=grey, shape=square];";
+                //result += startIp + " [color=grey, shape=square];";
+                result += startIp + " [color=" + region.get(rs.getRegion()) + ", shape=square];";
             } else
-                result += startIp + " [color=yellow, shape=diamond];";
+                //result += startIp + " [color=yellow, shape=diamond];";
+                result += startIp + " [color=" + region.get(rs.getRegion()) + ", shape=diamond];";
         }
 
         result = result + "}";
