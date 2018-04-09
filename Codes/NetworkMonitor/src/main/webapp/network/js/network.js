@@ -13,6 +13,76 @@ var animationTimer = 3000;
 var pCenter = "192.168.0.253";
 
 //##########################ajax functions##########################
+
+function createStore(ip,name,region){
+    $.ajax({
+        url: '/createStore',
+        method: 'POST',
+        data:{
+            ip:ip,
+            name:name,
+            region:region
+        },
+        success: function (data) {
+            console.log(data);
+        }
+    });
+}
+
+function createRelayStation(ip,status,type,region,limit){
+    $.ajax({
+        url: '/createRelayStation',
+        method: 'POST',
+        data:{
+            ip:ip,
+            status:status,
+            type:type,
+            region:region,
+            limit:limit
+        },
+        success: function (data) {
+            console.log(data);
+        }
+    });
+}
+
+//give javascript obj
+//return messgae: OK | ERROR
+function processingVerification(transactionInfo){
+    $.ajax({
+        url: '/processingVerification',
+        method: 'GET',
+        data:{
+            transactionInfo:transactionInfo
+        },
+        success: function (data) {
+            //OK | ERROR
+            console.log(data);
+            if(data=="OK"){
+
+            }else{
+
+            }
+        }
+    });
+}
+
+function changeCapacity(ip,newLimit){
+    $.ajax({
+        url: '/changeCapacity',
+        method: 'PUT',
+        data:{
+            ip:ip,
+            newLimit:newLimit
+        },
+        success: function (data) {
+            //OK | ERROR
+            console.log(data);
+        }
+    });
+}
+
+
 /**
  * get the whole network info
  */

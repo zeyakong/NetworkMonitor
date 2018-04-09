@@ -1,10 +1,7 @@
 <component name="ArtifactManager">
-  <artifact type="exploded-war" build-on-make="true" name="NetworkMonitor:war exploded">
+  <artifact type="war" build-on-make="true" name="NetworkMonitor:war exploded">
     <output-path>$PROJECT_DIR$/out/artifacts/NetworkMonitor_war_exploded</output-path>
-    <properties id="ant-preprocessing">
-      <options enabled="true" />
-    </properties>
-    <root id="root">
+    <root id="archive" name="NetworkMonitor_war exploded.war">
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
           <element id="module-output" name="NetworkMonitor" />
