@@ -590,9 +590,6 @@ var runAnimation = function() {
            var currentIp = transactions[i].currentPositionIp;
            var destinationIp = transactions[i].currentDestinationIp;
            var t = transactions[i];
-           //getNextIp('192.168.0.83', '192.168.0.253');
-           //console.log(currentIp);
-           //console.log(destinationIp);
            getNextIp(currentIp, destinationIp, t);
        }
       //console.log("Running");
