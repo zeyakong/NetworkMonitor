@@ -14,7 +14,7 @@ public class Transaction {
     private double transactionAmount;
     private String transactionStatus;
     private String storeIp;
-    private long cardId;
+    private String cardId;
     private String currentPositionIp;
     private String currentDestinationIp;
 
@@ -74,11 +74,11 @@ public class Transaction {
         this.storeIp = storeIp;
     }
 
-    public long getCardId() {
+    public String getCardId() {
         return cardId;
     }
 
-    public void setCardId(long cardId) {
+    public void setCardId(String cardId) {
         this.cardId = cardId;
     }
 

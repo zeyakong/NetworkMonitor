@@ -10,10 +10,10 @@
     	WHERE card_account = account_id AND account_id = #{accountId};
     	</select>
 
-	<select id="findcardbyid" resultType="CreditCard">
+	<select id="findCardById" resultType="CreditCard">
 		SELECT *
 		FROM credit_cards
-		WHERE card_account=#{i}
+		WHERE card_account=#{id}
 	</select>
 
 	<select id="findAllCreditCard" resultType="CreditCard">

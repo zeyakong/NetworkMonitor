@@ -20,7 +20,7 @@ public interface CreditCardDao {
     List<CreditCard> findCreditCardsByAccountId(@Param("accountId")int accountId);
     void deleteAccount(int i);
     void deleteCard(int id);
-    CreditCard findcardbyid(int i);
+    CreditCard findCardById(String id);
     int findAccountnumber(long id);
     void deleteCardnumber(long id);
     void createcard(@Param("cnumber")String cnumber,

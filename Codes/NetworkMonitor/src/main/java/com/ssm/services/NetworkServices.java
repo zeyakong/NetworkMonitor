@@ -33,4 +33,10 @@ public interface NetworkServices {
     List<Transaction> findAllTransactions();
 
     void setTransactionStartTime(int id);
+
+    void createStore(String ip,String name,int region);
+
+    void createRelayStation(String ip,String status,int type,int region,int limit);
+
+    void updateRelayStationLimit(String ip,int limit);
 }

@@ -21,6 +21,12 @@
 		WHERE account_id = #{id}
 	</select>
 
+	<update id="updateAccountBalanceById">
+		UPDATE
+		SET balance = new_balance
+		WHERE account_id = #{id}
+	</update>
+
 	<select id="xxx">
 		SET FOREIGN_KEY_CHECKS = 0;
 	</select>

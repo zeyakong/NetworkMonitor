@@ -7,20 +7,12 @@ import java.util.Date;
  * On 2018/1/31 15:49.
  */
 public class CreditCard {
-    private long cardId;
+    private String cardId;
     private String cardName;
-    private Date expirationDate;
+    private String expirationDate;
     private String securityCode;
-    private int cardAccount;
+    private String cardAccount;
 
-
-    public long getCardId() {
-        return cardId;
-    }
-
-    public void setCardId(long cardId) {
-        this.cardId = cardId;
-    }
 
     public String getCardName() {
         return cardName;
@@ -30,13 +22,6 @@ public class CreditCard {
         this.cardName = cardName;
     }
 
-    public Date getExpirationDate() {
-        return expirationDate;
-    }
-
-    public void setExpirationDate(Date expirationDate) {
-        this.expirationDate = expirationDate;
-    }
 
     public String getSecurityCode() {
         return securityCode;
@@ -46,11 +31,27 @@ public class CreditCard {
         this.securityCode = securityCode;
     }
 
-    public int getCardAccount() {
+    public String getCardId() {
+        return cardId;
+    }
+
+    public void setCardId(String cardId) {
+        this.cardId = cardId;
+    }
+
+    public String getExpirationDate() {
+        return expirationDate;
+    }
+
+    public void setExpirationDate(String expirationDate) {
+        this.expirationDate = expirationDate;
+    }
+
+    public String getCardAccount() {
         return cardAccount;
     }
 
-    public void setCardAccount(int cardAccount) {
+    public void setCardAccount(String cardAccount) {
         this.cardAccount = cardAccount;
     }
 

@@ -14,10 +14,33 @@ public interface CardAccountDao {
 
     List<CardAccount> findAllCardAccounts();
     CardAccount findCardAccountById(int id);
+    void updateAccountBalanceById(@Param("id")int id,@Param("new_balance")double nb);
+    double getBalanceById(@Param("id")int id);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     void xxx();
     void zzz();
  /*   void createaccount(String name,String address,int phone,double limit,double balance);*/
-  void createaccount(@Param("name")String name,
+    void createaccount(@Param("name")String name,
                            @Param("address")String address, @Param("limit")String limit,
                            @Param("phone")String phone, @Param("balance")String balance);
     void deleteCardAccountById(int id);

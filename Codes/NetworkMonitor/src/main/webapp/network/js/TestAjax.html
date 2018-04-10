@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--JQuery CDN-->
+    <script src="https://code.jquery.com/jquery-3.3.1.js"
+            integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+            crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <button onclick="createStore('2323','222',2)">create store</button>
+    <button onclick="processingVerification()">processingVerification</button>
+</head>
+<body>
+
+</body>
+<script>
+    function createStore(ip,name,region){
+        $.ajax({
+            url: '/createStore',
+            method: 'POST',
+            data:{
+                ip:ip,
+                name:name,
+                region:region
+            },
+            success: function (data) {
+                console.log(data);
+            }
+        });
+    }
+
+   var transactionInfo= {
+            transactionType:'tran type',
+            transactionAmount:'100.0',
+            cardId:'1231232133131',
+            currentPositionIp:'123332',
+            currentDestinationIp:'2323'
+    };
+
+    function processingVerification(){
+        $.ajax({
+            url: '/processingVerification',
+            method: 'POST',
+            contentType:"application/json;charset=utf-8",
+            data: JSON.stringify(transactionInfo),
+            success: function (data) {
+                //OK | ERROR
+                console.log(data);
+                if(data=="OK"){
+
+                }else{
+
+                }
+            }
+        });
+    }
+</script>
+</html>

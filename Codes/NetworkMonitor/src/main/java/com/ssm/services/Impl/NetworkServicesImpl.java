@@ -222,4 +222,16 @@ public class NetworkServicesImpl implements NetworkServices {
     public void setTransactionStartTime(int id) {
         transactionDao.setTransactionProcessedTime(id);
     }
+
+    public void createStore(String ip, String name, int region) {
+        storeDao.createStore(ip,name,region);
+    }
+
+    public void createRelayStation(String ip, String status, int type, int region,int limit) {
+        relayStationDao.createRelayStation(ip,type,region,limit);
+    }
+
+    public void updateRelayStationLimit(String ip, int limit) {
+        relayStationDao.updateRelayStationLimit(ip,limit);
+    }
 }

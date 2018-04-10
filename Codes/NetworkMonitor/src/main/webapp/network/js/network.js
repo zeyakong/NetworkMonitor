@@ -46,19 +46,34 @@ function createRelayStation(ip,status,type,region,limit){
     });
 }
 
-//give javascript obj
-//return messgae: OK | ERROR
+/**
+ this function will return a message (SUCCESS | ERROR | DENY)
+ SUCCESS: all info matched and the balance(only) was changed.(You should update the transaction later)
+ ERROR: INNER ERROR.(impossible I THINK,UNLESS YOU SEND A EMPTY TRANSACTION)
+ DENY: THE CARD NOT EXIST OR BALANCE IS WRONG....
+ PS: ALL the transaction type is UPPERCASE.
+       currentPositionIp: storeIp,[I DONT USE THIS]
+       currentDestinationIp: pCentercardId: cardNumber, [I DONT USE THIS]
+ * @param transactionInfo= {
+            transactionType: transactionType, [String]
+            transactionAmount: transactionAmount, [Double]
+            cardId: cardNumber, [String]
+            cardName: cardName,[String]
+            securityCode: securityCode,[int]
+            expirationDate: date [String]
+        }
+ */
 function processingVerification(transactionInfo){
     $.ajax({
         url: '/processingVerification',
-        method: 'GET',
-        data:{
-            transactionInfo:transactionInfo
-        },
+        method: 'POST',
+        contentType:"application/json;charset=utf-8",
+        data: JSON.stringify(transactionInfo),
         success: function (data) {
-            //OK | ERROR
+            //SUCCESS | DENY | ERROR
             console.log(data);
-            if(data=="OK"){
+            //uppercase
+            if(data=="SUCCESS"){
 
             }else{
 
