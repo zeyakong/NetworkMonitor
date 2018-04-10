@@ -26,8 +26,10 @@
           ./>
     <style>
         #message{
+            padding-bottom:25px;
             color: red;
             font-weight:bold;
+            font-size:30px;
         }
         h3{
             padding-top:35px;
@@ -82,36 +84,21 @@
             });
         });
 
-        function validatephone(mobile)
-        {
-            if(mobile.length==0)
-            {
-                $("#messagep").text("Cant been empty?");
-                return false;
-            }
-            var reg = /^[0-9]+$/;
-            if(mobile!=""&&!reg.test(mobile)){
-                $("#messagep").text("Must be Number!");
-                return false;
-            }
-
-
-        }
         function validatemobile(mobile)
         {
             if(mobile.length==0)
             {
-                $("#message").text("Security code cant been empty?");
+                $("#message").text("Security Code:Security code cant been empty?");
                 return false;
             }
             if(mobile.length!=3)
             {
-                $("#message").text("Security code should be 3!");
+                $("#message").text("Security Code:Security code should be 3!");
                 return false;
             }
             var reg = /^[0-9]+$/;
             if(mobile!=""&&!reg.test(mobile)){
-                $("#message").text("Must be Number!");
+                $("#message").text("Security Code:Must be Number!");
                 return false;
             }
 
@@ -121,44 +108,55 @@
         {
             if(mobile.length==0)
             {
-                $("#messagec").text("Cant been empty?");
+                $("#message").text("Card Number:Cant been empty?");
                 return false;
             }
             if(mobile.length!=14)
             {
-                $("#messagec").text("Card Number should be 16!");
+                $("#message").text("Card Number:Card Number should be 16!");
                 return false;
             }
             var reg = /^[0-9]+$/;
             if(mobile!=""&&!reg.test(mobile)){
-                $("#messagec").text("Must be Number!");
+                $("#message").text("Card Number:Must be Number!");
                 return false;
             }
 
 
         }
 
+        function validatenumber(mobile)
+        {
+
+            var reg = /^[0-9]+$/;
+            if(mobile!=""&&!reg.test(mobile)){
+                $("#message").text("Must be Number!");
+                return false;
+            }
+
+
+        }
         function validatemobile2(mobile)
         {
 
             if(mobile.length!=5)
             {
-                $("#message2").text("Invalid format")
-              return false;
+                $("#message").text("Expiration date:Invalid Date format(MM/YY)")
+                return false;
             }
 
 
 
         }
 
-       function validatename(name){
+        function validatename(name){
             if(name.length<2){
-                $("#messagen").text("Invalid format")
+                $("#message").text("Name:Invalid format(name should more than 2)")
             }
-           if(name.length>15){
-               $("#messagen").text("Invalid format")
-           }
-       }
+            if(name.length>15){
+                $("#message").text("Name:Invalid format(name should less than 15)")
+            }
+        }
 
 
 
