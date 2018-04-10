@@ -21,8 +21,11 @@ public interface CardAccountDao {
                            @Param("address")String address,@Param("phone")String phone, @Param("limit")String limit,
                             @Param("balance")String balance);
     void updatingaccounts(@Param("accountName")String accountName,
-                       @Param("accountAddress")String accountAddress,@Param("accountPhone")String accountPhone, @Param("limit")String limit,
-                       @Param("balance")String balance,@Param("accountId")int accountId);
+                       @Param("accountAddress")String accountAddress,
+                          @Param("accountPhone")String accountPhone,
+                          @Param("l")double limit,
+                       @Param("balance")double balance,
+                          @Param("accountId")int accountId);
     void deleteCardAccountById(int id);
     int getmax();
     void updateAccountBalanceById(@Param("id")int id,@Param("new_balance")double nb);

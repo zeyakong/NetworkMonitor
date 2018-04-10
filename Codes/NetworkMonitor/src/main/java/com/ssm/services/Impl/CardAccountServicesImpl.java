@@ -35,7 +35,12 @@ public class CardAccountServicesImpl implements CardAccountServices {
     public void updateAccountBalanceById(int id, double newb) {
         cardAccountDao.updateAccountBalanceById(id,newb);
     }
-    public void updatingaccounts(String accountName,String accountAddress,String accountPhone,String limit,String balance,int accountId){
+    public void updatingaccounts(String accountName,String accountAddress,String accountPhone,double limit,double balance,int accountId){
+
+        System.out.println("Service:      name = "+accountName+"==add ="+accountAddress+"======="+accountPhone+"===limit:=="+limit+"===="+balance+"====="+accountId
+        +"======id:"+accountId);
+
+
         cardAccountDao.updatingaccounts(accountName,accountAddress,accountPhone,limit,balance,accountId);
 
     }

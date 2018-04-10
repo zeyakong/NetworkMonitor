@@ -12,11 +12,6 @@
 		WHERE account_id = #{id}
 	</update>
 
-	<update id="updateAccount">
-		UPDATE card_accounts
-		SET balance = #{new_balance},
-		WHERE account_id = #{id}
-	</update>
 
 
 
@@ -66,11 +61,18 @@
 		VALUES(#{max},#{name},#{address},#{phone},#{limit},#{balance})
 	</insert>
 
+	<!--
+		  limit = #{l},-->
+
 
 	<update id="updatingaccounts">
 		UPDATE card_accounts
-		SET account_name=#{accountName},account_address=#{accountAddress},account_phone=#{accountPhone},limit=#{limit},balance=#{balance}
-		WHERE account_id=#{accountId}
+		SET account_name = #{accountName},
+		account_address = #{accountAddress},
+		account_phone = #{accountPhone},
+		`limit` = #{l},
+		balance = #{balance}
+		WHERE account_id = #{accountId}
 	</update>
 
 <!--

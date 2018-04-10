@@ -236,4 +236,63 @@ public class NetworkServicesImpl implements NetworkServices {
     public void updateRelayStationLimit(String ip, int limit) {
         relayStationDao.updateRelayStationLimit(ip,limit);
     }
+
+
+    //path algorithm
+    private List<String> findShortestPath(String start , String destination){
+        //generate graph with ip;
+        List<RelayStation> relayStations = relayStationDao.findAllRelayStations();
+        Set<String> graph = new HashSet<String>();
+        Set<String> openSet = new HashSet<String>();
+        Set<String> closeSet = new HashSet<String>();
+
+        graph.add(start);
+        graph.add(destination);
+
+        for(int i = 0 ;i<relayStations.size() ; i++){
+            RelayStation relayStation = relayStations.get(i);
+            graph.add(relayStation.getStationIp());
+        }
+
+        openSet.addAll(graph);
+
+        //add start into close set
+        closeSet.add(start);
+
+        //remove the node in openset
+        openSet.remove(start);
+
+        String startIndex =start;
+        String endIndex;
+
+        for(Iterator i =openSet.iterator();i.hasNext();) {//比较常规的for写法
+            endIndex = i.next()+"";
+            if(isNear(startIndex,endIndex)){
+
+            }
+            System.out.println(i.next());
+        }
+        return null;
+    }
+
+    private boolean isNear(String ip1, String ip2){
+        List<Connection>connections = connectionDao.findAllConnections();
+        List<String> next = new ArrayList<String>();
+        for(int i = 0 ;i<connections.size() ;i++){
+            Connection c = connections.get(i);
+            if(c.getIsActive()==1){
+                if(ip1.equals(c.getStartIp())&&c.getIsActive()==1){
+                    next.add(c.getEndIp());
+                }else if(ip1.equals(c.getEndIp())&&c.getIsActive()==1){
+                    next.add(c.getStartIp());
+                }
+            }
+        }
+        for(int i = 0 ;i<next.size() ; i++){
+            if(next.get(i).equals(ip2)){
+                return true;
+            }
+        }
+        return false;
+    }
 }

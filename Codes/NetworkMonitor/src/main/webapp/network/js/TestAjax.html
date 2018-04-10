@@ -9,7 +9,8 @@
     <title>Title</title>
     <button onclick="createStore('2323','222',2)">create store</button>
     <button onclick="processingVerification()">processingVerification</button>
-    <button onclick="changeCapacity('192.168.0.203','122')">processingVerification</button>
+    <button onclick="changeCapacity('192.168.0.203','122')">changeCapacity</button>
+    <button onclick="updateAccount('Kyle Van Allen', '2323',  '232',  '22.00',  '121',  2)">processingVerification</button>
 </head>
 <body>
 
@@ -68,6 +69,25 @@
             data:{
                 ip:ip,
                 newLimit:newLimit
+            },
+            success: function (data) {
+                //OK | ERROR
+                console.log(data);
+            }
+        });
+    }
+
+    function updateAccount(accountName, accountAddress,  accountPhone,  limit,  balance,  accountId){
+        $.ajax({
+            url: '/updatingaccounts',
+            method: 'POST',
+            data:{
+                accountName:accountName,
+                accountAddress:accountAddress,
+                accountPhone:accountPhone,
+                limit:limit,
+                balance:balance,
+                accountId:accountId
             },
             success: function (data) {
                 //OK | ERROR

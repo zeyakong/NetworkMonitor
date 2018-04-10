@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import java.util.List;
 
 /**
@@ -137,13 +139,11 @@ public class AccountController {
 
 
     @RequestMapping("/updatingaccounts")
-    public void updatingaccounts(String accountName,String accountAddress,String accountPhone,String limit,String balance,int accountId){
+    public void updatingaccounts(@RequestParam String accountName, @RequestParam String accountAddress,@RequestParam String accountPhone,@RequestParam double limit,@RequestParam double balance,@RequestParam int accountId){
         /*cardAccountServices.justdeleteCardAccountById(accountId);
         cardAccountServices.createaccount(accountId,accountName,accountAddress,accountPhone,limit,balance);*/
-        System.out.println("u22");
+        System.out.println("name = "+accountName+"==add ="+accountAddress+"======="+accountPhone+"====="+limit+"===="+balance+"====="+accountId);
         cardAccountServices.updatingaccounts(accountName, accountAddress,  accountPhone,  limit,  balance,  accountId);
     }
-
-
 
 }

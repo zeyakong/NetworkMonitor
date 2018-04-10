@@ -142,7 +142,7 @@ public class NetworkController {
         String cname = transactionInfo.getCardName();
         String scode = transactionInfo.getSecurityCode();
         String exdate = transactionInfo.getExpirationDate();
-        CreditCard creditCard = creditCardServices.findCardById(cardId);
+        CreditCard creditCard = creditCardServices.findCreditCardsByCardId(Long.parseLong(cardId));
         if (creditCard == null) {
             return "DENY";
         } else {

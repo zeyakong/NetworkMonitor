@@ -7,7 +7,7 @@ package com.ssm.entity;
 public class CardAccount {
     private String accountName;
     private String accountAddress;
-    private String accountId;
+    private int accountId;
     private String accountPhone;
     private double limit;
     private double balance;
@@ -28,11 +28,11 @@ public class CardAccount {
         this.accountAddress = accountAddress;
     }
 
-    public String getAccountId() {
+    public int getAccountId() {
         return accountId;
     }
 
-    public void setAccountId(String accountId) {
+    public void setAccountId(int accountId) {
         this.accountId = accountId;
     }
 

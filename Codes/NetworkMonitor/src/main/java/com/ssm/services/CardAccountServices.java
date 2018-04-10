@@ -16,7 +16,7 @@ public interface CardAccountServices {
     double getBalanceById(int id);
     void updateAccountBalanceById(int id, double newb);
     void createaccount(int max,String name,String address,String phone,String limit,String balance);
-    void updatingaccounts(String accountName,String accountAddress,String accountPhone,String limit,String balance,int accountId);
+    void updatingaccounts(String accountName,String accountAddress,String accountPhone,double limit,double balance,int accountId);
     int getmax();
     void xxx();
     void zzz();
