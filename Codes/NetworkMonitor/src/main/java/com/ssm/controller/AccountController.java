@@ -34,12 +34,51 @@ public class AccountController {
         return "accountDetail";
     }
 
+    @RequestMapping("/updateCardnumber")
+    public String updateCardnumber(long id,Model model){
+        CreditCard creditCard= creditCardServices.findCreditCardsByCardId(id);
+        model.addAttribute("creditCard",creditCard);
+        return "cardupdate";
+    }
+
+    @RequestMapping("/updateAccountnumber")
+    public String updateAccountnumber(int id,Model model){
+        CardAccount cardAccount = cardAccountServices.findCardAccountById(id);
+        model.addAttribute("cardAccount",cardAccount);
+        return "accountupdate";
+    }
+
+
+
+    @RequestMapping("/createcardpage")
+    public String createcardpage(){
+        return "cardedit";
+    }
+    @RequestMapping("/createaccountpage")
+    public String createaccountpage(){
+        return "accountedit";
+    }
+
+    @RequestMapping("/cardinfopage")
+    public String cardinfo(){
+        return "cardInfo";
+    }
+
+
+
+
+
+
+
+
+
+
     @RequestMapping("/deleteAccount")
     public String deleteAccount(int id,Model model){
-        cardAccountServices.xxx();
+      /*  cardAccountServices.xxx();*/
         creditCardServices.deleteCard(id);
         cardAccountServices.deleteCardAccountById(id);
-        cardAccountServices.zzz();
+       /* cardAccountServices.zzz();*/
         List<CardAccount> list;
         list =  cardAccountServices.findAllCardAccounts();
         if(list!=null){
@@ -64,60 +103,47 @@ public class AccountController {
         return "cardInfo";
     }
 
+
+
+
+
     @RequestMapping("/createaccount")
-    public String createaccount(String name,String address,String phone,String limit,String balance,String cnumber,String cname,String cdate,String ccode,Model model){
-
+    public void createaccount(String name,String address,String phone,String limit,String balance,long cnumber,String cname,String cdate,String ccode,Model model){
+        int max=cardAccountServices.getmax();
+        max++;
         System.out.println("1");
-        cardAccountServices.createaccount(name,address,phone,limit,balance);
-        int max=2;
-       /* String max = String.valueOf(max1);*/
-        creditCardServices.createcard(cnumber, cname, cdate, ccode, max);
-        System.out.println("2");
-        List<CardAccount> list;
-        list =  cardAccountServices.findAllCardAccounts();
-        if(list!=null){
-            for(int i = 0 ;i<list.size();i++){
-                System.out.println("----------------"+list.get(i));
-            }
-        }else System.out.println("---------------empty list!");
-        model.addAttribute("list",list);
-        return "accountInfo";
+        cardAccountServices.createaccount(max,name,address,phone,limit,balance);
+        System.out.println(name);
+        creditCardServices.createcards(cnumber, cname, cdate, ccode,max);
+
     }
 
-    @RequestMapping("/createcard")
-    public String createaccount1(String name,String cnumber,String cname,String cdate,String ccode,Model model){
-
-
-        int max=2;
-        /* String max = String.valueOf(max1);*/
-        creditCardServices.createcard(cnumber, cname, cdate, ccode, max);
-        System.out.println("2");
-        List<CardAccount> list;
-        list =  cardAccountServices.findAllCardAccounts();
-        if(list!=null){
-            for(int i = 0 ;i<list.size();i++){
-                System.out.println("----------------"+list.get(i));
-            }
-        }else System.out.println("---------------empty list!");
-        model.addAttribute("list",list);
-        return "accountInfo";
-    }
 
     @RequestMapping("/createcards")
-    public String createaccounts(String name,String cnumber,String cname,String cdate,String ccode,Model model){
+    public void createcards(long cnumber,String cname,String cdate,String ccode,int name){
 
-        int max=2;
         /* String max = String.valueOf(max1);*/
-        creditCardServices.createcards(cnumber, cname, cdate, ccode, max);
+        creditCardServices.createcards(cnumber, cname, cdate, ccode, name);
         System.out.println("2");
-        List<CardAccount> list;
-        list =  cardAccountServices.findAllCardAccounts();
-        if(list!=null){
-            for(int i = 0 ;i<list.size();i++){
-                System.out.println("----------------"+list.get(i));
-            }
-        }else System.out.println("---------------empty list!");
-        model.addAttribute("list",list);
-        return "accountInfo";
     }
+
+    @RequestMapping("/updatingcards")
+    public void updatingcards(long cnumber2,String cname2,String cdate2,String ccode2,int name2){
+           creditCardServices.justdeleteCardnumber(cnumber2);
+
+        creditCardServices.createcards(cnumber2, cname2, cdate2, ccode2, name2);
+        System.out.println("u22");
+    }
+
+
+    @RequestMapping("/updatingaccounts")
+    public void updatingaccounts(String accountName,String accountAddress,String accountPhone,String limit,String balance,int accountId){
+        /*cardAccountServices.justdeleteCardAccountById(accountId);
+        cardAccountServices.createaccount(accountId,accountName,accountAddress,accountPhone,limit,balance);*/
+        System.out.println("u22");
+        cardAccountServices.updatingaccounts(accountName, accountAddress,  accountPhone,  limit,  balance,  accountId);
+    }
+
+
+
 }

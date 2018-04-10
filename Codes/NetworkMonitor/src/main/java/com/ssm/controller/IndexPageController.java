@@ -24,6 +24,7 @@ public class IndexPageController {
     @RequestMapping("/cardInfo")
     public String cardInfo(Model model){
         List<CreditCard> list;
+        List<CreditCard> list2;
         list =  cardInfoServices.findAllCreditCard();
         if(list!=null){
             for(int i = 0 ;i<list.size();i++){
