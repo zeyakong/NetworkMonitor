@@ -105,6 +105,11 @@
     function deleteAccount(id){
         window.location.href="deleteAccount.action?id="+id;
     }
+    function updateAccount(id) {
+        console.log("43");
+        window.location.href = "updateAccountnumber.action?id=" + id;
+        console.log("44");
+    }
     function ShowDiv(show_div,bg_div){
         document.getElementById(show_div).style.display='block';
         document.getElementById(bg_div).style.display='block' ;
@@ -119,6 +124,21 @@
         document.getElementById(show_div).style.display='none';
         document.getElementById(bg_div).style.display='none';
     };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 </script>
     <script src="js/jquery.min.js"></script>
@@ -184,7 +204,7 @@
                             </a> --%></td>
                     <td class="resp-tab-item" aria-controls="tab_item-0" role="tab" style="width:100px;height:50px;">
                         <div class="sign-up" style="width:100px;height:50px;">
-                            <input type="freeze" class="submit-btn" value="Edit" id="edit"
+                            <input type="freeze" class="submit-btn" value="Edit" id="edit"  onclick=" updateAccount('${ac.accountId}')"
                                    style="text-align: center; width:100px;height:50px;">
                         </div>
                     </td>
@@ -202,7 +222,7 @@
 
         <div class="sign-up" style="width:260px;height:80px;margin:0px auto;">
             <input type="submit" class="submit-btn" id="Create" value="Create a New account"
-                   style="width:260px;height:80px;" onclick=" ShowDiv('MyDiv','fade')">
+                   style="width:260px;height:80px;" onclick='window.location.href="createaccountpage.action"'>
         </div>
 
 
@@ -210,7 +230,7 @@
 </div>
 
 <!--start-copyright-->
-
+<%--
 <div id="fade" class="black_overlay">
 </div>
 <div id="MyDiv" class="white_content">
@@ -280,7 +300,7 @@
             </div>
         </div>
     </form>
-</div>
+</div>--%>
 
 
 
