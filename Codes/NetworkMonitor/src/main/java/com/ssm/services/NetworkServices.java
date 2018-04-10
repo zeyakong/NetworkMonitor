@@ -41,5 +41,7 @@ public interface NetworkServices {
 
     void createRelayStation(String ip,String status,int type,int region,int limit);
 
+    void createConnection(String start_ip, String end_ip, int is_active, int weight);
+
     void updateRelayStationLimit(String ip,int limit);
 }

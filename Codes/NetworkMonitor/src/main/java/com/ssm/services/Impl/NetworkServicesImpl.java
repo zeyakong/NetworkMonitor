@@ -233,6 +233,10 @@ public class NetworkServicesImpl implements NetworkServices {
         relayStationDao.createRelayStation(ip,type,region,limit);
     }
 
+    public void createConnection(String start_ip, String end_ip, int is_active, int weight){
+        connectionDao.createConnection(start_ip, end_ip, is_active, weight);
+    }
+
     public void updateRelayStationLimit(String ip, int limit) {
         relayStationDao.updateRelayStationLimit(ip,limit);
     }

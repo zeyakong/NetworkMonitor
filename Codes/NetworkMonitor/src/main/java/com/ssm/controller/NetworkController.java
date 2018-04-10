@@ -122,6 +122,13 @@ public class NetworkController {
         return "OK";
     }
 
+    @RequestMapping(value = "createConnection", method = RequestMethod.POST)
+    public @ResponseBody
+    String createConnection(@RequestParam String start_ip, @RequestParam String end_ip, @RequestParam int is_active, @RequestParam int weight) {
+        networkServices.createConnection(start_ip, end_ip, is_active, weight);
+        return "OK";
+    }
+
     @RequestMapping(value = "changeCapacity", method = RequestMethod.POST)
     public @ResponseBody
     String changeCapacity(String ip,Integer newLimit) {

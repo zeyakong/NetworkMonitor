@@ -25,6 +25,17 @@ function createStore(ip,name,region){
         },
         success: function (data) {
             console.log(data);
+            var newStore = {
+                id: ip.substr(10),
+                label: ip.substr(10),
+                color:{
+                    background: getPresetColor(region),
+                    border: "#2B7CE9",
+                    highlight: "#99CC33"
+                }
+            };
+            nodes.add(newStore);
+            getNetworkInfo();
         }
     });
 }
@@ -42,6 +53,44 @@ function createRelayStation(ip,status,type,region,limit){
         },
         success: function (data) {
             console.log(data);
+            var newRelay = {
+                id: ip.substr(10),
+                label: ip.substr(10),
+                shape: "diamond",
+                color:{
+                    background: getPresetColor(region),
+                    border: "#2B7CE9",
+                    highlight: "#99CC33"
+                }
+            };
+            nodes.add(newRelay);
+            getNetworkInfo();
+        }
+    });
+}
+
+function createConnection(start_ip,end_ip,is_active,weight) {
+    $.ajax({
+        url: '/createConnection',
+        method: 'POST',
+        data:{
+            start_ip: start_ip,
+            end_ip: end_ip,
+            is_active: is_active,
+            weight: weight
+        },
+        success: function(data) {
+            console.log(data);
+            var newConnection ={
+                to: end_ip.substr(10),
+                from: start_ip.substr(10),
+                label: weight,
+                color:{
+                    color: "#2B7CE9",
+                }
+            };
+            edges.add(newConnection);
+            getNetworkInfo();
         }
     });
 }
@@ -875,13 +924,88 @@ var fillRelayStoreTable = function(region) {
 //ADD STORE
 $('#addStoreButton').click(function() {
     var table = document.getElementById("storeRelayTable");
-    console.log(table.rows.length);
-    //table.deleteRow(0);
+
+    //Add store
+    var region = $('#newStoreRegion option:selected').text();
+    var ip = document.getElementById('newStoreIp').value;
+    var name = document.getElementById('newStoreName').value;
+
+    //Verification
+    var exists = nodes.get(ip.substr(10));
+    console.log(exists);
+    if( name != "" ) {
+        if(!exists) {
+            //Add store
+            createStore(ip,name,region);
+
+            //Add connection for every relay station connected
+            for( var r = 1, n = table.rows.length; r < n; r++ ) {
+                var checkbox = table.rows[r].cells[2].childNodes[0];
+                if( checkbox.checked ) {
+                    //THE ROW IS SELECTED
+                    var nodeIp = table.rows[r].cells[0].childNodes[0];
+                    var weight = table.rows[r].cells[1].childNodes[0];
+                    createConnection(ip,nodeIp,1,weight);
+                }
+            }
+            $('#addStoreModal').modal('hide');
+        }
+        else{
+            alert("This Ip is being used by another store or relay station!");
+        }
+    }
+    else{
+        alert("Name must contain a value!");
+    }
 });
 
 //ADD Relay
 $('#addRelayButton').click(function() {
+    var relayTable = document.getElementById("relayRelayTable");
+    var storeTable = document.getElementById("relayStoreTable");
 
+    //Add Relay Station
+    var region = $('#newRelayRegion option:selected').text();
+    var ip = document.getElementById('newRelayIp').value;
+    var limit = document.getElementById('newRelayLimit').value;
+
+    //Verification
+    var exists = nodes.get(ip.substr(10));
+    if( !(limit < 0) ) {
+        if(!exists){
+            //Add Relay Station
+            createRelayStation(ip,1,0,region,limit);
+
+            //Add connection for every relay station connected
+            for( var r = 1, n = relayTable.rows.length; r < n; r++ ) {
+                var checkbox = relayTable.rows[r].cells[2].childNodes[0];
+                if( checkbox.checked ) {
+                    //THE ROW IS SELECTED
+                    var nodeIp = relayTable.rows[r].cells[0].childNodes[0];
+                    var weight = relayTable.rows[r].cells[1].childNodes[0];
+                    createConnection(ip,nodeIp,1,weight);
+                }
+            }
+
+            //Add connection for every store connected
+            for( var r = 1, n = storeTable.rows.length; r < n; r++ ) {
+                var checkbox = storeTable.rows[r].cells[2].childNodes[0];
+                if( checkbox.checked ) {
+                    //THE ROW IS SELECTED
+                    var nodeIp = storeTable.rows[r].cells[0].childNodes[0];
+                    var weight = storeTable.rows[r].cells[1].childNodes[0];
+                    createConnection(ip,nodeIp,1,weight);
+                }
+            }
+            $('#addRelayModal').modal('hide');
+        }
+        else{
+            alert("This Ip is being used by another store or relay station!");
+        }
+    }
+    else{
+        alert("The limit should be a positive value or 0!");
+    }
 });
 
 //ANIMATION STUFF--------------------------------------------
