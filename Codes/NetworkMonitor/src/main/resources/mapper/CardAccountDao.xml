@@ -4,22 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ssm.dao.CardAccountDao">
 
-	<select id="findAllCardAccounts" resultType="CardAccount">
-	SELECT *
-	FROM card_accounts
-	</select>
 
-	<select id="findCardAccountById" resultType="CardAccount">
-		SELECT *
-		FROM card_accounts
-		WHERE account_id = #{id}
-	</select>
-
-	<select id="deleteCardAccountById" resultType="CardAccount">
-		DELETE
-		FROM card_accounts
-		WHERE account_id = #{id}
-	</select>
 
 	<update id="updateAccountBalanceById">
 		UPDATE card_accounts
@@ -33,6 +18,40 @@
 		WHERE account_id = #{id}
 	</update>
 
+
+
+
+
+
+
+
+
+
+
+
+	<select id="findAllCardAccounts" resultType="CardAccount">
+	SELECT *
+	FROM card_accounts
+	</select>
+
+	<select id="findCardAccountById" resultType="CardAccount">
+		SELECT *
+		FROM card_accounts
+		WHERE account_id = #{id}
+	</select>
+
+	<select id="getmax" resultType="int">
+		SELECT max(account_id)
+		FROM card_accounts
+	</select>
+
+	<select id="deleteCardAccountById" resultType="CardAccount">
+		DELETE
+		FROM card_accounts
+		WHERE account_id = #{id}
+	</select>
+
+
 	<select id="xxx">
 		SET FOREIGN_KEY_CHECKS = 0;
 	</select>
@@ -41,10 +60,27 @@
 		SET FOREIGN_KEY_CHECKS = 1;
 	</select>
 
+
 	<insert id="createaccount">
 		INSERT INTO card_accounts (account_id,account_name,account_address,account_phone,`limit`,balance)
+		VALUES(#{max},#{name},#{address},#{phone},#{limit},#{balance})
+	</insert>
+
+
+	<update id="updatingaccounts">
+		UPDATE card_accounts
+		SET account_name=#{accountName},account_address=#{accountAddress},account_phone=#{accountPhone},limit=#{limit},balance=#{balance}
+		WHERE account_id=#{accountId}
+	</update>
+
+<!--
+	<insert id="createaccount">
+		INSERT INTO card_accounts (account_name,account_address,account_phone,`limit`,balance)
 		VALUES("2","Xianrui Zhu","eagle hall","4335095","1000","1000")
 	</insert>
+-->
+
+
 
 	<!--<select id="getmax">
 		SELECT MAX(account_id) FROM card_accounts;

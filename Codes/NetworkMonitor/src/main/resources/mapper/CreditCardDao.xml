@@ -4,16 +4,41 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ssm.dao.CreditCardDao">
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     	<select id="findCreditCardsByAccountId" resultType="CreditCard">
     	SELECT card_id, card_name, expiration_date, security_code, card_account
     	FROM credit_cards natural join card_accounts
     	WHERE card_account = account_id AND account_id = #{accountId};
     	</select>
 
-	<select id="findCardById" resultType="CreditCard">
+    <select id="findCreditCardsByCardId" resultType="CreditCard">
+        SELECT card_id, card_name, expiration_date, security_code, card_account
+        FROM credit_cards
+        WHERE  card_id = #{cardId};
+    </select>
+
+
+	<select id="findcardbyid" resultType="CreditCard">
 		SELECT *
 		FROM credit_cards
-		WHERE card_id=#{id}
+		WHERE card_account=#{i}
 	</select>
 
 	<select id="findAllCreditCard" resultType="CreditCard">
@@ -51,7 +76,22 @@
 
 	<insert id="createcards">
 		INSERT INTO credit_cards(card_id, card_name, expiration_date, security_code, card_account)
-		VALUES("2222222222222222","Xianrui Zhu","2019-05-31","321","2")
+		/*VALUES("2222222222222222","Xianrui Zhu","2019-05-31","321","2")*/
+		VALUES(#{cnumber},#{cname},#{cdate},#{ccode},#{name})
 	</insert>
+
+<!--	<insert id="updatingcards">
+		INSERT INTO credit_cards(card_id, card_name, expiration_date, security_code, card_account)
+		VALUES("2222222222222222","Xianrui Zhu","2019-05-31","321","2")
+		 /*,card_account=#{name2}*/
+	</insert>-->
+
+
+        <update id="updatingcards">
+            UPDATE `credit_cards`
+            SET `card_name=`'xianruizhu4',`expiration_date`='2018-05-31',`security_code`='111',`card_account`='1'
+            WHERE `card_id`='1234123412341234';
+        </update>
+
 
 </mapper>
