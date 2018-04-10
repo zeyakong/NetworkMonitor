@@ -142,7 +142,7 @@ public class NetworkServicesImpl implements NetworkServices {
             if (endIp.equals(pCenter))
                 endIp = "\"Processing Center\"";
 
-            result += startIp + " -- " + endIp + "[ id="+c.getConnectionId()+",label=\"" + c.getWeight() + "\"];";
+            result += startIp + " -- " + endIp + "[ id="+c.getConnectionId()+",label=\"" + c.getWeight() + "\",color=\"#2B7CE9\"];";
         }
 
         //Add node beautification
@@ -207,8 +207,8 @@ public class NetworkServicesImpl implements NetworkServices {
         relayStationDao.updateRelayStationActive(ip);
     }
 
-    public void createTransaction(String transaction_type, double transaction_amount, String store_ip, String card_id, String current_position_ip, String current_destination_ip) {
-        transactionDao.createTransaction(transaction_type,transaction_amount,store_ip,card_id,current_position_ip,current_destination_ip);
+    public void createTransaction(String transaction_type, double transaction_amount, String store_ip, String card_id, String current_position_ip, String current_destination_ip, String given_card_name, String given_card_date, String given_card_code) {
+        transactionDao.createTransaction(transaction_type,transaction_amount,store_ip,card_id,current_position_ip,current_destination_ip, given_card_name, given_card_date, given_card_code);
     }
 
     public void updateTransaction(int transaction_id, String status, String current_position_ip, String current_destination_ip) {

@@ -17,7 +17,11 @@ public interface TransactionDao {
                            @Param("store_ip") String store_ip,
                            @Param("card_id") String card_id,
                            @Param("current_position_ip") String current_position_ip,
-                           @Param("current_destination_ip") String current_destination_ip);
+                           @Param("current_destination_ip") String current_destination_ip,
+                           @Param("given_card_name") String given_card_name,
+                           @Param("given_card_date") String given_card_date,
+                           @Param("given_card_code") String given_card_code);
+
     void updateTransaction(@Param("transaction_id") int transaction_id,
                            @Param("status") String transaction_status,
                            @Param("current_position") String current_position_ip,

@@ -66,9 +66,9 @@ public class NetworkController {
     }
 
     @RequestMapping("/createNewTransaction")
-    public @ResponseBody String createNewTransaction(Date transaction_date_sent, String transaction_type, double transaction_amount, String store_ip, String card_id, String current_position_ip, String current_destination_ip){
+    public @ResponseBody String createNewTransaction(Date transaction_date_sent, String transaction_type, double transaction_amount, String store_ip, String card_id, String current_position_ip, String current_destination_ip, String given_card_name, String given_card_date, String given_card_code){
         try{
-            networkServices.createTransaction(transaction_type,transaction_amount,store_ip,card_id,current_position_ip,current_destination_ip);
+            networkServices.createTransaction(transaction_type,transaction_amount,store_ip,card_id,current_position_ip,current_destination_ip, given_card_name, given_card_date, given_card_code);
         }catch (Exception e){
             return "error";
         }

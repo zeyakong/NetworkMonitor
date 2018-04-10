@@ -26,7 +26,10 @@ public interface NetworkServices {
                            String store_ip,
                            String card_id,
                            String current_position_ip,
-                           String current_destination_ip);
+                           String current_destination_ip,
+                           String given_card_name,
+                           String given_card_date,
+                           String given_card_code);
 
     void updateTransaction(int transaction_id, String status, String current_position_ip, String current_destination_ip);
 
