@@ -11,9 +11,11 @@ import java.util.List;
 public interface CreditCardServices {
     List<CreditCard> findAllCreditCard();
     List<CreditCard> findCreditCardsByAccountId(int id);
-    CreditCard findCardById(String id);
+    CreditCard findCreditCardsByCardId(long id);
     void deleteCard(int id);
     void deleteCardnumber(long id);
-    void createcard(String cnumber,String cname,String cdate,String ccode,int max);
-    void createcards(String cnumber,String cname,String cdate,String ccode,int max);
+    void justdeleteCardnumber(long id);
+    void createcards(long cnumber,String cname,String cdate,String ccode,int name);
+    void updatingcards(long cnumber2,String cname2,String cdate2,String ccode2,int name2);
+
 }
