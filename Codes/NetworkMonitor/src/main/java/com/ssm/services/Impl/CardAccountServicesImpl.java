@@ -22,20 +22,23 @@ public class CardAccountServicesImpl implements CardAccountServices {
     public void  deleteCardAccountById(int id) {
         cardAccountDao.deleteCardAccountById(id);
     }
+    public void  justdeleteCardAccountById(int id) {
+        cardAccountDao.deleteCardAccountById(id);
+    }
+    public void createaccount(int max,String name,String address,String phone,String limit,String balance){
+        cardAccountDao.createaccount(max,name,address,phone,limit,balance);
 
+    }
     public double getBalanceById(int id) {
         return cardAccountDao.getBalanceById(id);
     }
-
-    public void createaccount(String name,String address,String phone,String limit,String balance){
-        cardAccountDao.createaccount(name,address,phone,limit,balance);
-
-    }
-
     public void updateAccountBalanceById(int id, double newb) {
         cardAccountDao.updateAccountBalanceById(id,newb);
     }
+    public void updatingaccounts(String accountName,String accountAddress,String accountPhone,String limit,String balance,int accountId){
+        cardAccountDao.updatingaccounts(accountName,accountAddress,accountPhone,limit,balance,accountId);
 
+    }
     public int getmax(){
         return cardAccountDao.getmax();
     }
