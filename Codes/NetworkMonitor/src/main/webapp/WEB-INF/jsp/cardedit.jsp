@@ -82,6 +82,21 @@
             });
         });
 
+        function validatephone(mobile)
+        {
+            if(mobile.length==0)
+            {
+                $("#messagep").text("Cant been empty?");
+                return false;
+            }
+            var reg = /^[0-9]+$/;
+            if(mobile!=""&&!reg.test(mobile)){
+                $("#messagep").text("Must be Number!");
+                return false;
+            }
+
+
+        }
         function validatemobile(mobile)
         {
             if(mobile.length==0)
@@ -102,26 +117,48 @@
 
 
         }
-
-
-        function validatemobile2(mobile)
+        function validatecard(mobile)
         {
-
-            if(mobile.length!=5)
+            if(mobile.length==0)
             {
-                $("#message").text("Invalid format")
-              return false;
+                $("#messagec").text("Cant been empty?");
+                return false;
+            }
+            if(mobile.length!=14)
+            {
+                $("#messagec").text("Card Number should be 16!");
+                return false;
             }
             var reg = /^[0-9]+$/;
             if(mobile!=""&&!reg.test(mobile)){
-                $("#message").text("Must be Number!");
+                $("#messagec").text("Must be Number!");
                 return false;
             }
 
 
         }
 
+        function validatemobile2(mobile)
+        {
 
+            if(mobile.length!=5)
+            {
+                $("#message2").text("Invalid format")
+              return false;
+            }
+
+
+
+        }
+
+       function validatename(name){
+            if(name.length<2){
+                $("#messagen").text("Invalid format")
+            }
+           if(name.length>15){
+               $("#messagen").text("Invalid format")
+           }
+       }
 
 
 
@@ -149,10 +186,10 @@
             <div class="tab-2 resp-tab-content" aria-labelledby="tab_item-1">
                 <div class="facts">
                     <div class="register">
-                        <h3>Account ID:<input placeholder="Related account number" id="name" class="lock"   type="text" required="" ></h3>
-                        <h3>Card Number:<input placeholder="XXXX-XXXX-XXXX-XXXX" id="cnumber" class="mail" type="text" required="" ></h3>
-                        <h3>Card Owner:<input placeholder="The length of name must be between 2 to 15" id="cname" class="lock" type="text" required=""  ></h3>
-                        <h3>Expiration date:<input placeholder="MM/YY" id="cdate" class="lock" type="text" required=""  onblur="validatemobile2(this.value)" onfocus='$("#message2").text("");'></h3>
+                        <h3>Account ID:<input placeholder="Related account number" id="name" class="lock"   type="text" required="" onblur="validatephone(this.value)"  onfocus='$("#messagep").text("");'></h3>
+                        <h3>Card Number:<input placeholder="XXXX-XXXX-XXXX-XXXX" id="cnumber" class="mail" type="text" required="" onblur="validatecard(this.value)"  onfocus='$("#messagec").text("");'   ></h3>
+                        <h3>Card Owner:<input placeholder="The length of name must be between 2 to 15" id="cname" class="lock" type="text" required=""  onblur="validatename(this.value)"  onfocus='$("#messagen").text("");' ></h3>
+                        <h3>Expiration date:<input placeholder="MM/YY" id="cdate" class="lock" type="text" required="" onblur="validatemobile2(this.value)"  onfocus='$("#message2").text("");'></h3>
                         <h3>Sercurity Code:<input placeholder="NNN" id="ccode" class="mail" onblur="validatemobile(this.value)" onfocus='$("#message").text("");' type="text" required="" ></h3>
                         <div class="sign-up">
                             <p id="message"></p>
