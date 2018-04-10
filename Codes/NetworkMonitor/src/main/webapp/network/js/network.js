@@ -888,6 +888,7 @@ $('#addRelay').click(function() {
     region.add(option);
 
     //region.selecedIndex = -1;
+    //Possible make index not 1?
 
     $('#addRelayModal').modal('show');
 });
