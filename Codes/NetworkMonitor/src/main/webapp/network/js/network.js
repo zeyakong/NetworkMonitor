@@ -86,7 +86,7 @@ function processingVerification(transactionInfo){
 function changeCapacity(ip,newLimit){
     $.ajax({
         url: '/changeCapacity',
-        method: 'PUT',
+        method: 'POST',
         data:{
             ip:ip,
             newLimit:newLimit

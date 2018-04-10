@@ -178,6 +178,7 @@ public class NetworkServicesImpl implements NetworkServices {
 
     //path algorithm
     public String getNextIp(String startIp,String destination) {
+
         List<Connection> list = connectionDao.findAllConnections();
         List<String> next = new ArrayList<String>();
         if(startIp.equals(destination)){
@@ -193,7 +194,8 @@ public class NetworkServicesImpl implements NetworkServices {
                 }
             }
         }
-        //get random
+
+        //get good next ip
         Collections.shuffle(next);
         if(next!=null)return next.get(0);
         else return startIp;
