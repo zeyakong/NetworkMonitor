@@ -45,8 +45,8 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Network<span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a >Add a Store</a></li>
-                        <li><a >Add a Relay Station/GateWay</a></li>
+                        <li><a id="addStore">Add a Store</a></li>
+                        <li><a id="addRelay">Add a Relay Station/GateWay</a></li>
                     </ul>
                 </li>
             </ul>
@@ -181,8 +181,8 @@
                     <div class="form-group">
                         <label>Transaction Type</label>
                         <select class="form-control" id="transactionType">
-                            <option id="storeNameOption" value="store">Store</option>
-                            <option value="SELF">Self (Debit)</option>
+                            <option id="storeNameOption" value="CREDIT">CREDIT</option>
+                            <option value="DEBIT">DEBIT</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -265,6 +265,125 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn" style="background-color: red" id="toggleConnection">Deactivate</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--------------------------------->
+<!-- THIS IS ADD STORE CODE -->
+<div class="modal fade" id="addStoreModal">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add A Store</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+            <form id="addStoreFormOne">
+                <div class="form-group">
+                    <label>Store Ip</label>
+                    <input type="text" class="form-control" placeholder="Unique Ip" id="newStoreIp">
+                </div>
+                <div class="form-group">
+                    <label>Store Name</label>
+                    <input type="text" class="form-control" placeholder="Name" id="newStoreName">
+                </div>
+                <div class="form-group">
+                    <label>Region</label>
+                    <select class="form-control" id="newStoreRegion">
+                    </select>
+                </div>
+            </form>
+            </div>
+            <div class = "modal-body">
+                <table class="table table-striped table-bordered" style="table-layout: fixed; word-wrap: break-word;" id="storeRelayTable">
+                    <tbody id="myStoreTBody">
+                    <tr>
+                        <th>RelayIp</th>
+                        <th>Weight</th>
+                        <th>Selected</th>
+                    </tr>
+                    <%--<tr>--%>
+                        <%--<td>192.168.0.000</td>--%>
+                        <%--<td>5</td>--%>
+                        <%--<td><input type="checkbox" id="check1"></td>--%>
+                    <%--</tr>--%>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn" style="background-color: red" id="addStoreButton">Submit</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--------------------------------->
+<!-- THIS IS ADD RELAY CODE -->
+<div class="modal fade" id="addRelayModal">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add A RelayStation</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="addRelayFormOne">
+                    <div class="form-group">
+                        <label>Relay Ip</label>
+                        <input type="text" class="form-control" placeholder="Unique Ip" id="newRelayIp">
+                    </div>
+                    <div class="form-group">
+                        <label>Transaction Limit</label>
+                        <input type="number" class="form-control" placeholder="Limit" id="newRelayLimit">
+                    </div>
+                    <div class="form-group">
+                        <label>Region</label>
+                        <select class="form-control" id="newRelayRegion">
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class = "modal-body">
+                <form id="addRelayFormTwo" class="form-inline">
+                    <table class="table table-striped table-bordered" style="table-layout: fixed; word-wrap: break-word;" id="relayRelayTable">
+                        <tbody id="myRelayTBody">
+                        <tr>
+                            <th>RelayIp</th>
+                            <th>Weight</th>
+                            <th>Selected</th>
+                        </tr>
+                        <%--<tr>--%>
+                            <%--<td>192.168.0.000</td>--%>
+                            <%--<td>5</td>--%>
+                            <%--<td><input type="checkbox" id="check1"></td>--%>
+                        <%--</tr>--%>
+                        </tbody>
+                    </table>
+                    <table class="table table-striped table-bordered" style="table-layout: fixed; word-wrap: break-word;" id="relayStoreTable">
+                        <tbody id="myRelayTBody2">
+                        <tr>
+                            <th>StoreIp</th>
+                            <th>Weight</th>
+                            <th>Selected</th>
+                        </tr>
+                        <%--<tr>--%>
+                            <%--<td>192.168.0.000</td>--%>
+                            <%--<td>5</td>--%>
+                            <%--<td><input type="checkbox" id="check1"></td>--%>
+                        <%--</tr>--%>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn" style="background-color: red" id="addRelayButton">Submit</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
         </div>

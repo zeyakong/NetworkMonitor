@@ -63,21 +63,40 @@ function createRelayStation(ip,status,type,region,limit){
             expirationDate: date [String]
         }
  */
-function processingVerification(transactionInfo){
+// function processingVerification(transactionInfo){
+//     $.ajax({
+//         url: '/processingVerification',
+//         method: 'POST',
+//         data:{
+//             transactionInfo:transactionInfo
+//         },
+//         success: function (data) {
+//             //OK | ERROR
+//             console.log(data);
+//             if(data=="OK"){
+//                 //Update transaction with Approved
+//                 updateTransaction(transactionInfo.transactionId,"APPROVED",data, t.storeIp);
+//             }else if(data=="DENY"){
+//                 updateTransaction(transactionInfo.transactionId,"DENIED",data, t.storeIp);
+//             }
+//         }
+//     });
+// }
+
+function processingVerification(transactionInfo) {
+    console.log(transactionInfo);
     $.ajax({
         url: '/processingVerification',
         method: 'POST',
-        data:{
-            transactionInfo:transactionInfo
-        },
+        contentType: "application/json;charset=utf-8",
+        data: JSON.stringify(transactionInfo),
         success: function (data) {
             //OK | ERROR
             console.log(data);
-            if(data=="OK"){
-                //Update transaction with Approved
-                updateTransaction(transactionInfo.transactionId,"APPROVED",data, t.storeIp);
-            }else if(data=="DENY"){
-                updateTransaction(transactionInfo.transactionId,"DENIED",data, t.storeIp);
+            if (data == "OK") {
+                updateTransaction(transactionInfo.transactionId, "APPROVED", pCenter, transactionInfo.storeIp);
+            } else {
+                updateTransaction(transactionInfo.transactionId, "DENIED", pCenter, transactionInfo.storeIp);
             }
         }
     });
@@ -124,6 +143,12 @@ function getTransactions(){
         //async: false,
         success: function (data) {
             transactions=data;
+            for( var i = 0; i < transactions.length; i++ ) {
+                if( (transactions[i].currentPositionIp === transactions[i].currentDestinationIp && transactions[i].currentPositionIp === transactions[i].storeIp) ) {
+                    transactions.splice(i, 1);
+                }
+            }
+            console.log(transactions);
         }
     });
 }
@@ -453,8 +478,10 @@ network.on("click", function (params) {
     else {
         var myNode = params.nodes[0];
         var btnToggle;
+        var applyButton;
         var nodeIp = '192.168.0.' + myNode;
         var nodeObj;
+        var limitEntry;
         var isRelayStation = false;
         var queue = document.getElementById('queueTable');
 
@@ -464,6 +491,10 @@ network.on("click", function (params) {
             //queue.style.display = 'none';
             btnToggle = document.getElementById('toggleRelay');
             btnToggle.style.display = 'none';
+            applyButton = document.getElementById('applyButton');
+            applyButton.style.display = 'none';
+            limitEntry = document.getElementById('newLimit');
+            limitEntry.style.display = 'none';
 
             //CLEAR TABLE
             while(queue.rows.length > 0) {
@@ -483,7 +514,7 @@ network.on("click", function (params) {
             //UPDATE TRANSACTION QUEUE, 'DECRYPTED'
             for( var i = 0; i < transactions.length; i++ ) {
                 var t = transactions[i];
-                if(t.currentPositionIp == nodeIp) {
+                if(t.currentPositionIp == pCenter) {
                     var tId = t.transactionId;
                     var cardId = t.cardId;
                     var status = t.transactionStatus;
@@ -521,6 +552,13 @@ network.on("click", function (params) {
             btnToggle.style.display = 'inline';
             $('#relayIp').html(nodeIp);
             queue.style.display = 'table';
+            applyButton = document.getElementById('applyButton');
+            applyButton.style.display = 'inline';
+            limitEntry = document.getElementById('newLimit');
+            limitEntry.style.display = 'inline';
+
+            //SET CURRENT TRANSACTION LIMIT
+            limitEntry.value = nodeObj.transactionLimit;
 
             //CLEAR TABLE
             while(queue.rows.length > 0) {
@@ -579,8 +617,8 @@ network.on("click", function (params) {
                 }
             }
             var storeName = nodeObj.merchantName;
-            $('#storeNameOption').value = storeName;
-            $('#storeNameOption').html(storeName + (' (Credit)'));
+            $('#storeNameOption').value = "CREDIT";
+            //$('#storeNameOption').html(storeName + (' (Credit)'));
 
             $('#storeIp').html(nodeIp);
             $('#merchantName').html(storeName);
@@ -651,6 +689,199 @@ $('#toggleConnection').click(function(){
     var id = document.getElementById("connectionId").innerText;
     changeConnectionStatusById(id);
     $('#connectionModal').modal('hide');
+});
+
+//CHANGE TRANSACTION LIMIT
+$('#applyButton').click(function() {
+    var limitEntry = document.getElementById('newLimit');
+    var limit = limitEntry.value;
+    var ip = document.getElementById('relayIp').innerText;
+
+    //Quick check
+    if( limit > -1 && limit < 1000000) {
+        changeCapacity(ip,limit);
+        $('#relayModal').modal('hide');
+    }
+    // console.log(limit);
+    // console.log(ip);
+});
+
+//OPEN STORE MODAL
+$('#addStore').click(function() {
+    var region = document.getElementById('newStoreRegion');
+    var maxRegions = 4;
+
+    //Get number of regions
+    for( var i = 0; i < networkInfo.relayStations.length; i++ ) {
+        var r = networkInfo.relayStations[i];
+        if( r.region > maxRegions ) {
+            maxRegions = r.region;
+        }
+    }
+
+    //Clear values
+    for( i = region.options.length -1; i >=0; i-- ) {
+        region.remove(i);
+    }
+
+    //Add current region options
+    for( i = 0; i < maxRegions; i++ ) {
+        var option = document.createElement("option");
+        option.text = (i+1);
+        region.add(option);
+    }
+    //Add new region option
+    option = document.createElement("option");
+    option.text = "New";
+    region.add(option);
+
+    $('#addStoreModal').modal('show');
+});
+
+//FILL OUT STORE TABLE
+$('#newStoreRegion').change(function() {
+    var region = $('#newStoreRegion option:selected').text();
+    var table = document.getElementById('storeRelayTable');
+
+    if( region === "New" ){
+        //Need to hide table, instead show add relay station options
+
+    }
+    else{
+        //Clear table
+        while(table.rows.length > 1) {
+            table.deleteRow(table.rows.length-1);
+        }
+
+        //Fill out table
+        for( i = 0; i < networkInfo.relayStations.length; i++ ) {
+            var r = networkInfo.relayStations[i];
+            if( r.region == region ) {
+                var ip = r.stationIp;
+                $('#storeRelayTable').append('<tr>'+
+                    '<td>'+ip+'</td>'+
+                    '<td><input type="number" placeholder="Weight" id="storeRelayWeight1"></td>'+
+                    '<td><input type="checkbox" id="storeRelayCheckbox1"</td>'+
+                    '</tr>');
+            }
+        }
+    }
+
+});
+
+//OPEN RELAY MODAL
+$('#addRelay').click(function() {
+    var region = document.getElementById('newRelayRegion');
+    var maxRegions = 4;
+
+    //Get number of regions
+    for( var i = 0; i < networkInfo.relayStations.length; i++ ) {
+        var r = networkInfo.relayStations[i];
+        if( r.region > maxRegions ) {
+            maxRegions = r.region;
+        }
+    }
+
+    //Clear values
+    for( i = region.options.length -1; i >=0; i-- ) {
+        region.remove(i);
+    }
+
+    //Add current region options
+    for( i = 0; i < maxRegions; i++ ) {
+        var option = document.createElement("option");
+        option.text = (i+1);
+        region.add(option);
+    }
+    //Add new region option
+    option = document.createElement("option");
+    option.text = "New";
+    region.add(option);
+
+    //Fill out table
+
+    $('#addRelayModal').modal('show');
+});
+
+//FILL OUT RELAY TABLES
+$('#newRelayRegion').change(function() {
+    var region = $('#newRelayRegion option:selected').text();
+    var result1 = fillRelayRelayTable(region);
+    var result2 = fillRelayStoreTable(region);
+    if( result1 == "NEW" && result2 == "NEW" ) {
+        //Show new store stuff
+    }
+});
+
+//FILL OUT RELAY RELAY TABLE
+var fillRelayRelayTable = function(region) {
+    var table = document.getElementById('relayRelayTable');
+
+    if( region === "New" ){
+        //Hide table, return NEW
+        return "NEW";
+    }
+    else{
+        //Clear table
+        while(table.rows.length > 1) {
+            table.deleteRow(table.rows.length-1);
+        }
+
+        //Fill out table
+        for( i = 0; i < networkInfo.relayStations.length; i++ ) {
+            var r = networkInfo.relayStations[i];
+            if( r.region == region ) {
+                var ip = r.stationIp;
+                $('#relayRelayTable').append('<tr>'+
+                    '<td>'+ip+'</td>'+
+                    '<td><input type="number" placeholder="Weight" id="relayRelayWeight1"></td>'+
+                    '<td><input type="checkbox" id="relayRelaycheckbox1"</td>'+
+                    '</tr>');
+            }
+        }
+    }
+};
+
+//FILL OUT RELAY STORE TABLE
+var fillRelayStoreTable = function(region) {
+    var table = document.getElementById('relayStoreTable');
+    var rowNum = 1;
+
+    if( region === "New" ){
+        //Hide table, return NEW
+        return "NEW";
+    }
+    else{
+        //Clear table
+        while(table.rows.length > 1) {
+            table.deleteRow(table.rows.length-1);
+        }
+
+        //Fill out table
+        for( i = 0; i < networkInfo.stores.length; i++ ) {
+            var s = networkInfo.stores[i];
+            if( s.region == region ) {
+                var ip = s.storeIp;
+                $('#relayStoreTable').append('<tr>'+
+                    '<td>'+ip+'</td>'+
+                    '<td><input type="number" placeholder="Weight" id="relayStoreWeight1"></td>'+
+                    '<td><input type="checkbox" id="relayStorecheckbox1"</td>'+
+                    '</tr>');
+            }
+        }
+    }
+};
+
+//ADD STORE
+$('#addStoreButton').click(function() {
+    var table = document.getElementById("storeRelayTable");
+    console.log(table.rows.length);
+    //table.deleteRow(0);
+});
+
+//ADD Relay
+$('#addRelayButton').click(function() {
+
 });
 
 //ANIMATION STUFF--------------------------------------------
@@ -768,8 +999,10 @@ var setColors = function(oldNode, newNode, t, data) {
     if(data.substr(10) === '253'){
         //updateTransaction(t.transactionId,"APPROVED",data, t.storeIp);
             var transaction = {
+                transactionId: t.transactionId,
+                storeIp: t.storeIp,
                 transactionType: t.transactionType,
-                transactionAmount: t.transactionAmount+".0",
+                transactionAmount: t.transactionAmount,
                 cardId: t.cardId+"",
                 // currentPositionIp: t.currentPositionIp,
                 // currentDestinationIp: t.currentDestinationIp,
@@ -777,7 +1010,7 @@ var setColors = function(oldNode, newNode, t, data) {
                 securityCode: t.givenCardCode,
                 expirationDate: t.givenCardDate
             };
-            console.log(transaction);
+            //console.log(transaction);
         processingVerification(transaction);
     }
     else if(t.transactionStatus === "PENDING"){

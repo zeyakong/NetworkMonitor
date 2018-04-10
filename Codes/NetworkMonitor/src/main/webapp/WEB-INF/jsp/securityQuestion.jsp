@@ -91,7 +91,7 @@
     </script>
 </head>
 <body>
-<h1>Safer</h1>
+<h1>Security</h1>
 
 <div class="main-content">
     <div class="sap_tabs">

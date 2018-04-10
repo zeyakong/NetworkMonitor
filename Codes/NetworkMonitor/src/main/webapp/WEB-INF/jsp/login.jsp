@@ -62,7 +62,7 @@
     </script>
 </head>
 <body>
-<h1> Let's Make Things Better</h1>
+<h1>Login</h1>
 <%--<button class="btn btn-primary" onclick="jump()">Developer:Jump this</button>--%>
 <div class="main-content">
     <div class="sap_tabs">
