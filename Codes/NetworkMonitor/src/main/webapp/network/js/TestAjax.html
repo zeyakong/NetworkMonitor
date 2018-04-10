@@ -9,6 +9,7 @@
     <title>Title</title>
     <button onclick="createStore('2323','222',2)">create store</button>
     <button onclick="processingVerification()">processingVerification</button>
+    <button onclick="changeCapacity('192.168.0.203','122')">processingVerification</button>
 </head>
 <body>
 
@@ -58,5 +59,22 @@
             }
         });
     }
+
+    function changeCapacity(ip,newLimit){
+        alert("ip="+ip+" li:"+newLimit);
+        $.ajax({
+            url: '/changeCapacity',
+            method: 'POST',
+            data:{
+                ip:ip,
+                newLimit:newLimit
+            },
+            success: function (data) {
+                //OK | ERROR
+                console.log(data);
+            }
+        });
+    }
+
 </script>
 </html>
