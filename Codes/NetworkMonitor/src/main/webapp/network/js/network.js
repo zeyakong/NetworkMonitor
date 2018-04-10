@@ -52,8 +52,8 @@ function createRelayStation(ip,status,type,region,limit){
  ERROR: INNER ERROR.(impossible I THINK,UNLESS YOU SEND A EMPTY TRANSACTION)
  DENY: THE CARD NOT EXIST OR BALANCE IS WRONG....
  PS: ALL the transaction type is UPPERCASE.
-       currentPositionIp: storeIp,[I DONT USE THIS]
-       currentDestinationIp: pCentercardId: cardNumber, [I DONT USE THIS]
+ currentPositionIp: storeIp,[I DONT USE THIS]
+ currentDestinationIp: pCentercardId: cardNumber, [I DONT USE THIS]
  * @param transactionInfo= {
             transactionType: transactionType, [String]
             transactionAmount: transactionAmount, [Double]
@@ -66,7 +66,7 @@ function createRelayStation(ip,status,type,region,limit){
 function processingVerification(transactionInfo){
     $.ajax({
         url: '/processingVerification',
-        method: 'GET',
+        method: 'POST',
         data:{
             transactionInfo:transactionInfo
         },
@@ -74,9 +74,10 @@ function processingVerification(transactionInfo){
             //OK | ERROR
             console.log(data);
             if(data=="OK"){
-
-            }else{
-
+                //Update transaction with Approved
+                updateTransaction(transactionInfo.transactionId,"APPROVED",data, t.storeIp);
+            }else if(data=="DENY"){
+                updateTransaction(transactionInfo.transactionId,"DENIED",data, t.storeIp);
             }
         }
     });
@@ -455,12 +456,52 @@ network.on("click", function (params) {
         var nodeIp = '192.168.0.' + myNode;
         var nodeObj;
         var isRelayStation = false;
+        var queue = document.getElementById('queueTable');
 
         //Is it the PCenter? If so alter relaystation menu and return
         if (myNode === 'Processing Center') { //PROCESSING CENTER
             $('#relayIp').html('Processing Center');
+            //queue.style.display = 'none';
             btnToggle = document.getElementById('toggleRelay');
             btnToggle.style.display = 'none';
+
+            //CLEAR TABLE
+            while(queue.rows.length > 0) {
+                queue.deleteRow(0);
+            }
+
+            //ADD HEADER
+            $('#queueTable').append('<tr>'+
+                '<td>Transaction Queue</td>'+
+                '<td>Card ID</td>'+
+                '<td>Status</td>'+
+                '<td>Type</td>'+
+                '<td>Store IP</td>'+
+                '<td>Destination IP</td>'+
+                '</tr>');
+
+            //UPDATE TRANSACTION QUEUE, 'DECRYPTED'
+            for( var i = 0; i < transactions.length; i++ ) {
+                var t = transactions[i];
+                if(t.currentPositionIp == nodeIp) {
+                    var tId = t.transactionId;
+                    var cardId = t.cardId;
+                    var status = t.transactionStatus;
+                    var type = t.transactionType;
+                    var store = t.storeIp;
+                    var tdest = t.currentDestinationIp;
+
+                    $('#queueTable').append('<tr>'+
+                        '<td>Transaction# '+tId+'</td>'+
+                        '<td>'+cardId+'</td>'+
+                        '<td>'+status+'</td>'+
+                        '<td>'+type+'</td>'+
+                        '<td>'+store+'</td>'+
+                        '<td>'+tdest+'</td>'+
+                        '</tr>');
+                }
+            }
+
             $('#relayModal').modal('show');
             return;
         }
@@ -475,10 +516,50 @@ network.on("click", function (params) {
         }
 
         if ( isRelayStation === true ) {  //RELAY STATION
+            //CHANGE SOME HTML
             btnToggle = document.getElementById('toggleRelay');
             btnToggle.style.display = 'inline';
             $('#relayIp').html(nodeIp);
+            queue.style.display = 'table';
 
+            //CLEAR TABLE
+            while(queue.rows.length > 0) {
+                queue.deleteRow(0);
+            }
+
+            //ADD HEADER
+            $('#queueTable').append('<tr>'+
+                '<td>Transaction Queue</td>'+
+                '<td>Card ID</td>'+
+                '<td>Status</td>'+
+                '<td>Type</td>'+
+                '<td>Store IP</td>'+
+                '<td>Destination IP</td>'+
+                '</tr>');
+
+            //UPDATE TRANSACTION QUEUE, 'ENCRYPTED'
+            for( var i = 0; i < transactions.length; i++ ) {
+                var t = transactions[i];
+                if(t.currentPositionIp == nodeIp) {
+                    var tId = t.transactionId;
+                    var cardId = "ENCRYPTED";
+                    var status = "ENCRYPTED";
+                    var type = "ENCRYPTED";
+                    var store = "ENCRYPTED";
+                    var tdest = t.currentDestinationIp;
+
+                    $('#queueTable').append('<tr>'+
+                        '<td>Transaction# '+tId+'</td>'+
+                        '<td>'+cardId+'</td>'+
+                        '<td>'+status+'</td>'+
+                        '<td>'+type+'</td>'+
+                        '<td>'+store+'</td>'+
+                        '<td>'+tdest+'</td>'+
+                        '</tr>');
+                }
+            }
+
+            //UPDATE BUTTON STATUS
             if(nodeObj.isActive === 1){
                 btnToggle.style.backgroundColor = '#ff0000';
                 btnToggle.innerText = "Deactivate";
@@ -534,14 +615,11 @@ $('#btnSubmitTransaction').click(function () {
     //and transaction information that will be logged in the database
     var transaction = {
         transactionInfo: {
-           transactionType: transactionType,
-           transactionAmount: transactionAmount,
-           cardId: cardNumber,
-           currentPositionIp: storeIp,
-           currentDestinationIp: pCenter
-        },
-        creditCardInfo: {
+            transactionType: transactionType,
+            transactionAmount: transactionAmount,
             cardId: cardNumber,
+            currentPositionIp: storeIp,
+            currentDestinationIp: pCenter,
             cardName: cardName,
             securityCode: securityCode,
             expirationDate: date
@@ -688,13 +766,25 @@ var setColors = function(oldNode, newNode, t, data) {
 
     //Update the transaction.
     if(data.substr(10) === '253'){
-        updateTransaction(t.transactionId,"APPROVED",data, t.storeIp);
+        //updateTransaction(t.transactionId,"APPROVED",data, t.storeIp);
+            var transaction = {
+                transactionType: t.transactionType,
+                transactionAmount: t.transactionAmount+".0",
+                cardId: t.cardId+"",
+                // currentPositionIp: t.currentPositionIp,
+                // currentDestinationIp: t.currentDestinationIp,
+                cardName: t.givenCardName,
+                securityCode: t.givenCardCode,
+                expirationDate: t.givenCardDate
+            };
+            console.log(transaction);
+        processingVerification(transaction);
     }
     else if(t.transactionStatus === "PENDING"){
-        updateTransaction(t.transactionId,"PENDING",data, pCenter);
+        updateTransaction(t.transactionId,t.transactionStatus, data, t.currentDestinationIp);
     }
     else{
-        updateTransaction(t.transactionId,"APPROVED",data, t.storeIp);
+        updateTransaction(t.transactionId,t.transactionStatus, data, t.currentDestinationIp);
     }
     //prepareMap();
 };
@@ -732,6 +822,37 @@ var getPresetColor = function(i) {
             return hGrey;
     }
 };
+
+var setMapActiveInactive = function( edge, type, isActive, region ) {
+    //Relay Station
+    if( type === 0 ) {
+        //Check if the station is now active or inactive
+        if( isActive === 1 ) {
+            edge.color.background = getPresetColor(region);
+            edge.color.highlight = getPresetColor(region);
+        }
+        else {
+            edge.color.background = "#000000";
+            edge.color.highlight = "#000000";
+        }
+        nodes.update(edge);
+    }
+    //Connection
+    else {
+        //Check if the connection is now active or inactive
+        if( isActive === 1 ) {
+            edge.color.color = "#2B7CE9";
+            edge.color.highlight = "#2B7CE9";
+        }
+        else{
+            edge.color.color = "#000000";
+            edge.color.highlight = "#000000";
+        }
+        edges.update(edge);
+    }
+};
+
+setInterval(runAnimation, animationTimer);
 
 
 

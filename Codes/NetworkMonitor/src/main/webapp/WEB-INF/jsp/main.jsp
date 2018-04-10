@@ -113,7 +113,7 @@
 <!--------------------------------->
 <!-- THIS IS RELAY CODE -->
 <div class="modal fade" id="relayModal">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Relay Station Details</h5>
@@ -122,17 +122,33 @@
                 </button>
             </div>
             <div class="modal-body">
-                <table class="table table-striped table-bordered table-condensed">
+                <table class="table table-striped table-condensed">
                     <tr>
                         <th>Relay Station Ip</th>
-                        <th>Transaction Queue</th>
+                        <th>Queue Limit</th>>
                     </tr>
                     <tr>
                         <td id="relayIp">192.168.0.000</td>
+                        <td><input type="number" placeholder="CurrentLimit" id="newLimit"></td>
                     </tr>
                 </table>
             </div>
+            <div class = "modal-body">
+                <table class="table table-striped table-bordered" style="table-layout: fixed; word-wrap: break-word;" id="queueTable">
+                    <tbody id="mytbody">
+                        <tr>
+                            <th>Transaction Queue</th>
+                            <th>Card Id</th>
+                            <th>Status</th>
+                            <th>Type</th>
+                            <th>Store</th>
+                            <th>Destination Ip</th>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
             <div class="modal-footer">
+                <button type="button" class="btn btn-info" id="applyButton">Apply</button>
                 <button type="button" class="btn" style="background-color: red" id="toggleRelay">Deactivate</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
