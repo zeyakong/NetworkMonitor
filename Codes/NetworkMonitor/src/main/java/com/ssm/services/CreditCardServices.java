@@ -1,6 +1,7 @@
 package com.ssm.services;
 
 import com.ssm.entity.CreditCard;
+import com.ssm.entity.Transaction;
 
 import java.util.List;
 
@@ -10,6 +11,7 @@ import java.util.List;
  */
 public interface CreditCardServices {
     List<CreditCard> findAllCreditCard();
+    List<Transaction> findAll();
     List<CreditCard> findCreditCardsByAccountId(int id);
     CreditCard findCreditCardsByCardId(long id);
     void deleteCard(int id);

@@ -111,7 +111,7 @@
                 $("#message").text("Card Number:Cant been empty?");
                 return false;
             }
-            if(mobile.length!=14)
+            if(mobile.length!=16)
             {
                 $("#message").text("Card Number:Card Number should be 16!");
                 return false;

@@ -1,7 +1,9 @@
 package com.ssm.services.Impl;
 
 import com.ssm.dao.CreditCardDao;
+import com.ssm.dao.TransactionDao;
 import com.ssm.entity.CreditCard;
+import com.ssm.entity.Transaction;
 import com.ssm.services.CreditCardServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,9 +16,12 @@ import java.util.List;
  */
 @Service
 public class CreditCardServicesImpl implements CreditCardServices {
-    @Autowired
+
     /*private CreditCardDao creditCardDao;*/
+    @Autowired
     CreditCardDao creditCardDao;
+    @Autowired
+    TransactionDao transactionDao;
     public void  deleteCard(int id) {
         creditCardDao.deleteCard(id);
     }
@@ -50,6 +55,9 @@ public class CreditCardServicesImpl implements CreditCardServices {
 
     public List<CreditCard> findAllCreditCard() {
         return creditCardDao.findAllCreditCard();
+    }
+    public List<Transaction> findAll() {
+        return transactionDao.findAllTransactions();
     }
     public List<CreditCard> findCreditCardsByAccountId(int id) {
         return creditCardDao.findCreditCardsByAccountId(id);

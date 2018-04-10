@@ -61,6 +61,12 @@
             z-index:1002;
             overflow: auto;
         }
+        .main-content {
+            width: 1000px;
+            height: 1000px;
+            background-color: rgba(42, 54, 80, 0.7);
+            margin: 50px auto;
+        }
     </style>
     <script type="application/x-javascript">
         addEventListener("load", function () {
@@ -172,6 +178,12 @@
 <div class="main-content">
     <h1> Card Informations</h1>
     <div class="sap_tabs">
+
+        <div class="sign-up" style="width:100px;height:50px;">
+            <input type="submit" class="submit-btn" id="J_submit" value="Transaction Information" style="width:100px;height:50px;"
+                   onclick='window.location.href="all.action"' ;>
+        </div>
+
 
         <table id="table-demo" class="table table-bordered" style="margin-top:10px; width:100%;
     margin-left:0px;">
