@@ -19,30 +19,16 @@ public interface CardAccountDao {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     void xxx();
     void zzz();
  /*   void createaccount(String name,String address,int phone,double limit,double balance);*/
     void createaccount(@Param("name")String name,
                            @Param("address")String address, @Param("limit")String limit,
                            @Param("phone")String phone, @Param("balance")String balance);
+//    void updateAccount(@Param("name")String name,
+//                       @Param("address")String address, @Param("limit")String limit,
+//                       @Param("phone")String phone, @Param("balance")String balance,
+//                       @Param("id")int id);
     void deleteCardAccountById(int id);
     int getmax();
 }

@@ -124,7 +124,7 @@ public class NetworkController {
 
     @RequestMapping(value = "changeCapacity", method = RequestMethod.POST)
     public @ResponseBody
-    String changeCapacity(@RequestParam(value = "ip") String ip, @RequestParam(value = "newLimit") int newLimit) {
+    String changeCapacity(String ip,Integer newLimit) {
         networkServices.updateRelayStationLimit(ip, newLimit);
         return "OK";
     }
