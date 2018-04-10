@@ -81,9 +81,19 @@ function createConnection(start_ip,end_ip,is_active,weight) {
         },
         success: function(data) {
             console.log(data);
+            getNetworkInfo();
+            var id;
+            for( var i = 0; i < networkInfo.connections.length; i++ ) {
+                var c = networkInfo.connections[i];
+                if( start_ip == c.startIp && end_ip == c.endIp ) {
+                    id = c.connectionId;
+                }
+            }
+
             var newConnection ={
-                to: end_ip.substr(10),
-                from: start_ip.substr(10),
+                to: parseInt(end_ip.substr(10), 10),
+                from: parseInt(start_ip.substr(10), 10),
+                id: id,
                 label: weight,
                 color:{
                     color: "#2B7CE9",
@@ -248,9 +258,15 @@ function getNextIp(ip,destination,t){
             //GET THE CONNECTION BETWEEN THEM
             var temp;
             var connection;
-            for( var i = 0; i < parsedData.edges.length; i++ ){
-                temp = parsedData.edges[i];
-                if( (temp.from === oldNode.id && temp.to === newNode.id) || (temp.from === newNode.id && temp.to === oldNode.id) ){
+            // for(var i in data.nodes._data){
+            //     if(data.nodes._data[i].hasOwnProperty('color'))
+            //     {
+            //         data.nodes._data[i].color.border='#2B7CE9';
+            //     }
+            // }
+            for( var i in edges._data ){
+                temp = edges._data[i];
+                if( (temp.from == oldNode.id && temp.to == newNode.id) || (temp.from == newNode.id && temp.to == oldNode.id) ){
                     connection = temp;
                 }
             }
@@ -494,6 +510,7 @@ network.on("click", function (params) {
             var edgeId = params.edges[0];
             var ip1, ip2, weight;
 
+            console.log(edgeId);
             var edgeObj = edges._data[edgeId];
             ip1 = edgeObj.from;
             ip2 = edgeObj.to;
@@ -768,6 +785,12 @@ $('#addStore').click(function() {
         }
     }
 
+    //Clear table
+    var table = document.getElementById('storeRelayTable');
+    while(table.rows.length > 1) {
+        table.deleteRow(table.rows.length-1);
+    }
+
     //Clear values
     for( i = region.options.length -1; i >=0; i-- ) {
         region.remove(i);
@@ -783,6 +806,8 @@ $('#addStore').click(function() {
     option = document.createElement("option");
     option.text = "New";
     region.add(option);
+
+    //region.selecedIndex = -1;
 
     $('#addStoreModal').modal('show');
 });
@@ -831,6 +856,18 @@ $('#addRelay').click(function() {
         }
     }
 
+    //Clear relayRelayTable
+    var table = document.getElementById('relayRelayTable');
+    while(table.rows.length > 1) {
+        table.deleteRow(table.rows.length-1);
+    }
+
+    //Clear relayStoreTable
+    var table = document.getElementById('relayStoreTable');
+    while(table.rows.length > 1) {
+        table.deleteRow(table.rows.length-1);
+    }
+
     //Clear values
     for( i = region.options.length -1; i >=0; i-- ) {
         region.remove(i);
@@ -847,7 +884,7 @@ $('#addRelay').click(function() {
     option.text = "New";
     region.add(option);
 
-    //Fill out table
+    //region.selecedIndex = -1;
 
     $('#addRelayModal').modal('show');
 });
@@ -932,7 +969,7 @@ $('#addStoreButton').click(function() {
 
     //Verification
     var exists = nodes.get(ip.substr(10));
-    console.log(exists);
+    //console.log(exists);
     if( name != "" ) {
         if(!exists) {
             //Add store
@@ -943,8 +980,13 @@ $('#addStoreButton').click(function() {
                 var checkbox = table.rows[r].cells[2].childNodes[0];
                 if( checkbox.checked ) {
                     //THE ROW IS SELECTED
-                    var nodeIp = table.rows[r].cells[0].childNodes[0];
-                    var weight = table.rows[r].cells[1].childNodes[0];
+                    var nodeIp = table.rows[r].cells[0].innerText;
+                    var weight = table.rows[r].cells[1].childNodes[0].value;
+                    // console.log("Row " + r);
+                    // console.log(ip);
+                    // console.log(nodeIp);
+                    // console.log(1);
+                    // console.log(weight);
                     createConnection(ip,nodeIp,1,weight);
                 }
             }
@@ -981,8 +1023,8 @@ $('#addRelayButton').click(function() {
                 var checkbox = relayTable.rows[r].cells[2].childNodes[0];
                 if( checkbox.checked ) {
                     //THE ROW IS SELECTED
-                    var nodeIp = relayTable.rows[r].cells[0].childNodes[0];
-                    var weight = relayTable.rows[r].cells[1].childNodes[0];
+                    var nodeIp = relayTable.rows[r].cells[0].innerText;
+                    var weight = relayTable.rows[r].cells[1].childNodes[0].value;
                     createConnection(ip,nodeIp,1,weight);
                 }
             }
@@ -992,8 +1034,8 @@ $('#addRelayButton').click(function() {
                 var checkbox = storeTable.rows[r].cells[2].childNodes[0];
                 if( checkbox.checked ) {
                     //THE ROW IS SELECTED
-                    var nodeIp = storeTable.rows[r].cells[0].childNodes[0];
-                    var weight = storeTable.rows[r].cells[1].childNodes[0];
+                    var nodeIp = storeTable.rows[r].cells[0].innerText;
+                    var weight = storeTable.rows[r].cells[1].childNodes[0].value;
                     createConnection(ip,nodeIp,1,weight);
                 }
             }
