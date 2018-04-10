@@ -178,6 +178,32 @@ public class NetworkServicesImpl implements NetworkServices {
 
     //path algorithm
     public String getNextIp(String startIp,String destination) {
+        if(isNear(startIp,destination)){
+            return destination;
+        }
+        if(startIp.equals("192.168.0.253")){
+            List<String> path = new ArrayList<String>();
+            String s = destination;
+            String d = startIp;
+            while(!s.equals("192.168.0.253")){
+                String n = getNextIp(s,d);
+                path.add(n);
+                s= n;
+            }
+            return path.get(path.size()-2);
+        }
+
+        List<String> policy = new ArrayList<String>();
+        policy.add("192.168.0.209 192.168.0.203");
+        policy.add("192.168.0.203 192.168.0.253");
+        policy.add("192.168.0.208 192.168.0.203");
+        policy.add("192.168.0.221 192.168.0.231");
+        policy.add("192.168.0.231 192.168.0.212");
+        policy.add("192.168.0.231 192.168.0.253");
+        policy.add("192.168.0.244 192.168.0.253");
+        policy.add("192.168.0.248 192.168.0.244");
+        policy.add("192.168.0.237 192.168.0.253");
+        policy.add("192.168.0.239 192.168.0.237");
 
         List<Connection> list = connectionDao.findAllConnections();
         List<String> next = new ArrayList<String>();
@@ -195,10 +221,27 @@ public class NetworkServicesImpl implements NetworkServices {
             }
         }
 
+        if(Integer.parseInt(startIp.substring(10))<200&&next!=null){
+            return next.get(next.size()-1);
+        }
+
         //get good next ip
-        Collections.shuffle(next);
-        if(next!=null)return next.get(0);
-        else return startIp;
+        if(destination.equals("192.168.0.253")){
+            for(int i = 0 ;i<policy.size(); i++){
+                String[] p = policy.get(i).split(" ");
+                if(p[0].equals(startIp)&&next.contains(p[1])){
+                    return p[1];
+                }
+            }
+        }else{
+            for(int i = 0 ;i<policy.size(); i++){
+                String[] p = policy.get(i).split(" ");
+                if(p[1].equals(startIp)&&next.contains(p[0])){
+                    return p[0];
+                }
+            }
+        }
+        return startIp;
     }
 
     public void changeConnectionStatusById(int id) {

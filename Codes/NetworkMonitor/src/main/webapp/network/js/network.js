@@ -349,7 +349,10 @@ function createNewTransaction(type,amount,start,card,currentIp,destination,cardN
         url: '/createNewTransaction?transaction_type='+type+'&transaction_amount='+amount+
         '&store_ip='+start+'&card_id='+card+'&current_position_ip='+currentIp+'&current_destination_ip='+destination+
         '&given_card_name='+cardName+'&given_card_date='+cardDate+'&given_card_code='+cardCode,
-        method: 'POST'
+        method: 'POST',
+        success: function (data) {
+            console.log(data);
+        }
     });
     console.log("here");
 }

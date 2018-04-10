@@ -10,7 +10,8 @@
     <button onclick="createStore('2323','222',2)">create store</button>
     <button onclick="processingVerification()">processingVerification</button>
     <button onclick="changeCapacity('192.168.0.203','122')">changeCapacity</button>
-    <button onclick="updateAccount('Kyle Van Allen', '2323',  '232',  '22.00',  '121',  2)">processingVerification</button>
+    <button onclick="updateAccount('Kyle Van Allen', '2323',  '232',  '22.00',  '121',  2)">updateAccount</button>
+    <button onclick="createConnection('192.168.1.1','192.168.0.3','1','2')">createConnection</button>
 </head>
 <body>
 
@@ -92,6 +93,32 @@
             success: function (data) {
                 //OK | ERROR
                 console.log(data);
+            }
+        });
+    }
+
+    function createConnection(start_ip,end_ip,is_active,weight) {
+        $.ajax({
+            url: '/createConnection',
+            method: 'POST',
+            data:{
+                start_ip: start_ip,
+                end_ip: end_ip,
+                is_active: is_active,
+                weight: weight
+            },
+            success: function(data) {
+                console.log(data);
+                // var newConnection ={
+                //     to: end_ip.substr(10),
+                //     from: start_ip.substr(10),
+                //     label: weight,
+                //     color:{
+                //         color: "#2B7CE9",
+                //     }
+                // };
+                // edges.add(newConnection);
+                // getNetworkInfo();
             }
         });
     }
