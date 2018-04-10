@@ -66,14 +66,14 @@ function createRelayStation(ip,status,type,region,limit){
 function processingVerification(transactionInfo){
     $.ajax({
         url: '/processingVerification',
-        method: 'POST',
-        contentType:"application/json;charset=utf-8",
-        data: JSON.stringify(transactionInfo),
+        method: 'GET',
+        data:{
+            transactionInfo:transactionInfo
+        },
         success: function (data) {
-            //SUCCESS | DENY | ERROR
+            //OK | ERROR
             console.log(data);
-            //uppercase
-            if(data=="SUCCESS"){
+            if(data=="OK"){
 
             }else{
 
@@ -105,6 +105,7 @@ function getNetworkInfo(){
     $.ajax({
         url: '/getNetworkInfo',
         method: 'GET',
+        async: false,
         success: function (network) {
             networkInfo = network;
             // console.log(networkInfo);
@@ -119,6 +120,7 @@ function getTransactions(){
     $.ajax({
         url: '/getTransactions',
         method: 'GET',
+        //async: false,
         success: function (data) {
             transactions=data;
         }
@@ -203,6 +205,17 @@ function changeConnectionStatusById(id){
         method: 'POST',
         success: function (data) {
             //alert("success");
+            getNetworkInfo();
+            var e = edges.get(id);
+            var connection;
+            //Get the correct Connection from the database
+            for( var i = 0; i < networkInfo.connections.length; i++ ) {
+                if( networkInfo.connections[i].connectionId == id ) {
+                    connection = networkInfo.connections[i];
+                    console.log(connection);
+                    setMapActiveInactive(e, 1, connection.isActive, null);
+                }
+            }
         }
     });
 }
@@ -217,6 +230,17 @@ function changeStationStatusByIp(ip){
         method: 'POST',
         success: function (data) {
             //alert("success");
+            getNetworkInfo();
+            var n = nodes.get(ip.substr(10));
+            var station;
+            //Get the correct relayStation from the database
+            for( var i = 0; i < networkInfo.relayStations.length; i++ ) {
+                if( networkInfo.relayStations[i].stationIp === ip ) {
+                    station = networkInfo.relayStations[i];
+                    console.log(station);
+                    setMapActiveInactive(n, 0, station.isActive, station.region);
+                }
+            }
         }
     });
 }
@@ -245,10 +269,11 @@ function setTransactionStartTime(id){
  * @param currentIp
  * @param destination:ip[String]
  */
-function createNewTransaction(type,amount,start,card,currentIp,destination){
+function createNewTransaction(type,amount,start,card,currentIp,destination,cardName,cardDate,cardCode){
     $.ajax({
         url: '/createNewTransaction?transaction_type='+type+'&transaction_amount='+amount+
-        '&store_ip='+start+'&card_id='+card+'&current_position_ip='+currentIp+'&current_destination_ip='+destination,
+        '&store_ip='+start+'&card_id='+card+'&current_position_ip='+currentIp+'&current_destination_ip='+destination+
+        '&given_card_name='+cardName+'&given_card_date='+cardDate+'&given_card_code='+cardCode,
         method: 'POST'
     });
     console.log("here");
@@ -307,13 +332,18 @@ options.edges = {
         x:5,
         y:5
     },
+    color:{
+        //color: 'red'
+        highlight: '#2B7CE9'
+    }
 };
 
 // create a network
 var network = new vis.Network(container, data, options);
 
-//LOAD ALL TRANSACTIONS ONTO THE MAP
-var prepareMapWithTransactions = function() {
+//LOAD ALL TRANSACTIONS AND ACTIVE/INACTIVE INFO ONTO THE MAP
+var prepareMap = function() {
+    //Load transactions
     for( var i = 0; i < transactions.length; i++ ) {
         var ip = transactions[i].currentPositionIp;
 
@@ -326,12 +356,53 @@ var prepareMapWithTransactions = function() {
         }
 
         n.color.background = "#f44336";
+        n.color.highlight = "#f44336";
         n.color.border = '#2B7CE9';
         nodes.update(n);
     }
+
+    //Load active/inactive relayStations
+    for( i = 0; i < networkInfo.relayStations.length; i++ ) {
+        var node;
+        if( networkInfo.relayStations[i].isActive == 0 ) {
+            node = nodes.get(networkInfo.relayStations[i].stationIp.substr(10));
+            setMapActiveInactive(node, 0, 0, networkInfo.relayStations[i].region);
+        }
+    }
+    //Load active/inactive connections
+    for (i = 0; i < networkInfo.connections.length; i++ ) {
+        var edge;
+        if( networkInfo.connections[i].isActive == 0 ) {
+            edge = edges.get(networkInfo.connections[i].connectionId);
+            setMapActiveInactive(edge, 1, 0, null);
+        }
+    }
 };
 
-setTimeout(prepareMapWithTransactions, 500);
+var fixHighlights = function() {
+    //Fix highlights relay
+    for( i = 0; i < networkInfo.relayStations.length; i++ ) {
+        var node;
+        if( networkInfo.relayStations[i].stationIp === pCenter ) {
+            node = nodes.get("Processing Center")
+        }
+        else{
+            node = nodes.get(networkInfo.relayStations[i].stationIp.substr(10));
+        }
+        node.color.highlight = getPresetColor(networkInfo.relayStations[i].region);
+        nodes.update(node);
+    }
+    //Stores
+    for (i = 0; i < networkInfo.stores.length; i++) {
+        var node;
+        node = nodes.get(networkInfo.stores[i].storeIp.substr(10));
+        node.color.highlight = getPresetColor(networkInfo.stores[i].region);
+        nodes.update(node);
+    }
+};
+
+setTimeout(fixHighlights, 500);
+setTimeout(prepareMap, 500);
 
 //Decides which popup-window to display and populates it when a node is clicked on
 network.on("click", function (params) {
@@ -430,7 +501,7 @@ network.on("click", function (params) {
             $('#storeNameOption').value = storeName;
             $('#storeNameOption').html(storeName + (' (Credit)'));
 
-            $('#storeIp').html(storeIp);
+            $('#storeIp').html(nodeIp);
             $('#merchantName').html(storeName);
             $('#storeModal').modal('show');
         }
@@ -477,9 +548,9 @@ $('#btnSubmitTransaction').click(function () {
         }
     };
     console.log(transaction);
-    createNewTransaction(transactionType,transactionAmount,storeIp,cardNumber,storeIp,pCenter);
+    createNewTransaction(transactionType,transactionAmount,storeIp,cardNumber,storeIp,pCenter,cardName,date,securityCode);
     setTimeout(getTransactions, 250);
-    setTimeout(prepareMapWithTransactions, 500);
+    setTimeout(prepareMap, 500);
 
     document.getElementById("form_one").reset();
     document.getElementById("form_two").reset();
@@ -514,7 +585,7 @@ $('#toggle_button').click(function () {
        button.innerText = "Pause";
        button.style.backgroundColor = '#f44336';
        running = true;
-       runAnimation();
+       //runAnimation();
    }
    else{                                //PAUSE ANIMATION
        button.innerText = "Start";
@@ -534,19 +605,17 @@ var runAnimation = function() {
            var currentIp = transactions[i].currentPositionIp;
            var destinationIp = transactions[i].currentDestinationIp;
            var t = transactions[i];
-           //getNextIp('192.168.0.83', '192.168.0.253');
-           //console.log(currentIp);
-           //console.log(destinationIp);
            getNextIp(currentIp, destinationIp, t);
        }
-      //console.log("Test Message");
+      //console.log("Running");
        refreshTransactionList();
    }
+   //console.log("Waiting...");
 };
 
 var refreshTransactionList = function() {
     setTimeout(getTransactions, animationTimer*.85);
-    setTimeout(runAnimation, animationTimer);
+    //setTimeout(runAnimation, animationTimer);
 };
 
 var setConnectionWidth = function( connection, w ) {
@@ -590,10 +659,12 @@ var setColors = function(oldNode, newNode, t, data) {
         var n = networkInfo.relayStations[i];
         if( oldNode.label === "Processing Center") {
             oldNode.color.background = getPresetColor(n.region);
+            oldNode.color.highlight = getPresetColor(n.region);
             oldNode.color.border = '#2B7CE9';
         }
         else if(oldNode.label === n.stationIp.substr(10)) {
             oldNode.color.background = getPresetColor(n.region);
+            oldNode.color.highlight = getPresetColor(n.region);
             oldNode.color.border = '#2B7CE9';
         }
     }
@@ -601,12 +672,14 @@ var setColors = function(oldNode, newNode, t, data) {
         var s = networkInfo.stores[i];
         if(oldNode.label === s.storeIp.substr(10)) {
             oldNode.color.background = getPresetColor(s.region);
+            oldNode.color.highlight = getPresetColor(s.region);
             oldNode.color.border = '#2B7CE9';
         }
     }
-    
+
     //Set the new color
     newNode.color.background = "#f44336";
+    newNode.color.highlight = "#f44336";
     newNode.color.border = "#2B7CE9";
 
     //Update the nodes
@@ -623,6 +696,7 @@ var setColors = function(oldNode, newNode, t, data) {
     else{
         updateTransaction(t.transactionId,"APPROVED",data, t.storeIp);
     }
+    //prepareMap();
 };
 
 //GET A PRESET COLOR FOR THE GRAPH BASED ON REGION NUMBER

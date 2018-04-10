@@ -14,9 +14,28 @@ public class Transaction {
     private double transactionAmount;
     private String transactionStatus;
     private String storeIp;
-    private String cardId;
+    private long givenCardId;
+    private String givenCardName;
+    private String givenCardDate;
+    private String givenCardCode;
     private String currentPositionIp;
     private String currentDestinationIp;
+
+    public String getGivenCardCode() { return this.givenCardCode; }
+
+    public void setGivenCardCode( String givenCardCode ) { this.givenCardCode = givenCardCode; }
+
+    public String getGivenCardDate() { return this.givenCardDate; }
+
+    public void setGivenCardDate(String givenCardDate) { this.givenCardDate = givenCardDate; }
+
+    public String getGivenCardName() { return this.givenCardName; }
+
+    public void setGivenCardName(String givenCardName) { this.givenCardName = givenCardName; }
+
+    public long getCardId() { return this.givenCardId; }
+
+    public void setCardId(long givenCardId) { this.givenCardId = givenCardId; }
 
     public int getTransactionId() {
         return transactionId;
@@ -72,14 +91,6 @@ public class Transaction {
 
     public void setStoreIp(String storeIp) {
         this.storeIp = storeIp;
-    }
-
-    public String getCardId() {
-        return cardId;
-    }
-
-    public void setCardId(String cardId) {
-        this.cardId = cardId;
     }
 
     public String getCurrentPositionIp() {

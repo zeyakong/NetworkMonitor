@@ -24,12 +24,6 @@ public class NetworkController {
     @Autowired
     private NetworkServices networkServices;
 
-    @Autowired
-    private CreditCardServices creditCardServices;
-
-    @Autowired
-    private CardAccountServices cardAccountServices;
-
     @RequestMapping("/goMain")
     public String goMain(HttpServletRequest request) {
 //        if(request.getSession().getAttribute("loginId")==null)return "login";
@@ -75,6 +69,10 @@ public class NetworkController {
     }
 
     @RequestMapping("/createNewTransaction")
+    public @ResponseBody String createNewTransaction(Date transaction_date_sent, String transaction_type, double transaction_amount, String store_ip, String card_id, String current_position_ip, String current_destination_ip, String given_card_name, String given_card_date, String given_card_code){
+        try{
+            networkServices.createTransaction(transaction_type,transaction_amount,store_ip,card_id,current_position_ip,current_destination_ip, given_card_name, given_card_date, given_card_code);
+        }catch (Exception e){
     public @ResponseBody
     String createNewTransaction(Date transaction_date_sent, String transaction_type, double transaction_amount, String store_ip, String card_id, String current_position_ip, String current_destination_ip) {
         try {

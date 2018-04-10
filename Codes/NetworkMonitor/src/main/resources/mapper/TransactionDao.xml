@@ -11,9 +11,11 @@
 
     <insert id="createTransaction">
         INSERT INTO transactions(transaction_type, transaction_amount,
-                                store_ip, card_id, current_position_ip, current_destination_ip)
+                                store_ip, current_position_ip, current_destination_ip,
+                                given_card_id, given_card_name, given_card_date, given_card_code)
         VALUES(#{transaction_type}, #{transaction_amount}, #{store_ip},
-        #{card_id}, #{current_position_ip}, #{current_destination_ip})
+        #{current_position_ip}, #{current_destination_ip}, #{card_id},
+         #{given_card_name}, #{given_card_date}, #{given_card_code})
     </insert>
 
     <update id="updateTransaction">
