@@ -63,13 +63,13 @@ function createRelayStation(ip,status,type,region,limit){
             expirationDate: date [String]
         }
  */
-function processingVerification(transactionInfo){
+function processingVerification(){
+    console.log(transactionInfo);
     $.ajax({
         url: '/processingVerification',
-        method: 'GET',
-        data:{
-            transactionInfo:transactionInfo
-        },
+        method: 'POST',
+        contentType:"application/json;charset=utf-8",
+        data: JSON.stringify(transactionInfo),
         success: function (data) {
             //OK | ERROR
             console.log(data);
@@ -81,7 +81,6 @@ function processingVerification(transactionInfo){
         }
     });
 }
-
 function changeCapacity(ip,newLimit){
     $.ajax({
         url: '/changeCapacity',

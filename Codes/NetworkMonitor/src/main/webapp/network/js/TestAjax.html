@@ -31,14 +31,17 @@
 
     var transactionInfo= {
         transactionType: "CREDIT",
-        transactionAmount: "100.0",
-    cardId: "3448997612325598",
+        transactionAmount: 100.0,
+    cardId: 3448997612325598,
     cardName: "Kyle Van Allen",
-    securityCode: "577",
+    securityCode: 577,
     expirationDate: "08/22"
     };
 
+
+
     function processingVerification(){
+        console.log(transactionInfo);
         $.ajax({
             url: '/processingVerification',
             method: 'POST',
