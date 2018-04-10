@@ -18,16 +18,24 @@ public interface CreditCardDao {
      */
     List<CreditCard> findAllCreditCard();
     List<CreditCard> findCreditCardsByAccountId(@Param("accountId")int accountId);
+    CreditCard findCreditCardsByCardId(@Param("cardId")long cardId);
     void deleteAccount(int i);
     void deleteCard(int id);
-    CreditCard findCardById(String id);
+    CreditCard findcardbyid(int i);
     int findAccountnumber(long id);
     void deleteCardnumber(long id);
-    void createcard(@Param("cnumber")String cnumber,
+  /*  void createcard(@Param("cnumber")String cnumber,
                     @Param("cname")String cname, @Param("ccode")String ccode,
-                    @Param("cdate")String cdate, @Param("max")int max);
-    void createcards(@Param("cnumber")String cnumber,
-                    @Param("cname")String cname, @Param("ccode")String ccode,
-                    @Param("cdate")String cdate, @Param("max")int max);
+                    @Param("cdate")String cdate, @Param("max")int max);*/
+    void createcards(@Param("cnumber")long cnumber,
+                    @Param("cname")String cname,@Param("cdate")String cdate, @Param("ccode")String ccode,
+                     @Param("name")int name);
+
+    void updatingcards(@Param("cnumber2")long cnumber2,
+                     @Param("cname2")String cname2,@Param("cdate")String cdate2, @Param("ccode")String ccode2,
+                     @Param("name2")int name2);
+
+
+
 }
 
