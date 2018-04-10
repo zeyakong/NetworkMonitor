@@ -201,7 +201,7 @@
             <div class="tab-2 resp-tab-content" aria-labelledby="tab_item-1">
                 <div class="facts">
                     <div class="register">
-                        <h3>Account Name:<input placeholder="The length of name must be between 2 to 15" id="name" onblur="validatename(this.value)"  onfocus='$("#messagen").text("");' class="lock" type="text" required=""  ></h3>
+                        <h3>Account Name:<input placeholder="The length of name must be between 2 to 15" id="name"  onblur="validatename(this.value)"  onfocus='$("#messagen").text("");'  class="lock" type="text" required=""  ></h3>
                         <h3>Account Addrress:<input placeholder=" " id="address" class="lock" type="text" required=""  ></h3>
                         <h3>Phone Number:<input placeholder="XXX-XXX-XXXX"   id="phone" class="mail" type="text" required="" onblur="validatenumber(this.value)"  onfocus='$("#messagenumber").text("");' ></h3>
                         <h3>Limit:<input type="text" class="form-control" id="limit" placeholder="$" maxlength="5" onblur="validatenumber(this.value)"  onfocus='$("#messagenumber").text("");' onkeyup="value=value.replace(/[^\d]/g,'')"></h3>
