@@ -7,7 +7,7 @@ This project aims at developing a visual tool to monitor network communication. 
 has been chosen as the application domain and hence communications based on credit card transactions
 will be modeled in this project.Web-based application.
   * [Overview of Project](https://github.com/Kong96/NetworkMonitor/blob/master/Project%20Description.pdf).
-## Tools and technics  
+## Tools and techniques 
 ### Language  
 java  
 html  
