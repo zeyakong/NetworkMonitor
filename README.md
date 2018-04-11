@@ -42,3 +42,5 @@ Maven
 * [change requirements](https://github.com/zeyakong/NetworkMonitor/blob/master/Project%20Description%20-%20changes%202.pdf). 
 #### Demo4: Show the multiple transaction animations and the account management
 * [DEMO4](https://github.com/zeyakong/NetworkMonitor/tree/899d396831ef9514231667529ed894286d78eab6). 
+#### Demo5: Finishing all the required functionalities
+* [DEMO5](https://github.com/zeyakong/NetworkMonitor/tree/7d2d72ffc58ff8a39571ab6e74dda142107830ad). 
