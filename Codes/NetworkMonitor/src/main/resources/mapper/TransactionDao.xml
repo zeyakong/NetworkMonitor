@@ -9,6 +9,14 @@
         FROM transactions
     </select>
 
+    <select id="findTransactionByCardId" resultType="Transaction">
+        SELECT *
+        FROM transactions
+            WHERE given_card_id = #{id};
+    </select>
+
+
+
     <insert id="createTransaction">
         INSERT INTO transactions(transaction_type, transaction_amount,
                                 store_ip, current_position_ip, current_destination_ip,

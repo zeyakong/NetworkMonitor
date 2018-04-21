@@ -32,7 +32,7 @@ public interface CreditCardDao {
                      @Param("name")int name);
 
     void updatingcards(@Param("cnumber2")long cnumber2,
-                     @Param("cname2")String cname2,@Param("cdate")String cdate2, @Param("ccode")String ccode2,
+                     @Param("cname2")String cname2,@Param("cdate2")String cdate2, @Param("ccode2")String ccode2,
                      @Param("name2")int name2);
 
 

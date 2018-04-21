@@ -56,17 +56,17 @@
                 /* data: "username=" + userName + "&password=" + password,*/
                 data: "&accountName=" + accountName+ "&accountAddress=" + accountAddress + "&accountPhone=" + accountPhone+ "&limit=" + limit+"&balance=" + balance+"&accountId=" + accountId,
                 success: function (result) {
-                    console.log(result);//打印服务端返回的数据(调试用)
-                    if (result.resultCode == 200) {
-                        console.log("da");
+                    console.log(result);//??????????(???)
+                        if (result=="Success to update account!") {
+                        alert(result);
                         window.location.href="accountInfo.action";
+                    }else{
+                        alert(result);
                     }
-                    ;
+
                 },
-                error : function(error) {
-                    console.log("da2");
-                    console.log(error);
-                    window.location.href="accountInfo.action";
+                error : function() {
+                    alert("Please check your input all the options correctly") ;
                 }
 
             });

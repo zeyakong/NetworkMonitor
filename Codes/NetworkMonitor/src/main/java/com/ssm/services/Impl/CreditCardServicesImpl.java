@@ -59,6 +59,9 @@ public class CreditCardServicesImpl implements CreditCardServices {
     public List<Transaction> findAll() {
         return transactionDao.findAllTransactions();
     }
+    public List<Transaction> findTransactionByCardId(long id) {
+        return transactionDao.findTransactionByCardId(id);
+    }
     public List<CreditCard> findCreditCardsByAccountId(int id) {
         return creditCardDao.findCreditCardsByAccountId(id);
     }

@@ -1,209 +1,172 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page language="java" import="java.util.*" pageEncoding="ISO-8859-1" %>
-<%
-    String path = request.getContextPath();
-    String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
-%>
-<!doctype html>
-<html lang="en">
-<title> Network Monitor</title>
+<!DOCTYPE html>
 <html>
-<%
-    Object obj = session.getAttribute("loginId");
-    if (obj == null) {
-%>
-<meta http-equiv="refresh" content="0; url=doLogin"/>
-<%
-    }
-%>
-<head>
-    <title>Let's make things better.</title>
-    <link href="css/stylec.css" rel='stylesheet' type='text/css'/>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta name="keywords"
-          content="Alley Signup & Signin Form Tab Form,Login Forms,Sign up Forms,Registration Forms,News letter Forms,Elements"
-          ./>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>????</title>
     <style>
-        #message{
-            padding-bottom:25px;
-            color: red;
-            font-weight:bold;
-            font-size:30px;
+        table{
+            border:1px solid #6699cc;
+            width:600px;
+            margin:0 auto;
+            border-collapse: collapse;
+            font-family:'????';
         }
-        h3{
-            padding-top:35px;
-            color:white;
-            text-align:right;
+        th,td{
+            border:1px solid #6699cc;
+            padding:10px;
+        }
+        th{
+            background-color: #090;
+        }
+        td{
+            background-color: #0f9;
+        }
+        #repswSpan{
+            margin-left:150px;
+        }
+        .error-info{
+            color:#f00;
+            display: none;
+        }
+        .focus{
+            border:2px solid #6699cc;
+        }
+        .normal{
+            border:1px solid #999;
+        }
+        .errror{
+            border:2px solid #f00;
+        }
+        .submit-btn{
+            display: inline-block;
+            color:#fff;
+            background-color: #6699cc;
+            width:100px;
+            height: 25px;
+            line-height: 25px;
+            font-size:15px;
+            font-weight: 600;
+            text-align: center;
+            border:none;
         }
     </style>
-    <script type="application/x-javascript">
-        addEventListener("load", function () {
-            setTimeout(hideURLbar, 0);
-        }, false);
-        function hideURLbar() {
-            window.scrollTo(0, 1);
-        }
-
-        function createcards() {
-            var cnumber = $("#cnumber").val();
-            var cname = $("#cname").val();
-            var cdate = $("#cdate").val();
-            var ccode = $("#ccode").val();
-            var name = $("#name").val();
-            $.ajax({
-                type: "POST",
-                url: "createcards.action",
-                /* data: "username=" + userName + "&password=" + password,*/
-                data: "&cnumber=" + cnumber+ "&cname=" + cname + "&cdate=" + cdate+ "&ccode=" + ccode+"&name=" + name,
-                success: function (result) {
-                    console.log(result);//??????????(???)
-                    if (result.resultCode == 200) {
-                        console.log("da");
-                        window.location.href="cardInfo.action";
-                    }
-                    ;
-                },
-                error : function() {
-                    console.log("da2");
-                    window.location.href="cardInfo.action";
-                }
-
-            });
-        }
-
-    </script>
-    <script src="js/jquery.min.js"></script>
-    <script src="js/easyResponsiveTabs.js" type="text/javascript"></script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('#horizontalTab').easyResponsiveTabs({
-                type: 'default', //Types: default, vertical, accordion
-                width: 'auto', //auto or any width like 600px
-                fit: true   // 100% fit in a container
-            });
-        });
-
-        function validatemobile(mobile)
-        {
-            if(mobile.length==0)
-            {
-                $("#message").text("Security Code:Security code cant been empty?");
-                return false;
-            }
-            if(mobile.length!=3)
-            {
-                $("#message").text("Security Code:Security code should be 3!");
-                return false;
-            }
-            var reg = /^[0-9]+$/;
-            if(mobile!=""&&!reg.test(mobile)){
-                $("#message").text("Security Code:Must be Number!");
-                return false;
-            }
-
-
-        }
-        function validatecard(mobile)
-        {
-            if(mobile.length==0)
-            {
-                $("#message").text("Card Number:Cant been empty?");
-                return false;
-            }
-            if(mobile.length!=14)
-            {
-                $("#message").text("Card Number:Card Number should be 16!");
-                return false;
-            }
-            var reg = /^[0-9]+$/;
-            if(mobile!=""&&!reg.test(mobile)){
-                $("#message").text("Card Number:Must be Number!");
-                return false;
-            }
-
-
-        }
-
-        function validatenumber(mobile)
-        {
-
-            var reg = /^[0-9]+$/;
-            if(mobile!=""&&!reg.test(mobile)){
-                $("#message").text("Must be Number!");
-                return false;
-            }
-
-
-        }
-        function validatemobile2(mobile)
-        {
-
-            if(mobile.length!=5)
-            {
-                $("#message").text("Expiration date:Invalid Date format(MM/YY)")
-                return false;
-            }
-
-
-
-        }
-
-        function validatename(name){
-            if(name.length<2){
-                $("#message").text("Name:Invalid format(name should more than 2)")
-            }
-            if(name.length>15){
-                $("#message").text("Name:Invalid format(name should less than 15)")
-            }
-        }
-
-
-
-
-
-
-
-
-
-    </script>
 </head>
 <body>
-<h1> Let's Make Things Better</h1>
-
-<div class="main-content">
-    <div class="sign-up" style="width:100px;height:50px;">
-        <input type="submit" class="submit-btn" id="J_submit" value="Back" style="width:100px;height:50px;"
-               onclick='window.location.href="cardInfo.action"' ;>
-    </div>
-    <div class="sap_tabs">
-        <div id="horizontalTab" style="display: block; width: 100%; margin: 0px;">
-            <ul>
-                <li class="resp-tab-item" aria-controls="tab_item-0" role="tab"><span></span></li>
-            </ul>
-            <div class="tab-2 resp-tab-content" aria-labelledby="tab_item-1">
-                <div class="facts">
-                    <div class="register">
-                        <h3>Account ID:<input placeholder="Related account number" id="name" class="lock"   type="text" required="" onblur="validatephone(this.value)"  onfocus='$("#messagep").text("");'></h3>
-                        <h3>Card Number:<input placeholder="XXXX-XXXX-XXXX-XXXX" id="cnumber" class="mail" type="text" required="" onblur="validatecard(this.value)"  onfocus='$("#messagec").text("");'   ></h3>
-                        <h3>Card Owner:<input placeholder="The length of name must be between 2 to 15" id="cname" class="lock" type="text" required=""  onblur="validatename(this.value)"  onfocus='$("#messagen").text("");' ></h3>
-                        <h3>Expiration date:<input placeholder="MM/YY" id="cdate" class="lock" type="text" required="" onblur="validatemobile2(this.value)"  onfocus='$("#message2").text("");'></h3>
-                        <h3>Sercurity Code:<input placeholder="NNN" id="ccode" class="mail" onblur="validatemobile(this.value)" onfocus='$("#message").text("");' type="text" required="" ></h3>
-                        <div class="sign-up">
-                            <p id="message"></p>
-                            <input type="submit" class="submit-btn" style="width:100px;height:50px;" onclick="createcards()" value="Submit"></div>
-                    </div>
+<form action="http://www.baidu.com" method="get" id="registerForm">
+    <table>
+        <tr>
+            <th>????</th>
+        </tr>
+        <tr>
+            <td>
+                <div>???</div>
+                <div><input type="text" name="user"/></div>
+                <div class="error-info J_user_error_info">????????????</div>
+                <div>??????3-5?????(a-z),??(0-9),???(_)??</div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div><span>??</span><span id="repswSpan">????</span> </div>
+                <div>
+                    <input type="password" name="psw"/>
+                    <input type="password" name="repsw"/>
                 </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!--start-copyright-->
-<div class="copy-right">
-    <div class="wrap">
-        <p>&copy; </p>
-    </div>
-</div>
-<!--//end-copyright-->
+                <div class="error-info J_error_psw_info">?????????????</div>
+                <div class="error-info J_error_repsw_info">?????????</div>
+                <div>?????6-12?????(a-z),??(0-9)??</div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div>????</div>
+                <div><input type="text" name="mail"/></div>
+                <div class="error-info J_error_mail_info">?????????????</div>
+            </td>
+        </tr>
+        <tr>
+            <th><input type="submit" class="submit-btn" value="????"/></th>
+        </tr>
+    </table>
+</form>
+<script type="text/javascript" src="../jquery-1.10.2.min.js"></script>
+<script>
+    $(document).ready(function(){
+        var $inputEle=$("input[name]");
+        //??????input????
+        $inputEle.addClass('normal');
+        //input????????
+        function inputColor(input){
+            input.on('focus',function(e){
+                $(this).addClass('focus');
+            })
+        }
+        //???name???input??????????
+        inputColor($inputEle);
+        //???????????
+        function checkVal(flag,$input,$errorInfo){
+            if(!flag){
+                $input.addClass('error');
+                $errorInfo.show();
+                return false;
+            }
+            $input.addClass('normal');
+            $errorInfo.hide();
+            return true;
+        }
+        var regUser=/^\w{3,5}$/,
+            regPsw=/^[a-z0-9]{6,12}$/i,
+            regMail=/^(\w)+(\.\w+)*@(\w)+((\.\w+)+)$/;
+        var $userErrorInfo=$('.J_user_error_info'),
+            $pswErrorInfo=$('.J_error_psw_info'),
+            $repswErrorInfo=$('.J_error_repsw_info'),
+            $mailErrorInfo=$('.J_error_mail_info');
+        var $user=$("input[name='user']"),
+            $psw=$("input[name='psw']"),
+            $repsw=$("input[name='repsw']"),
+            $mail=$("input[name='mail']"),
+            $submitBtn=$("input[type='submit']");
+        //?????
+        $user.on('blur',function(e){
+            var userFlag=regUser.test($(this).val());
+            return checkVal(userFlag,$(this),$userErrorInfo);
+        });
+        //????
+        $psw.on('blur',function(e){
+            var pswFlag=regPsw.test($(this).val());
+            checkVal(pswFlag,$(this),$pswErrorInfo);
+        });
+        //??????
+        $repsw.on('blur',function(e){
+            var repswVal=$(this).val(),
+                pswVal=$psw.val();
+            var repswFlag=(repswVal===pswVal);
+            checkVal(repswFlag,$(this),$repswErrorInfo);
+        });
+        //????
+        $mail.on('blur',function(e){
+            var mailFlag=regMail.test($(this).val());
+            checkVal(mailFlag,$(this),$mailErrorInfo);
+        });
+        //??????
+        $submitBtn.on('click',function(e){
+            var userFlag=regUser.test($user.val()),
+                pswFlag=regPsw.test($psw.val()),
+                repswFlag=($repsw.val()===$psw.val()),
+                mailFlag=regMail.test($mail.val());
+            var checkUserResult=checkVal(userFlag,$user,$userErrorInfo),
+                checkPswResult=checkVal(pswFlag,$psw,$pswErrorInfo),
+                checkRepswResult=checkVal(repswFlag,$repsw,$repswErrorInfo),
+                checkMailResult=checkVal(mailFlag,$mail,$mailErrorInfo);
+            if(checkUserResult && checkPswResult && checkRepswResult && checkMailResult){
+                $('#registerForm').submit();
+            }else{
+                e.preventDefault();
+            }
+        });
+
+    });
+</script>
+
 </body>
 </html>

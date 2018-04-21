@@ -55,17 +55,17 @@
                 /* data: "username=" + userName + "&password=" + password,*/
                 data: "&cnumber2=" + cnumber2+ "&cname2=" + cname2 + "&cdate2=" + cdate2+ "&ccode2=" + ccode2+"&name2=" + name2,
                 success: function (result) {
-                    console.log(result);//打印服务端返回的数据(调试用)
-                    if (result.resultCode == 200) {
-                        console.log("da");
+                    console.log(result);//??????????(???)
+                    if (result=="Success to update card") {
+                        alert(result);
                         window.location.href="cardInfo.action";
+                    }else{
+                        alert(result);
                     }
-                    ;
+
                 },
-                error : function(error) {
-                    console.log("da2");
-                    console.log(error);
-                    window.location.href="cardInfo.action";
+                error : function() {
+                    alert("Please check your input all the options correctly") ;
                 }
 
             });

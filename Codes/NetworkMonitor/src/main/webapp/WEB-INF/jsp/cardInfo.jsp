@@ -78,79 +78,14 @@
         function deletecard(id) {
             window.location.href = "deleteCardnumber.action?id=" + id;
         }
+        function carddetail(id) {
+            window.location.href = "carddetail.action?id=" + id;
+        }
         function updatecard(id) {
             console.log("43");
             window.location.href = "updateCardnumber.action?id=" + id;
             console.log("44");
         }
-       /* function createcarda(cname,cdate,cnumber,ccode,name) {
-            window.location.href = "createcards.action?cname=" + cname+"&cdate=" + cdate+"&ccode=" + ccode+"&cnumber=" + cnumber+"&cname=" + name;
-            /!*window.location.href = "createcards.action?cname=1&cdate=01/01/2018&ccode=123&cnumber=32112312&name=1";*!/
-
-        }*/
-       /* function ShowDiv(show_div,bg_div){
-            document.getElementById(show_div).style.display='block';
-            document.getElementById(bg_div).style.display='block' ;
-            var bgdiv = document.getElementById(bg_div);
-            bgdiv.style.width = document.body.scrollWidth;
-// bgdiv.style.height = $(document).height();
-            $("#"+bg_div).height($(document).height());
-        };
-        //?????
-        function CloseDiv(show_div,bg_div)
-        {
-            document.getElementById(show_div).style.display='none';
-            document.getElementById(bg_div).style.display='none';
-        };
-
-        function ShowDiv2(show_div,bg_div,id){
-            var id =id;
-
-            document.getElementById(show_div).style.display='block';
-            document.getElementById(bg_div).style.display='block' ;
-            var bgdiv = document.getElementById(bg_div);
-            bgdiv.style.width = document.body.scrollWidth;
-            $("#"+bg_div).height($(document).height());
-        };
-        //?????
-        function CloseDiv2(show_div,bg_div)
-        {
-            document.getElementById(show_div).style.display='none';
-            document.getElementById(bg_div).style.display='none';
-        };*/
-
-
-       /* function createcards() {
-            var cnumber = $("#cnumber").val();
-            var cname = $("#cname").val();
-            var cdate = $("#cdate").val();
-            var ccode = $("#ccode").val();
-            var name = $("#name").val();
-            $.ajax({
-                type: "POST",
-                url: "createcards.action",
-                /!* data: "username=" + userName + "&password=" + password,*!/
-                data: "&cnumber=" + cnumber+ "&cname=" + cname + "&cdate=" + cdate+ "&ccode=" + ccode+"&name=" + name,
-                success: function (result) {
-                    console.log(result);//??????????(???)
-                    if (result.resultCode == 200) {
-                        console.log("da");
-                        alert("SUCCESS");
-                    }
-                    ;
-                },
-                error : function() {
-                    alert("error");
-                }
-
-            });
-        }*/
-
-
-
-
-
-
 
 
 
@@ -179,10 +114,10 @@
     <h1> Card Informations</h1>
     <div class="sap_tabs">
 
-        <div class="sign-up" style="width:100px;height:50px;">
+       <%-- <div class="sign-up" style="width:100px;height:50px;">
             <input type="submit" class="submit-btn" id="J_submit" value="Transaction Information" style="width:100px;height:50px;"
                    onclick='window.location.href="all.action"' ;>
-        </div>
+        </div>--%>
 
 
         <table id="table-demo" class="table table-bordered" style="margin-top:10px; width:100%;
@@ -209,6 +144,9 @@
                 </th>
                 <th class="resp-tab-item" aria-controls="tab_item-0" role="tab" style="width:100px;height:50px;">
                     Update
+                </th>
+                <th class="resp-tab-item" aria-controls="tab_item-0" role="tab" style="width:100px;height:50px;">
+                    Transaction
                 </th>
             </tr>
             </thead>
@@ -239,151 +177,23 @@
                                    style="text-align: center; width:70px;height:50px;" onclick=" updatecard('${ac.cardId}')">
                         </div>
                     </td>
+                    <td class="resp-tab-item" aria-controls="tab_item-0" role="tab" style="width:100px;height:50px;">
+                        <div class="sign-up" style="width:100px;height:50px;">
+                            <input type="freeze" class="submit-btn " value="Detail"
+                                   style="text-align: center; width:70px;height:50px;" onclick="carddetail('${ac.cardId}')">
+                        </div>
+                    </td>
                 </tr>
             </c:forEach>
             </tbody>
         </table>
         <div class="sign-up" style="width:260px;height:80px;margin:0px auto;">
-            <input type="submit" class="submit-btn" id="Create" value="Create a New account"
+            <input type="submit" class="submit-btn" id="Create" value="Create a New Card"
                    style="width:260px;height:80px;" onclick='window.location.href="createcardpage.action"'>
         </div>
 
     </div>
 </div>
-
-
-
-<%--
-
-<div id="fade" class="black_overlay">
-</div>
-<div id="MyDiv" class="white_content">
-    <div style="text-align: right; cursor: default; height: 40px;" id="move">
-        <span style="font-size: 16px;" onclick="CloseDiv('MyDiv','fade')">X</span>
-    </div>
-    <form class="form-horizontal" role="form"
-          &lt;%&ndash;form action="createcards.action?cnumber=1111111111111&cname=01/01/2018&cdate=2018-05-31&ccode=132&name=1" &ndash;%&gt;
-         &lt;%&ndash; form action="createcards.action?cnumber%{cnumber}&cname=01/01/2018&cdate=2018-05-31&ccode=132&name=1"&ndash;%&gt;
-         &lt;%&ndash; method="post"&ndash;%&gt;>
-        Related Account
-        <div class="form-group">
-            <label for="na" class="col-sm-2 control-label">Account  ID</label>
-            <div class="col-sm-10">
-
-                <input type="text" class="form-control" id="name" maxlength="3" minlength="1" onkeyup="value=value.replace(/[^\d]/g,'')" required=""onfocus='$("#message").text("");'>
-
-            </div>
-        </div>
-        Card
-        <div class="form-group">
-            <label for="cn" class="col-sm-2 control-label">Card Number</label>
-            <div class="col-sm-10">
-                <input type="text" required=""onfocus='$("#message").text("");' class="form-control" id="cnumber" maxlength="16" minlength="16" onkeyup="value=value.replace(/[^\d]/g,'')" placeholder="XXXX-XXXX-XXXX-XXXX">
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="co" class="col-sm-2 control-label">Owner Name</label>
-            <div class="col-sm-10">
-                <input type="text"  required=""onfocus='$("#message").text("");' class="form-control" id="cname" maxlength="15" minlength="2" placeholder="The length of name must be between 2 to 15">
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="cd" class="col-sm-2 control-label">Expiration date</label>
-            <div class="col-sm-10">
-                <input type="date"  required=""onfocus='$("#message").text("");' class="form-control" id="cdate" placeholder="MM/DD/YYYY">
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="cc" class="col-sm-2 control-label">Sercurity Code</label>
-            <div class="col-sm-10">
-                <input type="text" required=""onfocus='$("#message").text("");' class="form-control" id="ccode" maxlength="3" minlength="3" onkeyup="value=value.replace(/[^\d]/g,'')" placeholder="XXX">
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-                <button  onclick="createcards()" class="btn btn-default" id="createb">Create</button>
-            </div>
-        </div>
-    </form>
-</div>
-
-
-<div id="fade2" class="black_overlay">
-</div>
-<div id="MyDiv2" class="white_content">
-    <div style="text-align: right; cursor: default; height: 40px;" id="move2">
-        <span style="font-size: 16px;" onclick="CloseDiv2('MyDiv2','fade2')">X</span>
-    </div>
-    <form class="form-horizontal" role="form"
-    &lt;%&ndash;form action="createcards.action?cnumber=1111111111111&cname=01/01/2018&cdate=2018-05-31&ccode=132&name=1" &ndash;%&gt;
-    &lt;%&ndash; form action="createcards.action?cnumber%{cnumber}&cname=01/01/2018&cdate=2018-05-31&ccode=132&name=1"&ndash;%&gt;
-    &lt;%&ndash; method="post"&ndash;%&gt;>
-        Related Account
-        <div class="form-group">
-            <label for="na" class="col-sm-2 control-label">Account  ID</label>
-            <div class="col-sm-10">
-
-                <input type="text" class="form-control" id="name2" maxlength="3" minlength="1" onkeyup="value=value.replace(/[^\d]/g,'')" required=""onfocus='$("#message").text("");'>
-
-            </div>
-        </div>
-        Card
-        <div class="form-group">
-            <label for="cn" class="col-sm-2 control-label">Card Number</label>
-            <div class="col-sm-10">
-                <input type="text" required=""onfocus='$("#message").text("");' class="form-control" id="cnumber2" maxlength="16" minlength="16" onkeyup="value=value.replace(/[^\d]/g,'')" placeholder="XXXX-XXXX-XXXX-XXXX">
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="co" class="col-sm-2 control-label">Owner Name</label>
-            <div class="col-sm-10">
-                <input type="text"  required=""onfocus='$("#message").text("");' class="form-control" id="cname2" maxlength="15" minlength="2" placeholder="The length of name must be between 2 to 15">
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="cd" class="col-sm-2 control-label">Expiration date</label>
-            <div class="col-sm-10">
-                <input type="date"  required=""onfocus='$("#message").text("");' class="form-control" id="cdate2" placeholder="MM/DD/YYYY">
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="cc" class="col-sm-2 control-label">Sercurity Code</label>
-            <div class="col-sm-10">
-                <input type="text" required=""onfocus='$("#message").text("");' class="form-control" id="ccode2" maxlength="3" minlength="3" onkeyup="value=value.replace(/[^\d]/g,'')" placeholder="XXX">
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-                <button  onclick="updatecards()" class="btn btn-default" id="updateeb">Update</button>
-            </div>
-        </div>
-    </form>
-</div>--%>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

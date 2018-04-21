@@ -59,13 +59,13 @@
 
         function createaccounts() {
 
-            var name = $("#name").val();
+            var name = $("#name1").val()+" "+$("#name2").val();
             var address = $("#address").val();
             var phone = $("#phone").val();
             var balance = $("#balance").val();
             var limit = $("#limit").val();
             var cnumber = $("#cnumber").val();
-            var cname = $("#cname").val();
+            var cname = $("#cname1").val()+" "+$("#cname2").val();
             var cdate = $("#cdate").val();
             var ccode = $("#ccode").val();
             $.ajax({
@@ -75,14 +75,16 @@
                 data: "&name=" + name+"&address=" + address+"&phone=" + phone+"&balance=" + balance+"&limit=" + limit+"&cnumber=" + cnumber+ "&cname=" + cname + "&cdate=" + cdate+ "&ccode=" + ccode,
                 success: function (result) {
                     console.log(result);//??????????(???)
-                    if (result.resultCode == 200) {
-                        console.log("da");
+                    if (result=="Success to create account!") {
+                        alert(result);
                         window.location.href="accountInfo.action";
+                    }else{
+                        alert(result);
                     }
-                    ;
+
                 },
                 error : function() {
-                    window.location.href="accountInfo.action";
+                    alert("Please check your input all the options correctly") ;
                 }
 
             });
@@ -204,14 +206,17 @@
             <div class="tab-2 resp-tab-content" aria-labelledby="tab_item-1">
                 <div class="facts">
                     <div class="register">
-                        <h3>Account Name:<input placeholder="The length of name must be between 2 to 15" id="name" onblur="validatename(this.value)"  onfocus='$("#message").text("");' class="lock" type="text" required=""  ></h3>
+                        <h3>First Name:<input placeholder="The length of name must be between 2 to 15" id="name1" onblur="validatename(this.value)"  onfocus='$("#message").text("");' class="lock" type="text" required=""  ></h3>
+                        <h3>Last Name:<input placeholder="The length of name must be between 2 to 15" id="name2" onblur="validatename(this.value)"  onfocus='$("#message").text("");' class="lock" type="text" required=""  ></h3>
                         <h3>Account Addrress:<input placeholder=" " id="address" class="lock" type="text" required=""  ></h3>
                         <h3>Phone Number:<input placeholder="XXX-XXX-XXXX"   id="phone" class="mail" type="text" required="" onblur="validatenumber(this.value)"  onfocus='$("#message").text("");' ></h3>
                         <h3>Limit:<input type="text" class="form-control" id="limit" placeholder="$" maxlength="5"  onkeyup="value=value.replace(/[^\d]/g,'')"></h3>
                         <h3>Balance:<input type="text" class="form-control" id="balance" placeholder="$"   maxlength="5" onkeyup="value=value.replace(/[^\d]/g,'')"></h3>
                         <h4>Related Card</h4>
                         <h3>Card Number:<input placeholder="XXXX-XXXX-XXXX-XXXX"  id="cnumber" class="mail" type="text" required=""  onblur="validatecard(this.value)"  onfocus='$("#message").text("");'  ></h3>
-                        <h3>Card Owner:<input placeholder="The length of name must be between 2 to 15" onblur="validatename(this.value)"  onfocus='$("#message").text("");' id="cname" class="lock" type="text" required=""  ></h3>
+                        <h3>First Name:<input placeholder="The length of name must be between 2 to 15" onblur="validatename(this.value)"  onfocus='$("#message").text("");' id="cname1" class="lock" type="text" required=""  ></h3>
+                        <h3>Last Name:<input placeholder="The length of name must be between 2 to 15" onblur="validatename(this.value)"  onfocus='$("#message").text("");' id="cname2" class="lock" type="text" required=""  ></h3>
+
                         <h3>Expiration date:<input placeholder="MM/YY" id="cdate" class="lock" type="text" required=""  onblur="validatemobile2(this.value)"  onfocus='$("#message").text("");'       ></h3>
                         <h3>Sercurity Code:<input placeholder="NNN" id="ccode" class="mail" type="text" required=""   onblur="validatemobile(this.value)" onfocus='$("#message").text("");'  ></h3>
                         <div class="sign-up">

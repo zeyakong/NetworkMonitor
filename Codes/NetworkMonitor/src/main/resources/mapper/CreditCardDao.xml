@@ -52,6 +52,11 @@
 		WHERE card_id=#{id}
 	</select>
 
+	<select id="checknumber"  resultType="int">
+		SELECT security_code
+		FROM credit_cards
+		WHERE card_id=#{cnumber}
+	</select>
 
 	<delete id="deleteCard">
 		DELETE FROM credit_cards
@@ -80,18 +85,13 @@
 		VALUES(#{cnumber},#{cname},#{cdate},#{ccode},#{name})
 	</insert>
 
-<!--	<insert id="updatingcards">
-		INSERT INTO credit_cards(card_id, card_name, expiration_date, security_code, card_account)
-		VALUES("2222222222222222","Xianrui Zhu","2019-05-31","321","2")
-		 /*,card_account=#{name2}*/
-	</insert>-->
 
-
-        <update id="updatingcards">
-            UPDATE `credit_cards`
-            SET `card_name=`'xianruizhu4',`expiration_date`='2018-05-31',`security_code`='111',`card_account`='1'
-            WHERE `card_id`='1234123412341234';
-        </update>
-
-
+	<update id="updatingcards">
+		UPDATE `credit_cards`
+		SET card_name = #{cname2},
+		expiration_date = #{cdate2},
+		security_code = #{ccode2},
+		`card_account` = #{name2}
+		WHERE card_id = #{cnumber2}
+	</update>
 </mapper>
