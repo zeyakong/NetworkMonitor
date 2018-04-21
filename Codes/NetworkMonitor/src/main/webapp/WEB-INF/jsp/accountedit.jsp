@@ -209,7 +209,7 @@
                         <h3>First Name:<input placeholder="The length of name must be between 2 to 15" id="name1" onblur="validatename(this.value)"  onfocus='$("#message").text("");' class="lock" type="text" required=""  ></h3>
                         <h3>Last Name:<input placeholder="The length of name must be between 2 to 15" id="name2" onblur="validatename(this.value)"  onfocus='$("#message").text("");' class="lock" type="text" required=""  ></h3>
                         <h3>Account Addrress:<input placeholder=" " id="address" class="lock" type="text" required=""  ></h3>
-                        <h3>Phone Number:<input placeholder="XXX-XXX-XXXX"   id="phone" class="mail" type="text" required="" onblur="validatenumber(this.value)"  onfocus='$("#message").text("");' ></h3>
+                        <h3>Phone Number:<input placeholder="(XXX) XXX-XXXX"   id="phone" class="mail" type="text" required="" onblur="validatenumber(this.value)"  onfocus='$("#message").text("");' ></h3>
                         <h3>Limit:<input type="text" class="form-control" id="limit" placeholder="$" maxlength="5"  onkeyup="value=value.replace(/[^\d]/g,'')"></h3>
                         <h3>Balance:<input type="text" class="form-control" id="balance" placeholder="$"   maxlength="5" onkeyup="value=value.replace(/[^\d]/g,'')"></h3>
                         <h4>Related Card</h4>
