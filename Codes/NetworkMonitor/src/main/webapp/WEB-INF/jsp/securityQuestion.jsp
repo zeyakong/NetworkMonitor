@@ -80,8 +80,14 @@
                 $("#message").text("The answer is wrong!");
                 times++;
                 if(times>=3){
-                    alert("Your account is blocked because of 3 times wrong!");
-                    window.location.href="logout.action";
+                    $.ajax({
+                        url:"/block/"+"<%=request.getSession().getAttribute("loginId")%>",
+                        method: 'POST',
+                        success: function (data) {
+                            alert("Your account is blocked because of 3 times wrong!");
+                            window.location.href="logout.action";
+                        }
+                    });
                 }
                 num = (num+1)%3;
                 $("#question").attr("placeholder",question[num]);
