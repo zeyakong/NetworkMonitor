@@ -11,6 +11,7 @@ import com.ssm.services.NetworkServices;
 import org.springframework.beans.factory.annotation.Autowired;
         import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -67,5 +68,11 @@ public class LoginController {
     public String doLogout(HttpServletRequest request, HttpServletResponse response){
         request.getSession().invalidate();
         return "login";
+    }
+
+    @RequestMapping("/blockUser/{id}")
+    public @ResponseBody String blockUser(@PathVariable Integer id){
+        loginServices.blockAccountById(id);
+        return "ok";
     }
 }

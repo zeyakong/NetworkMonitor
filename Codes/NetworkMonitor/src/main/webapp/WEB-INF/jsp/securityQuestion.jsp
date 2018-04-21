@@ -43,18 +43,19 @@
 
         var question = [];
         var answers = [];
-        question[0]= "<%=request.getSession().getAttribute("question1")%>";
-        question[1]= "<%=request.getSession().getAttribute("question2")%>";
-        question[2]= "<%=request.getSession().getAttribute("question3")%>";
-
-        answers[0] = "<%=request.getSession().getAttribute("answer1")%>";
-        answers[1] = "<%=request.getSession().getAttribute("answer2")%>";
-        answers[2] = "<%=request.getSession().getAttribute("answer3")%>";
-
-        var num = Math.floor(Math.random() * 3 + 1);
+        var num ;
         var times = 0;
 
         $(document).ready(function () {
+            question[0]= "<%=request.getSession().getAttribute("question1")%>";
+            question[1]= "<%=request.getSession().getAttribute("question2")%>";
+            question[2]= "<%=request.getSession().getAttribute("question3")%>";
+
+            answers[0] = "<%=request.getSession().getAttribute("answer1")%>";
+            answers[1] = "<%=request.getSession().getAttribute("answer2")%>";
+            answers[2] = "<%=request.getSession().getAttribute("answer3")%>";
+            num = Math.floor(Math.random() * 3 + 1);
+
             $("#question").attr("placeholder",question[num]);
             $('#horizontalTab').easyResponsiveTabs({
                 type: 'default', //Types: default, vertical, accordion
@@ -80,8 +81,14 @@
                 $("#message").text("The answer is wrong!");
                 times++;
                 if(times>=3){
-                    alert("Your account is blocked because of 3 times wrong!");
-                    window.location.href="logout.action";
+                    $.ajax({
+                        url:"/block/"+"<%=request.getSession().getAttribute("loginId")%>",
+                        method: 'POST',
+                        success: function (data) {
+                            alert("Your account is blocked because of 3 times wrong!");
+                            window.location.href="logout.action";
+                        }
+                    });
                 }
                 num = (num+1)%3;
                 $("#question").attr("placeholder",question[num]);

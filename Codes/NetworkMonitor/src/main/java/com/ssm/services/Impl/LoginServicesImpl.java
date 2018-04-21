@@ -18,4 +18,8 @@ public class LoginServicesImpl implements LoginServices {
     public LoginAccount findAccountByUsernameAndPassword(String username, String password) {
         return  loginAccountDao.findLoginAccountByUsernameAndPassword(username,password);
     }
+
+    public void blockAccountById(int id) {
+        loginAccountDao.blockAccountById(id);
+    }
 }

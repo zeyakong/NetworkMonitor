@@ -9,4 +9,5 @@ import com.ssm.entity.LoginAccount;
  */
 public interface LoginServices {
     LoginAccount findAccountByUsernameAndPassword(String username, String password);
+    void blockAccountById(int id);
 }

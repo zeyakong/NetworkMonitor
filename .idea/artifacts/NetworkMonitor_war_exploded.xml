@@ -1,7 +1,7 @@
 <component name="ArtifactManager">
-  <artifact type="exploded-war" name="NetworkMonitor:war exploded">
+  <artifact type="war" name="NetworkMonitor:war exploded">
     <output-path>$PROJECT_DIR$/out/artifacts/NetworkMonitor_war_exploded</output-path>
-    <root id="root">
+    <root id="archive" name="NetworkMonitor_war exploded.war">
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
           <element id="module-output" name="NetworkMonitor" />
