@@ -43,18 +43,19 @@
 
         var question = [];
         var answers = [];
-        question[0]= "<%=request.getSession().getAttribute("question1")%>";
-        question[1]= "<%=request.getSession().getAttribute("question2")%>";
-        question[2]= "<%=request.getSession().getAttribute("question3")%>";
-
-        answers[0] = "<%=request.getSession().getAttribute("answer1")%>";
-        answers[1] = "<%=request.getSession().getAttribute("answer2")%>";
-        answers[2] = "<%=request.getSession().getAttribute("answer3")%>";
-
-        var num = Math.floor(Math.random() * 3 + 1);
+        var num ;
         var times = 0;
 
         $(document).ready(function () {
+            question[0]= "<%=request.getSession().getAttribute("question1")%>";
+            question[1]= "<%=request.getSession().getAttribute("question2")%>";
+            question[2]= "<%=request.getSession().getAttribute("question3")%>";
+
+            answers[0] = "<%=request.getSession().getAttribute("answer1")%>";
+            answers[1] = "<%=request.getSession().getAttribute("answer2")%>";
+            answers[2] = "<%=request.getSession().getAttribute("answer3")%>";
+            num = Math.floor(Math.random() * 3 + 1);
+
             $("#question").attr("placeholder",question[num]);
             $('#horizontalTab').easyResponsiveTabs({
                 type: 'default', //Types: default, vertical, accordion

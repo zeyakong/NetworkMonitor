@@ -312,7 +312,7 @@ public class NetworkServicesImpl implements NetworkServices {
         String startIndex =start;
         String endIndex;
 
-        for(Iterator i =openSet.iterator();i.hasNext();) {//比较常规的for写法
+        for(Iterator i =openSet.iterator();i.hasNext();) {
             endIndex = i.next()+"";
             if(isNear(startIndex,endIndex)){
 
