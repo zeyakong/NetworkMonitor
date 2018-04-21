@@ -12,6 +12,11 @@
     <button onclick="changeCapacity('192.168.0.203','122')">changeCapacity</button>
     <button onclick="updateAccount('Kyle Van Allen', '2323',  '232',  '22.00',  '121',  2)">updateAccount</button>
     <button onclick="createConnection('192.168.1.1','192.168.0.3','1','2')">createConnection</button>
+    <br>
+    <input type="text" id="start" placeholder="startIp">
+    <input type="text" id="end" placeholder="endIp">
+    <button onclick="getNextIp()">getNextIp</button>
+
 </head>
 <body>
 
@@ -77,6 +82,22 @@
             }
         });
     }
+
+    function getNextIp(){
+        var ip =$("#start").val();
+        var destination = $("#end").val();
+        console.log(ip+"  "+destination);
+        $.ajax({
+            url: '/getNextIp?ip='+ip+'&destination='+destination,
+            method: 'GET',
+            success: function (data) {
+                alert(data);
+            }
+        });
+    }
+
+
+
 
     function updateAccount(accountName, accountAddress,  accountPhone,  limit,  balance,  accountId){
         $.ajax({

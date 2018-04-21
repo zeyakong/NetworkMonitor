@@ -178,70 +178,76 @@ public class NetworkServicesImpl implements NetworkServices {
 
     //path algorithm
     public String getNextIp(String startIp,String destination) {
-        if(isNear(startIp,destination)){
-            return destination;
-        }
-        if(startIp.equals("192.168.0.253")){
-            List<String> path = new ArrayList<String>();
-            String s = destination;
-            String d = startIp;
-            while(!s.equals("192.168.0.253")){
-                String n = getNextIp(s,d);
-                path.add(n);
-                s= n;
-            }
-            return path.get(path.size()-2);
-        }
-
-        List<String> policy = new ArrayList<String>();
-        policy.add("192.168.0.209 192.168.0.203");
-        policy.add("192.168.0.203 192.168.0.253");
-        policy.add("192.168.0.208 192.168.0.203");
-        policy.add("192.168.0.221 192.168.0.231");
-        policy.add("192.168.0.231 192.168.0.212");
-        policy.add("192.168.0.231 192.168.0.253");
-        policy.add("192.168.0.244 192.168.0.253");
-        policy.add("192.168.0.248 192.168.0.244");
-        policy.add("192.168.0.237 192.168.0.253");
-        policy.add("192.168.0.239 192.168.0.237");
-
-        List<Connection> list = connectionDao.findAllConnections();
-        List<String> next = new ArrayList<String>();
-        if(startIp.equals(destination)){
+//        if(isReachable(startIp,destination)){
+//            return destination;
+//        }
+//        if(startIp.equals("192.168.0.253")){
+//            List<String> path = new ArrayList<String>();
+//            String s = destination;
+//            String d = startIp;
+//            while(!s.equals("192.168.0.253")){
+//                String n = getNextIp(s,d);
+//                path.add(n);
+//                s= n;
+//            }
+//            return path.get(path.size()-2);
+//        }
+//
+//        List<String> policy = new ArrayList<String>();
+//        policy.add("192.168.0.209 192.168.0.203");
+//        policy.add("192.168.0.203 192.168.0.253");
+//        policy.add("192.168.0.208 192.168.0.203");
+//        policy.add("192.168.0.221 192.168.0.231");
+//        policy.add("192.168.0.231 192.168.0.212");
+//        policy.add("192.168.0.231 192.168.0.253");
+//        policy.add("192.168.0.244 192.168.0.253");
+//        policy.add("192.168.0.248 192.168.0.244");
+//        policy.add("192.168.0.237 192.168.0.253");
+//        policy.add("192.168.0.239 192.168.0.237");
+//
+//        List<Connection> list = connectionDao.findAllConnections();
+//        List<String> next = new ArrayList<String>();
+//        if(startIp.equals(destination)){
+//            return startIp;
+//        }
+//        for(int i= 0 ; i<list.size(); i++){
+//            Connection c = list.get(i);
+//            if(c.getIsActive()==1){
+//                if(startIp.equals(c.getStartIp()) && Integer.parseInt(c.getEndIp().substring(10))>200 ){
+//                    next.add(c.getEndIp());
+//                }else if(startIp.equals(c.getEndIp())&Integer.parseInt(c.getStartIp().substring(10))>200){
+//                    next.add(c.getStartIp());
+//                }
+//            }
+//        }
+//
+//        if(Integer.parseInt(startIp.substring(10))<200&&next!=null){
+//            return next.get(next.size()-1);
+//        }
+//
+//        //get good next ip
+//        if(destination.equals("192.168.0.253")){
+//            for(int i = 0 ;i<policy.size(); i++){
+//                String[] p = policy.get(i).split(" ");
+//                if(p[0].equals(startIp)&&next.contains(p[1])){
+//                    return p[1];
+//                }
+//            }
+//        }else{
+//            for(int i = 0 ;i<policy.size(); i++){
+//                String[] p = policy.get(i).split(" ");
+//                if(p[1].equals(startIp)&&next.contains(p[0])){
+//                    return p[0];
+//                }
+//            }
+//        }
+        //get the path list
+        List<String> path =  findShortestPath(startIp,destination);
+        if(path==null){
             return startIp;
-        }
-        for(int i= 0 ; i<list.size(); i++){
-            Connection c = list.get(i);
-            if(c.getIsActive()==1){
-                if(startIp.equals(c.getStartIp()) && Integer.parseInt(c.getEndIp().substring(10))>200 ){
-                    next.add(c.getEndIp());
-                }else if(startIp.equals(c.getEndIp())&Integer.parseInt(c.getStartIp().substring(10))>200){
-                    next.add(c.getStartIp());
-                }
-            }
-        }
-
-        if(Integer.parseInt(startIp.substring(10))<200&&next!=null){
-            return next.get(next.size()-1);
-        }
-
-        //get good next ip
-        if(destination.equals("192.168.0.253")){
-            for(int i = 0 ;i<policy.size(); i++){
-                String[] p = policy.get(i).split(" ");
-                if(p[0].equals(startIp)&&next.contains(p[1])){
-                    return p[1];
-                }
-            }
         }else{
-            for(int i = 0 ;i<policy.size(); i++){
-                String[] p = policy.get(i).split(" ");
-                if(p[1].equals(startIp)&&next.contains(p[0])){
-                    return p[0];
-                }
-            }
+            return path.get(1);
         }
-        return startIp;
     }
 
     public void changeConnectionStatusById(int id) {
@@ -285,52 +291,85 @@ public class NetworkServicesImpl implements NetworkServices {
     }
 
 
-    //path algorithm
+    //path algorithm BFS
     private List<String> findShortestPath(String start , String destination){
         //generate graph with ip;
         List<RelayStation> relayStations = relayStationDao.findAllRelayStations();
-        Set<String> graph = new HashSet<String>();
-        Set<String> openSet = new HashSet<String>();
-        Set<String> closeSet = new HashSet<String>();
 
+        //graph set{ip1,ip2....}
+        Set<String> graph = new HashSet<String>();
+        Queue<String> queue  = new LinkedList<String>();
+        List<String> marked = new ArrayList<String>();
+        //Map <ip , parent>
+        Map<String,String> path = new HashMap<String, String>();
+
+
+        //add start and end node into graph.
         graph.add(start);
         graph.add(destination);
 
+        //add all relay stations as nodes.
         for(int i = 0 ;i<relayStations.size() ; i++){
             RelayStation relayStation = relayStations.get(i);
-            graph.add(relayStation.getStationIp());
-        }
-
-        openSet.addAll(graph);
-
-        //add start into close set
-        closeSet.add(start);
-
-        //remove the node in openset
-        openSet.remove(start);
-
-        String startIndex =start;
-        String endIndex;
-
-        for(Iterator i =openSet.iterator();i.hasNext();) {
-            endIndex = i.next()+"";
-            if(isNear(startIndex,endIndex)){
-
+            if(relayStation.getIsActive()==1){
+                graph.add(relayStation.getStationIp());
             }
-            System.out.println(i.next());
         }
-        return null;
+
+        //now all the nodes belongs to the open set.
+
+        System.out.println("===============\nFrom "+start+" to "+destination+".\nPath finding start...\nThe graph contains:"+graph.toString());
+
+        //add the start into queue.marked it reached.
+        queue.add(start);
+        marked.add(start);
+
+        while (!queue.isEmpty()) {
+            String top = queue.poll();//remove it
+            marked.add(top);
+
+            //find all adjacent nodes for the top node of the queue.
+            for(Iterator i = graph.iterator();i.hasNext();){
+                String temp = i.next()+"";
+                if(!marked.contains(temp)&&isReachable(temp,top)){
+                    //marked it and add it into queue
+                   marked.add(temp);
+                   queue.add(temp);
+                   path.put(temp,top);
+                }
+            }
+        }
+
+        System.out.println(path.toString());
+
+        String index = destination;
+        String parent = "";
+        List<String> finalPath = new ArrayList<String>();
+        finalPath.add(destination);
+        while(!parent.equals(start)){
+            if(path.containsKey(index)){
+                parent = path.get(index);
+                finalPath.add(parent);
+                index = parent;
+            }else{
+                //no path
+                return  null;
+            }
+        }
+
+        Collections.reverse(finalPath);
+        return finalPath;
     }
 
-    private boolean isNear(String ip1, String ip2){
+    private boolean isReachable(String ip1, String ip2){
         List<Connection>connections = connectionDao.findAllConnections();
         List<String> next = new ArrayList<String>();
         for(int i = 0 ;i<connections.size() ;i++){
             Connection c = connections.get(i);
             if(c.getIsActive()==1){
-                if(ip1.equals(c.getStartIp())&&c.getIsActive()==1){
+                if(ip1.equals(c.getStartIp())&&c.getIsActive()==1&&!isFull(c.getEndIp())){
                     next.add(c.getEndIp());
-                }else if(ip1.equals(c.getEndIp())&&c.getIsActive()==1){
+                }else if(ip1.equals(c.getEndIp())&&c.getIsActive()==1&&!isFull(c.getStartIp())){
                     next.add(c.getStartIp());
                 }
             }
@@ -342,4 +381,33 @@ public class NetworkServicesImpl implements NetworkServices {
         }
         return false;
     }
+
+    /**
+     * check if the station is full or not.
+     * @param ip the relay station ip
+     * @return
+     */
+    private boolean isFull(String ip){
+        List<RelayStation> relayStations = relayStationDao.findAllRelayStations();
+        int limit;
+        for(int i = 0 ;i<relayStations.size() ;i++){
+            RelayStation r = relayStations.get(i);
+            if(ip.equals(r.getStationIp())){
+
+                limit = r.getTransactionLimit();
+                List<Transaction> transactions = transactionDao.findAllTransactions();
+                for(int j = 0 ;j<transactions.size() ; j++){
+                    Transaction t = transactions.get(j);
+                    if(t.getCurrentPositionIp().equals(r.getStationIp())){
+                        limit--;
+                        if(limit<=0){
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
 }
