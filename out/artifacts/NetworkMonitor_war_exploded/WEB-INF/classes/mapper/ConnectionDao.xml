@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD config.mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssm.dao.ConnectionDao">
+
+    <select id="findAllConnections" resultType="com.ssm.entity.Connection">
+        SELECT *
+        FROM connections;
+    </select>
+
+    <update id="updateStatus">
+      UPDATE connections
+      SET is_active = NOT is_active
+      WHERE connection_id = #{id}
+    </update>
+
+    <insert id="createConnection">
+      INSERT INTO connections(start_ip, end_ip, is_active, weight)
+      VALUES(#{start_ip}, #{end_ip}, #{is_active}, #{weight})
+    </insert>
+</mapper>
