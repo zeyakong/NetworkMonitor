@@ -43,7 +43,7 @@
 
         var question = [];
         var answers = [];
-        var num ;
+        var num =1;
         var times = 0;
 
         $(document).ready(function () {
