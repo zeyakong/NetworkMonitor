@@ -11,7 +11,7 @@ var running;
 var animationTimer = 4000;
 
 //Global Constant
-var pCenter = "192.168.0.253"; //CHANGE THIS WHEN WE MOVE OVER TO NEW DATA
+var pCenter = "192.168.0.200"; //CHANGE THIS WHEN WE MOVE OVER TO NEW DATA
 var totalRegions;
 
 //##########################ajax functions##########################
