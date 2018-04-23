@@ -9,6 +9,12 @@
         FROM relay_stations;
     </select>
 
+    <select id="findRelayStationByIp" resultType="com.ssm.entity.RelayStation">
+        SELECT *
+        FROM relay_stations
+        WHERE station_ip = #{ip}
+    </select>
+
     <insert id="createRelayStation">
         INSERT INTO relay_stations(station_ip, station_type, region, transaction_limit)
         VALUES(#{station_ip}, #{station_type}, #{region}, #{limit})
@@ -23,6 +29,12 @@
     <update id="updateRelayStationActive">
         UPDATE relay_stations
         SET is_active = NOT is_active
+        WHERE station_ip = #{station_ip}
+    </update>
+
+    <update id="updateTransactionCount">
+        UPDATE relay_stations
+        SET transaction_count = #{count}
         WHERE station_ip = #{station_ip}
     </update>
 </mapper>

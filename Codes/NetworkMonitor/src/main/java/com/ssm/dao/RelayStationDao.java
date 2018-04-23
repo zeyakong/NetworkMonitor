@@ -18,4 +18,8 @@ public interface RelayStationDao {
     void updateRelayStationLimit(@Param("station_ip")String station_ip,
                                  @Param("limit") int limit);
     void updateRelayStationActive(@Param("station_ip")String station_ip);
+
+    RelayStation findRelayStationByIp(@Param("ip")String ip);
+
+    void updateTransactionCount(@Param("station_ip")String station_ip,@Param("count")int count);
 }

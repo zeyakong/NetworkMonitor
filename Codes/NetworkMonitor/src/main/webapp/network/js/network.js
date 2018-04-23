@@ -237,6 +237,8 @@ function getNextIp(ip,destination,t){
         url: '/getNextIp?ip='+ip+'&destination='+destination,
         method: 'GET',
         success: function (data) {
+            console.log("ok get next ip success!!!");
+            console.log(data);
 
             //Update the transaction in the database and process it in Processing Center if necessary
             prepareTransactionForUpdate(t, data);
