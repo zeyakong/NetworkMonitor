@@ -772,7 +772,7 @@ $('#toggleConnection').click(function(){
     $('#connectionModal').modal('hide');
 });
 
-//CHANGE TRANSACTION LIMIT
+//CHANGE TRANSACTION LIMITS
 $('#applyButton').click(function() {
     var limitEntry = document.getElementById('newLimit');
     var limit = limitEntry.value;
