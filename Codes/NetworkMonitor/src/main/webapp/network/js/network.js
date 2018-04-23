@@ -475,17 +475,12 @@ var updateTransactionQueues = function() {
 // UPDATE TRANSACTION QUEUE ALGORITHM
 // VERIFICATION
 
-//setTimeout(updateTransactionQueues, 500);
-//setTimeout(prepareMap, 500);
-
-
 //-----------------------------------DYNAMIC FUNCTIONS------------------------------------------------------
 
 //Decides which popup-window to display and populates it when a node is clicked on
 network.on("click", function (params) {
     getNetworkInfo();
     params.event = "[original event]";
-    //console.log(params);
     //IT IS AN EDGE OR NOTHING
     if (params.nodes[0] === undefined) {
         if (params.edges[0] === undefined) {
@@ -693,29 +688,62 @@ $('#btnSubmitTransaction').click(function () {
     var transactionType = $('#transactionType').find(":selected").text();
     var transactionAmount = document.getElementById('transactionAmount').value;
 
+    //Verify Card Number
+    if( cardNumber.charAt(0) == "0" || cardNumber.charAt(0) == "9" ) {
+        alert("The first number of a valid credit card number cannot be zero or nine!");
+        return;
+    }
+    if( cardNumber.length != 16 ) {
+        alert("A valid credit card number has 16 characters in it!");
+        return;
+    }
+
+    //Verify Card Name
+    var splitName = cardName.split(" ");
+    var firstName = "";
+    var lastName = "";
+    console.log(splitName);
+    for( i = 0; i < splitName.length; i++ ) {
+        if( i === 0 ) {
+            firstName = splitName[i];
+        }
+        else{
+            lastName += splitName[i];
+        }
+    }
+    if( firstName.length < 2 || firstName.length > 15 ) {
+        alert("The first name must be between 2 and 15 characters inclusive");
+        return;
+    }
+    if( lastName.length < 2 || lastName.length > 15 ) {
+        alert("The last name must be between 2 and 15 characters inclusive");
+        return;
+    }
+
+    //Verify Card Code
+    if( securityCode.length != 3 ) {
+        alert("A security code must be three digits long!");
+        return;
+    }
+    if( securityCode.charAt(0) == "0" ) {
+        alert("A security code must not begin with a zero!");
+        return;
+    }
+
+    //Verify Amount
+    if( isNaN(transactionAmount) === false ) {
+        //The value is a number
+        var num = parseFloat(transactionAmount);
+        console.log(num);
+        if( num <= 0 ) {
+            alert("The transaction amount must be a positive number! To pay off balance, please select the DEBIT option.");
+            return;
+        }
+    }
+
     //Get current store ip
     var storeIp = document.getElementById('storeIp').innerText;
-    console.log(storeIp);
-    // for (i = 0; i < networkInfo.stores.length; i++) {
-    //     if (networkInfo.stores[i].merchantName === $('#merchantName').html()) {
-    //         storeIp = networkInfo.stores[i].storeIp;
-    //     }
-    // }
 
-    //This object contains both verification information needed for the credit card
-    //and transaction information that will be logged in the database
-    // var transaction = {
-    //     transactionInfo: {
-    //         transactionType: transactionType,
-    //         transactionAmount: transactionAmount,
-    //         cardId: cardNumber,
-    //         currentPositionIp: storeIp,
-    //         currentDestinationIp: pCenter,
-    //         cardName: cardName,
-    //         securityCode: securityCode,
-    //         expirationDate: date
-    //     }
-    // };
     createNewTransaction(transactionType,transactionAmount,storeIp,cardNumber,storeIp,pCenter,cardName,date,securityCode);
     //prepareMap();
     //setTimeout(updateTransactionQueues, 250);
@@ -755,8 +783,9 @@ $('#applyButton').click(function() {
         changeCapacity(ip,limit);
         $('#relayModal').modal('hide');
     }
-    // console.log(limit);
-    // console.log(ip);
+    else{
+        alert("The limit should be a positive value or zero!");
+    }
 });
 
 //OPEN STORE MODAL
@@ -976,6 +1005,16 @@ $('#addStoreButton').click(function() {
     //console.log(exists);
     if( name != "" ) {
         if(!exists) {
+            if(!ipIsCorrectFormat(ip)) {
+                alert("The ip must follow the format 192.168.0.---");
+                return;
+            }
+            //Check weights
+            if( areWeightsFilledIn(table) === false ){
+                alert("A weight must be given for any connection being created!");
+                return;
+            }
+
             //Add store
             createStore(ip,name,region);
 
@@ -986,14 +1025,10 @@ $('#addStoreButton').click(function() {
                     //THE ROW IS SELECTED
                     var nodeIp = table.rows[r].cells[0].innerText;
                     var weight = table.rows[r].cells[1].childNodes[0].value;
-                    // console.log("Row " + r);
-                    // console.log(ip);
-                    // console.log(nodeIp);
-                    // console.log(1);
-                    // console.log(weight);
                     createConnection(ip,nodeIp,1,weight);
                 }
             }
+            document.getElementById("addStoreFormOne").reset();
             $('#addStoreModal').modal('hide');
             setTimeout(prepareMap, 250);
         }
@@ -1002,7 +1037,7 @@ $('#addStoreButton').click(function() {
         }
     }
     else{
-        alert("Name must contain a value!");
+        alert("You must enter a store name!");
     }
 });
 
@@ -1016,6 +1051,23 @@ $('#addRelayButton').click(function() {
     var ip = document.getElementById('newRelayIp').value;
     var limit = document.getElementById('newRelayLimit').value;
 
+    //VALIDATION
+    if( !ipIsCorrectFormat(ip) ) {
+        alert("The relay ip must follow the format 192.168.0.---");
+        return;
+    }
+
+    var exists = nodes.get(ip.substr(10));
+    if( exists ) {
+        alert("This Ip is being used by another store or relay station!");
+        return;
+    }
+
+    if( limit < 0 ) {
+        alert("The limit should be a positive value or 0!");
+        return;
+    }
+
     //Are we adding to a new region?
     if( region == "New" ) {
         console.log("New Region Added");
@@ -1023,7 +1075,28 @@ $('#addRelayButton').click(function() {
         var newStoreName = document.getElementById('newStoreToNewRegionName').value;
         var newStoreWeight = document.getElementById('newStoreToNewRegionWeight').value;
 
-        //VALIDATION OF IPS AND NAMES
+        //VALIDATION
+        if( !ipIsCorrectFormat(ip) ) {
+            alert("The store ip must follow the format 192.168.0.---");
+            return;
+        }
+
+        var exists = nodes.get(ip.substr(10));
+        if( exists ) {
+            alert("This Ip is being used by another store or relay station!");
+            return;
+        }
+
+        if( newStoreName == "" ) {
+            alert("The store must have a name!");
+            return;
+        }
+
+        //Check weights
+        if( areWeightsFilledIn(relayTable) === false ){
+            alert("A weight must be given for any connection being created!");
+            return;
+        }
 
         //Add relaystation
         totalRegions += 1;
@@ -1040,15 +1113,27 @@ $('#addRelayButton').click(function() {
                 createConnection(ip,nodeIp,1,weight);
             }
         }
+        document.getElementById("addRelayFormOne").reset();
+        document.getElementById("addStoreToNewRegion").reset();
         $('#addRelayModal').modal('hide');
         setTimeout(prepareMap, 250);
         return;
     }
 
     //Verification
-    var exists = nodes.get(ip.substr(10));
-    if( !(limit < 0) ) {
-        if(!exists){
+
+            //Check weights relayTable
+            if( areWeightsFilledIn(relayTable) === false ){
+                alert("A weight must be given for any connection being created!");
+                return;
+            }
+
+            //Check weights storeTable
+            if( areWeightsFilledIn(storeTable) === false ){
+                alert("A weight must be given for any connection being created!");
+                return;
+            }
+
             //Add Relay Station
             createRelayStation(ip,1,0,region,limit);
 
@@ -1073,17 +1158,41 @@ $('#addRelayButton').click(function() {
                     createConnection(ip,nodeIp,1,weight);
                 }
             }
+            document.getElementById("addRelayFormOne").reset();
+            document.getElementById("addStoreToNewRegion").reset();
             $('#addRelayModal').modal('hide');
             setTimeout(prepareMap, 250);
-        }
-        else{
-            alert("This Ip is being used by another store or relay station!");
-        }
-    }
-    else{
-        alert("The limit should be a positive value or 0!");
-    }
 });
+
+$('#cancelAddStore').click(function() {
+    document.getElementById("addStoreFormOne").reset();
+});
+
+$('#cancelAddRelay').click(function() {
+    document.getElementById("addRelayFormOne").reset();
+    document.getElementById("addStoreToNewRegion").reset();
+});
+
+var ipIsCorrectFormat = function(ip) {
+    if( ip.length > 13 ) {
+        return false;
+    }
+    return true;
+};
+
+var areWeightsFilledIn = function(table) {
+    //Check weights
+    for( var r = 1, n = table.rows.length; r < n; r++ ) {
+        var checkbox = table.rows[r].cells[2].childNodes[0];
+        if( checkbox.checked ) {
+            var weight = table.rows[r].cells[1].childNodes[0].value;
+            if( weight == "" ) {
+                return false;
+            }
+        }
+    }
+    return true;
+}
 
 //ANIMATION STUFF--------------------------------------------
 
@@ -1247,6 +1356,36 @@ var getEdgeColor = function(edge) {
     }
     edges.update(edge);
 };
+
+$("#newStoreIp").keydown(function(e) {
+    var oldvalue=$(this).val();
+    var field=this;
+    setTimeout(function () {
+        if(field.value.indexOf('192.168.0.') !== 0) {
+            $(field).val(oldvalue);
+        }
+    }, 1);
+});
+
+$("#newRelayIp").keydown(function(e) {
+    var oldvalue=$(this).val();
+    var field=this;
+    setTimeout(function () {
+        if(field.value.indexOf('192.168.0.') !== 0) {
+            $(field).val(oldvalue);
+        }
+    }, 1);
+});
+
+$('#newStoreToNewRegionIp').keydown(function(e) {
+    var oldvalue=$(this).val();
+    var field=this;
+    setTimeout(function () {
+        if(field.value.indexOf('192.168.0.') !== 0) {
+            $(field).val(oldvalue);
+        }
+    }, 1);
+});
 
 //Starts the animation clock that runs during execution
 setInterval(runAnimation, animationTimer);

@@ -285,7 +285,7 @@
             <form id="addStoreFormOne">
                 <div class="form-group">
                     <label>Store Ip</label>
-                    <input type="text" class="form-control" placeholder="Unique Ip" id="newStoreIp">
+                    <input type="text" value="192.168.0." class="form-control" id="newStoreIp">
                 </div>
                 <div class="form-group">
                     <label>Store Name</label>
@@ -316,7 +316,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn" style="background-color: red" id="addStoreButton">Submit</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="cancelAddStore">Cancel</button>
             </div>
         </div>
     </div>
@@ -337,7 +337,7 @@
                 <form id="addRelayFormOne">
                     <div class="form-group">
                         <label>Relay Ip</label>
-                        <input type="text" class="form-control" placeholder="Unique Ip" id="newRelayIp">
+                        <input type="text" value="192.168.0." class="form-control" id="newRelayIp">
                     </div>
                     <div class="form-group">
                         <label>Transaction Limit</label>
@@ -384,7 +384,7 @@
                         <form id="addStoreToNewRegion">
                             <div class="form-group">
                                 <label>Store Ip</label>
-                                <input type="text" class="form-control" placeholder="Unique Ip" id="newStoreToNewRegionIp">
+                                <input type="text" class="form-control" value="192.168.0." id="newStoreToNewRegionIp">
                             </div>
                             <div class="form-group">
                                 <label>Store Name</label>
@@ -405,7 +405,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn" style="background-color: red" id="addRelayButton">Submit</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="cancelAddRelay">Cancel</button>
             </div>
         </div>
     </div>
