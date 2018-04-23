@@ -13,6 +13,8 @@ import java.util.List;
 public interface NetworkServices {
     Network getNetwork();
 
+    boolean isFull(String ip);
+
     String generateDOT(Network network);
 
     String getNextIp(String startIp,String destination);

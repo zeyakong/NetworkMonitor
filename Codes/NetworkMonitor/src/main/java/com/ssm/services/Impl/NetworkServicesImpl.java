@@ -387,7 +387,7 @@ public class NetworkServicesImpl implements NetworkServices {
      * @param ip the relay station ip
      * @return
      */
-    private boolean isFull(String ip){
+    public boolean isFull(String ip){
         List<RelayStation> relayStations = relayStationDao.findAllRelayStations();
         int limit;
         for(int i = 0 ;i<relayStations.size() ;i++){

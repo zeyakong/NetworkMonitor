@@ -85,6 +85,11 @@ public class NetworkController {
         return "ok";
     }
 
+    @RequestMapping("/isFull")
+    public @ResponseBody Boolean isFull(String ip){
+        return networkServices.isFull(ip);
+    }
+
     @RequestMapping("/updateTransaction")
     public @ResponseBody
     String updateTransaction(int id, String status, String currentIP, String nextIp) {

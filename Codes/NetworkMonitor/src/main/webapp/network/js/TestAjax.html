@@ -13,10 +13,15 @@
     <button onclick="updateAccount('Kyle Van Allen', '2323',  '232',  '22.00',  '121',  2)">updateAccount</button>
     <button onclick="createConnection('192.168.1.1','192.168.0.3','1','2')">createConnection</button>
     <br>
+    <br>
     <input type="text" id="start" placeholder="startIp">
     <input type="text" id="end" placeholder="endIp">
     <button onclick="getNextIp()">getNextIp</button>
 
+    <br>
+    <br>
+    <input type="text" id="isFullIp" placeholder="isFullIp">
+    <button onclick="isFull()">isFull?</button>
 </head>
 <body>
 
@@ -89,6 +94,17 @@
         console.log(ip+"  "+destination);
         $.ajax({
             url: '/getNextIp?ip='+ip+'&destination='+destination,
+            method: 'GET',
+            success: function (data) {
+                alert(data);
+            }
+        });
+    }
+
+    function isFull() {
+        var ip = $("#isFullIp").val();
+        $.ajax({
+            url: '/isFull?ip='+ip,
             method: 'GET',
             success: function (data) {
                 alert(data);
