@@ -2,15 +2,17 @@
 //##########################Class variables#########################
 //object
 var networkInfo;
+var transactionQueues;
 //array
 var transactions;
 
 //Controls start/stop
 var running;
-var animationTimer = 3000;
+var animationTimer = 4000;
 
 //Global Constant
-var pCenter = "192.168.0.253";
+var pCenter = "192.168.0.253"; //CHANGE THIS WHEN WE MOVE OVER TO NEW DATA
+var totalRegions;
 
 //##########################ajax functions##########################
 
@@ -53,10 +55,17 @@ function createRelayStation(ip,status,type,region,limit){
         },
         success: function (data) {
             console.log(data);
+            var shape;
+            if( type = 0 ) {
+                shape = "diamond";
+            }
+            else{
+                shape = "star";
+            }
             var newRelay = {
                 id: ip.substr(10),
                 label: ip.substr(10),
-                shape: "diamond",
+                shape: shape,
                 color:{
                     background: getPresetColor(region),
                     border: "#2B7CE9",
@@ -90,9 +99,26 @@ function createConnection(start_ip,end_ip,is_active,weight) {
                 }
             }
 
+            //Processing Center Compatability
+            var to;
+            if( end_ip == pCenter ) {
+                to = "Processing Center";
+            }
+            else{
+                to = parseInt(end_ip.substr(10), 10);
+            }
+
+            var from;
+            if( start_ip == pCenter ) {
+                from = "Processing Center";
+            }
+            else{
+                from = parseInt(start_ip.substr(10), 10);
+            }
+
             var newConnection ={
-                to: parseInt(end_ip.substr(10), 10),
-                from: parseInt(start_ip.substr(10), 10),
+                to: to,
+                from: from,
                 id: id,
                 label: weight,
                 color:{
@@ -104,43 +130,6 @@ function createConnection(start_ip,end_ip,is_active,weight) {
         }
     });
 }
-
-/**
- this function will return a message (SUCCESS | ERROR | DENY)
- SUCCESS: all info matched and the balance(only) was changed.(You should update the transaction later)
- ERROR: INNER ERROR.(impossible I THINK,UNLESS YOU SEND A EMPTY TRANSACTION)
- DENY: THE CARD NOT EXIST OR BALANCE IS WRONG....
- PS: ALL the transaction type is UPPERCASE.
- currentPositionIp: storeIp,[I DONT USE THIS]
- currentDestinationIp: pCentercardId: cardNumber, [I DONT USE THIS]
- * @param transactionInfo= {
-            transactionType: transactionType, [String]
-            transactionAmount: transactionAmount, [Double]
-            cardId: cardNumber, [String]
-            cardName: cardName,[String]
-            securityCode: securityCode,[int]
-            expirationDate: date [String]
-        }
- */
-// function processingVerification(transactionInfo){
-//     $.ajax({
-//         url: '/processingVerification',
-//         method: 'POST',
-//         data:{
-//             transactionInfo:transactionInfo
-//         },
-//         success: function (data) {
-//             //OK | ERROR
-//             console.log(data);
-//             if(data=="OK"){
-//                 //Update transaction with Approved
-//                 updateTransaction(transactionInfo.transactionId,"APPROVED",data, t.storeIp);
-//             }else if(data=="DENY"){
-//                 updateTransaction(transactionInfo.transactionId,"DENIED",data, t.storeIp);
-//             }
-//         }
-//     });
-// }
 
 function processingVerification(transactionInfo) {
     console.log(transactionInfo);
@@ -157,6 +146,7 @@ function processingVerification(transactionInfo) {
             } else {
                 updateTransaction(transactionInfo.transactionId, "DENIED", pCenter, transactionInfo.storeIp);
             }
+            setTransactionStartTime(transactionInfo.transactionId);
         }
     });
 }
@@ -199,15 +189,22 @@ function getTransactions(){
     $.ajax({
         url: '/getTransactions',
         method: 'GET',
-        //async: false,
+        async: false,
         success: function (data) {
             transactions=data;
-            for( var i = 0; i < transactions.length; i++ ) {
-                if( (transactions[i].currentPositionIp === transactions[i].currentDestinationIp && transactions[i].currentPositionIp === transactions[i].storeIp) ) {
+            var i = transactions.length;
+            while(i--) {
+                if( (transactions[i].currentPositionIp == transactions[i].currentDestinationIp && transactions[i].currentPositionIp == transactions[i].storeIp) ){
                     transactions.splice(i, 1);
                 }
             }
-            console.log(transactions);
+
+            // for( var i = 0; i < transactions.length; i++ ) {
+            //     if( (transactions[i].currentPositionIp == transactions[i].currentDestinationIp && transactions[i].currentPositionIp == transactions[i].storeIp) ) {
+            //         transactions.splice(i, 1);
+            //     }
+            // }
+            //console.log(transactions);
         }
     });
 }
@@ -222,7 +219,10 @@ function getTransactions(){
 function updateTransaction(id,status,currentIP,nextIp){
     $.ajax({
         url: '/updateTransaction?id='+id+"&status="+status+"&currentIP="+currentIP+"&nextIp="+nextIp,
-        method: 'POST'
+        method: 'POST',
+        success: function(data) {
+            updateTransactionQueues();
+        }
     });
 }
 
@@ -230,6 +230,7 @@ function updateTransaction(id,status,currentIP,nextIp){
  *
  * @param ip: the current ip
  * @param destination: the destination(Processing center or go back)
+ * @param t: the transaction, used in callback function
  */
 function getNextIp(ip,destination,t){
     $.ajax({
@@ -237,9 +238,12 @@ function getNextIp(ip,destination,t){
         method: 'GET',
         success: function (data) {
 
+            //Update the transaction in the database and process it in Processing Center if necessary
+            prepareTransactionForUpdate(t, data);
+
             //GET THE NODE WE WERE AT
             var oldNode;
-            if(ip.substr(10) === '253'){
+            if(ip === pCenter){
                 oldNode = nodes.get("Processing Center");
             }
             else{
@@ -248,7 +252,7 @@ function getNextIp(ip,destination,t){
 
             //GET THE NEW NODE WE ARE MOVING TO
             var newNode;
-            if(data.substr(10) === '253'){
+            if(data === pCenter){
                 newNode = nodes.get("Processing Center");
             }
             else{
@@ -258,12 +262,6 @@ function getNextIp(ip,destination,t){
             //GET THE CONNECTION BETWEEN THEM
             var temp;
             var connection;
-            // for(var i in data.nodes._data){
-            //     if(data.nodes._data[i].hasOwnProperty('color'))
-            //     {
-            //         data.nodes._data[i].color.border='#2B7CE9';
-            //     }
-            // }
             for( var i in edges._data ){
                 temp = edges._data[i];
                 if( (temp.from == oldNode.id && temp.to == newNode.id) || (temp.from == newNode.id && temp.to == oldNode.id) ){
@@ -271,17 +269,28 @@ function getNextIp(ip,destination,t){
                 }
             }
 
+            //--------ANIMATION--------------
+            //Update connection animations
             setTimeout(function() {
                 setConnectionWidth(connection,15);
-            }, animationTimer*.25);
+            }, animationTimer*.30);
 
             setTimeout(function() {
                 setConnectionWidth(connection,1);
-            }, animationTimer*.60);
+            }, animationTimer*.65);
+
+            // setTimeout(function() {
+            //     prepareTransactionForUpdate(t, data);
+            // }, animationTimer*.60);
+
+            //Update both of the node's colors on the graph
+            setTimeout(function() {
+                getNodeColor(oldNode);
+            }, animationTimer*.70);
 
             setTimeout(function() {
-                setColors(oldNode, newNode, t, data);
-            }, animationTimer*.60);
+                getNodeColor(newNode);
+            }, animationTimer*.70);
         }
     });
 }
@@ -298,15 +307,16 @@ function changeConnectionStatusById(id){
             //alert("success");
             getNetworkInfo();
             var e = edges.get(id);
-            var connection;
-            //Get the correct Connection from the database
-            for( var i = 0; i < networkInfo.connections.length; i++ ) {
-                if( networkInfo.connections[i].connectionId == id ) {
-                    connection = networkInfo.connections[i];
-                    console.log(connection);
-                    setMapActiveInactive(e, 1, connection.isActive, null);
-                }
-            }
+            getEdgeColor(e);
+            // var connection;
+            // //Get the correct Connection from the database
+            // for( var i = 0; i < networkInfo.connections.length; i++ ) {
+            //     if( networkInfo.connections[i].connectionId == id ) {
+            //         connection = networkInfo.connections[i];
+            //         //console.log(connection);
+            //         getEdgeColor(e);
+            //     }
+            // }
         }
     });
 }
@@ -323,15 +333,17 @@ function changeStationStatusByIp(ip){
             //alert("success");
             getNetworkInfo();
             var n = nodes.get(ip.substr(10));
-            var station;
-            //Get the correct relayStation from the database
-            for( var i = 0; i < networkInfo.relayStations.length; i++ ) {
-                if( networkInfo.relayStations[i].stationIp === ip ) {
-                    station = networkInfo.relayStations[i];
-                    console.log(station);
-                    setMapActiveInactive(n, 0, station.isActive, station.region);
-                }
-            }
+            getNodeColor(n);
+            // var station;
+            // //Get the correct relayStation from the database
+            // for( var i = 0; i < networkInfo.relayStations.length; i++ ) {
+            //     if( networkInfo.relayStations[i].stationIp === ip ) {
+            //         station = networkInfo.relayStations[i];
+            //         //console.log(station);
+            //         //setMapActiveInactive(n, 0, station.isActive, station.region);
+            //         getNodeColor(n);
+            //     }
+            // }
         }
     });
 }
@@ -366,18 +378,20 @@ function createNewTransaction(type,amount,start,card,currentIp,destination,cardN
         '&store_ip='+start+'&card_id='+card+'&current_position_ip='+currentIp+'&current_destination_ip='+destination+
         '&given_card_name='+cardName+'&given_card_date='+cardDate+'&given_card_code='+cardCode,
         method: 'POST',
+        async: false,
         success: function (data) {
-            console.log(data);
+            updateTransactionQueues();
+            //console.log(data);
         }
     });
-    console.log("here");
 }
 
 
 //##############################other functions#########################################################################
 $(document).ready(function () {
     getNetworkInfo();
-    getTransactions();
+    updateTransactionQueues();
+    prepareMap();
 });
 
 
@@ -388,7 +402,6 @@ var data = {
     nodes: nodes,
     edges: edges
 };
-console.log(data);
 
 var container = document.getElementById('networkView');
 var options = parsedData.options;
@@ -400,13 +413,6 @@ for(var i in data.nodes._data){
         data.nodes._data[i].color.border='#2B7CE9';
     }
 }
-
-// you can extend the options like a normal JSON variable:
-// options.nodes = {
-//     color:{
-//         border:'#2B7CE9'
-//     }
-// };
 
 //add the shadow
 options.nodes = {
@@ -435,68 +441,45 @@ options.edges = {
 // create a network
 var network = new vis.Network(container, data, options);
 
-//LOAD ALL TRANSACTIONS AND ACTIVE/INACTIVE INFO ONTO THE MAP
+//Sets ALL the nodes to the correct color in the map
 var prepareMap = function() {
-    //Load transactions
+    var node;
+    var edge;
+    for( var i in nodes._data ) {
+        if( nodes._data.hasOwnProperty(i) ){
+            node = nodes._data[i];
+            getNodeColor(node);
+        }
+    }
+    for( i in edges._data ) {
+        if( edges._data.hasOwnProperty(i) ){
+            edge = edges._data[i];
+            getEdgeColor(edge);
+        }
+    }
+};
+
+//Creates transaction object list for helping the transaction sending algorithm
+var updateTransactionQueues = function() {
+    getTransactions();
+    transactionQueues = {};
     for( var i = 0; i < transactions.length; i++ ) {
-        var ip = transactions[i].currentPositionIp;
-
-        var n;
-        if(ip.substr(10) === '253'){
-            n = nodes.get("Processing Center");
-        }
-        else{
-            n = nodes.get(ip.substr(10));
-        }
-
-        n.color.background = "#f44336";
-        n.color.highlight = "#f44336";
-        n.color.border = '#2B7CE9';
-        nodes.update(n);
-    }
-
-    //Load active/inactive relayStations
-    for( i = 0; i < networkInfo.relayStations.length; i++ ) {
-        var node;
-        if( networkInfo.relayStations[i].isActive == 0 ) {
-            node = nodes.get(networkInfo.relayStations[i].stationIp.substr(10));
-            setMapActiveInactive(node, 0, 0, networkInfo.relayStations[i].region);
-        }
-    }
-    //Load active/inactive connections
-    for (i = 0; i < networkInfo.connections.length; i++ ) {
-        var edge;
-        if( networkInfo.connections[i].isActive == 0 ) {
-            edge = edges.get(networkInfo.connections[i].connectionId);
-            setMapActiveInactive(edge, 1, 0, null);
-        }
+        var cip = transactions[i].currentPositionIp;
+        var tid = transactions[i].transactionId;
+        transactionQueues[cip] = tid;
     }
 };
 
-var fixHighlights = function() {
-    //Fix highlights relay
-    for( i = 0; i < networkInfo.relayStations.length; i++ ) {
-        var node;
-        if( networkInfo.relayStations[i].stationIp === pCenter ) {
-            node = nodes.get("Processing Center")
-        }
-        else{
-            node = nodes.get(networkInfo.relayStations[i].stationIp.substr(10));
-        }
-        node.color.highlight = getPresetColor(networkInfo.relayStations[i].region);
-        nodes.update(node);
-    }
-    //Stores
-    for (i = 0; i < networkInfo.stores.length; i++) {
-        var node;
-        node = nodes.get(networkInfo.stores[i].storeIp.substr(10));
-        node.color.highlight = getPresetColor(networkInfo.stores[i].region);
-        nodes.update(node);
-    }
-};
+//TODO
+// CREATE ARRAYS IN TRANSACTION QUEUES
+// UPDATE TRANSACTION QUEUE ALGORITHM
+// VERIFICATION
 
-setTimeout(fixHighlights, 500);
-setTimeout(prepareMap, 500);
+//setTimeout(updateTransactionQueues, 500);
+//setTimeout(prepareMap, 500);
+
+
+//-----------------------------------DYNAMIC FUNCTIONS------------------------------------------------------
 
 //Decides which popup-window to display and populates it when a node is clicked on
 network.on("click", function (params) {
@@ -711,30 +694,31 @@ $('#btnSubmitTransaction').click(function () {
     var transactionAmount = document.getElementById('transactionAmount').value;
 
     //Get current store ip
-    var storeIp;
-    for (i = 0; i < networkInfo.stores.length; i++) {
-        if (networkInfo.stores[i].merchantName === $('#merchantName').html()) {
-            storeIp = networkInfo.stores[i].storeIp;
-        }
-    }
+    var storeIp = document.getElementById('storeIp').innerText;
+    console.log(storeIp);
+    // for (i = 0; i < networkInfo.stores.length; i++) {
+    //     if (networkInfo.stores[i].merchantName === $('#merchantName').html()) {
+    //         storeIp = networkInfo.stores[i].storeIp;
+    //     }
+    // }
 
     //This object contains both verification information needed for the credit card
     //and transaction information that will be logged in the database
-    var transaction = {
-        transactionInfo: {
-            transactionType: transactionType,
-            transactionAmount: transactionAmount,
-            cardId: cardNumber,
-            currentPositionIp: storeIp,
-            currentDestinationIp: pCenter,
-            cardName: cardName,
-            securityCode: securityCode,
-            expirationDate: date
-        }
-    };
-    console.log(transaction);
+    // var transaction = {
+    //     transactionInfo: {
+    //         transactionType: transactionType,
+    //         transactionAmount: transactionAmount,
+    //         cardId: cardNumber,
+    //         currentPositionIp: storeIp,
+    //         currentDestinationIp: pCenter,
+    //         cardName: cardName,
+    //         securityCode: securityCode,
+    //         expirationDate: date
+    //     }
+    // };
     createNewTransaction(transactionType,transactionAmount,storeIp,cardNumber,storeIp,pCenter,cardName,date,securityCode);
-    setTimeout(getTransactions, 250);
+    //prepareMap();
+    //setTimeout(updateTransactionQueues, 250);
     setTimeout(prepareMap, 500);
 
     document.getElementById("form_one").reset();
@@ -778,13 +762,14 @@ $('#applyButton').click(function() {
 //OPEN STORE MODAL
 $('#addStore').click(function() {
     var region = document.getElementById('newStoreRegion');
-    var maxRegions = 4;
+    var maxRegions = 0;
 
     //Get number of regions
     for( var i = 0; i < networkInfo.relayStations.length; i++ ) {
         var r = networkInfo.relayStations[i];
         if( r.region > maxRegions ) {
             maxRegions = r.region;
+            totalRegions = maxRegions;
         }
     }
 
@@ -806,9 +791,9 @@ $('#addStore').click(function() {
         region.add(option);
     }
     //Add new region option
-    option = document.createElement("option");
-    option.text = "New";
-    region.add(option);
+    // option = document.createElement("option");
+    // option.text = "New";
+    // region.add(option);
 
     //region.selecedIndex = -1;
 
@@ -820,11 +805,6 @@ $('#newStoreRegion').change(function() {
     var region = $('#newStoreRegion option:selected').text();
     var table = document.getElementById('storeRelayTable');
 
-    if( region === "New" ){
-        //Need to hide table, instead show add relay station options
-
-    }
-    else{
         //Clear table
         while(table.rows.length > 1) {
             table.deleteRow(table.rows.length-1);
@@ -842,20 +822,21 @@ $('#newStoreRegion').change(function() {
                     '</tr>');
             }
         }
-    }
+
 
 });
 
 //OPEN RELAY MODAL
 $('#addRelay').click(function() {
     var region = document.getElementById('newRelayRegion');
-    var maxRegions = 4;
+    var maxRegions = 0;
 
     //Get number of regions
     for( var i = 0; i < networkInfo.relayStations.length; i++ ) {
         var r = networkInfo.relayStations[i];
         if( r.region > maxRegions ) {
             maxRegions = r.region;
+            totalRegions = maxRegions;
         }
     }
 
@@ -893,30 +874,47 @@ $('#addRelay').click(function() {
     $('#addRelayModal').modal('show');
 });
 
-//FILL OUT RELAY TABLES
+//Controls The Relay Tables
 $('#newRelayRegion').change(function() {
+    //var newStoreToNewRegionForm = $('#newStoreToNewRegion');
+    var newStoreToNewRegionForm = document.getElementById('newStoreToNewRegion');
+    newStoreToNewRegionForm.style.display = 'none';
+
     var region = $('#newRelayRegion option:selected').text();
     var result1 = fillRelayRelayTable(region);
     var result2 = fillRelayStoreTable(region);
-    if( result1 == "NEW" && result2 == "NEW" ) {
-        //Show new store stuff
+    if( result1 == "New" && result2 == "New" ) {
+        newStoreToNewRegionForm.style.display = 'block';
     }
 });
 
 //FILL OUT RELAY RELAY TABLE
 var fillRelayRelayTable = function(region) {
     var table = document.getElementById('relayRelayTable');
+    table.style.display = 'table';
 
-    if( region === "New" ){
-        //Hide table, return NEW
-        return "NEW";
+    //Clear table
+    while(table.rows.length > 1) {
+        table.deleteRow(table.rows.length-1);
+    }
+
+    if( region == "New" ){
+        //Allow user to select gateways or the pcenter to attach to
+        table.style.display = 'table';
+        for( i = 0; i < networkInfo.relayStations.length; i++ ) {
+            var r = networkInfo.relayStations[i];
+            if( r.stationType != 0 ) {
+                var ip = r.stationIp;
+                $('#relayRelayTable').append('<tr>'+
+                    '<td>'+ip+'</td>'+
+                    '<td><input type="number" placeholder="Weight" id="relayRelayWeight1"></td>'+
+                    '<td><input type="checkbox" id="relayRelaycheckbox1"</td>'+
+                    '</tr>');
+            }
+        }
+        return "New";
     }
     else{
-        //Clear table
-        while(table.rows.length > 1) {
-            table.deleteRow(table.rows.length-1);
-        }
-
         //Fill out table
         for( i = 0; i < networkInfo.relayStations.length; i++ ) {
             var r = networkInfo.relayStations[i];
@@ -935,18 +933,20 @@ var fillRelayRelayTable = function(region) {
 //FILL OUT RELAY STORE TABLE
 var fillRelayStoreTable = function(region) {
     var table = document.getElementById('relayStoreTable');
-    var rowNum = 1;
+    table.style.display = 'table';
 
-    if( region === "New" ){
+    //Clear table
+    while(table.rows.length > 1) {
+        table.deleteRow(table.rows.length-1);
+    }
+
+    console.log(region);
+    if( region == "New" ){
         //Hide table, return NEW
-        return "NEW";
+        table.style.display = 'none';
+        return "New";
     }
     else{
-        //Clear table
-        while(table.rows.length > 1) {
-            table.deleteRow(table.rows.length-1);
-        }
-
         //Fill out table
         for( i = 0; i < networkInfo.stores.length; i++ ) {
             var s = networkInfo.stores[i];
@@ -995,6 +995,7 @@ $('#addStoreButton').click(function() {
                 }
             }
             $('#addStoreModal').modal('hide');
+            setTimeout(prepareMap, 250);
         }
         else{
             alert("This Ip is being used by another store or relay station!");
@@ -1010,10 +1011,39 @@ $('#addRelayButton').click(function() {
     var relayTable = document.getElementById("relayRelayTable");
     var storeTable = document.getElementById("relayStoreTable");
 
-    //Add Relay Station
+    //Relay Station
     var region = $('#newRelayRegion option:selected').text();
     var ip = document.getElementById('newRelayIp').value;
     var limit = document.getElementById('newRelayLimit').value;
+
+    //Are we adding to a new region?
+    if( region == "New" ) {
+        console.log("New Region Added");
+        var newStoreIp = document.getElementById('newStoreToNewRegionIp').value;
+        var newStoreName = document.getElementById('newStoreToNewRegionName').value;
+        var newStoreWeight = document.getElementById('newStoreToNewRegionWeight').value;
+
+        //VALIDATION OF IPS AND NAMES
+
+        //Add relaystation
+        totalRegions += 1;
+        createRelayStation(ip,1,1,totalRegions,limit);
+        createStore(newStoreIp, newStoreName, totalRegions);
+        createConnection(ip,newStoreIp,1,newStoreWeight);
+
+        //ALLOW USER TO PICK OTHER GATEWAYS/PCENTER TO ATTACH TO
+        for( var r = 1, n = relayTable.rows.length; r < n; r++ ) {
+            var checkbox = relayTable.rows[r].cells[2].childNodes[0];
+            if( checkbox.checked ) {
+                var nodeIp = relayTable.rows[r].cells[0].innerText;
+                var weight = relayTable.rows[r].cells[1].childNodes[0].value;
+                createConnection(ip,nodeIp,1,weight);
+            }
+        }
+        $('#addRelayModal').modal('hide');
+        setTimeout(prepareMap, 250);
+        return;
+    }
 
     //Verification
     var exists = nodes.get(ip.substr(10));
@@ -1044,6 +1074,7 @@ $('#addRelayButton').click(function() {
                 }
             }
             $('#addRelayModal').modal('hide');
+            setTimeout(prepareMap, 250);
         }
         else{
             alert("This Ip is being used by another store or relay station!");
@@ -1076,9 +1107,7 @@ $('#toggle_button').click(function () {
 var runAnimation = function() {
    if(running)
    {
-       //Refresh transaction list
-       var i;
-       for( i = 0; i < transactions.length; i++ )
+       for( var i = 0; i < transactions.length; i++ )
        {
            //console.log(transactions.length);
            var currentIp = transactions[i].currentPositionIp;
@@ -1086,15 +1115,9 @@ var runAnimation = function() {
            var t = transactions[i];
            getNextIp(currentIp, destinationIp, t);
        }
-      //console.log("Running");
-       refreshTransactionList();
+       prepareMap();
+       //setTimeout(updateTransactionQueues, animationTimer*.85); //POTENTIAL PROBLEM
    }
-   //console.log("Waiting...");
-};
-
-var refreshTransactionList = function() {
-    setTimeout(getTransactions, animationTimer*.85);
-    //setTimeout(runAnimation, animationTimer);
 };
 
 var setConnectionWidth = function( connection, w ) {
@@ -1102,85 +1125,19 @@ var setConnectionWidth = function( connection, w ) {
     edges.update(connection);
 };
 
-//UPDATED THE GRAPH SHAPES --- DEPRICATED
-// var setShape = function(oldNode, newNode, t, data) {
-//     //CHANGE THE SHAPES
-//     if(oldNode.id < 200 ) {
-//         oldNode.shape = "ellipse";
-//     }
-//     else if(oldNode.id === "Processing Center"){
-//         oldNode.shape = "square";
-//     }
-//     else{
-//         oldNode.shape = "diamond";
-//     }
-//     newNode.shape = "star";
-//
-//     nodes.update(oldNode);
-//     nodes.update(newNode);
-//
-//     //update the transaction.
-//     if(data.substr(10) === '253'){
-//         updateTransaction(t.transactionId,"APPROVED",data, t.storeIp);
-//     }
-//     else if(t.transactionStatus === "PENDING"){
-//         updateTransaction(t.transactionId,"PENDING",data, pCenter);
-//     }
-//     else{
-//         updateTransaction(t.transactionId,"APPROVED",data, t.storeIp);
-//     }
-// };
-
-//UPDATE THE GRAPH WITH COLORS
-var setColors = function(oldNode, newNode, t, data) {
-    //Set the old colors back
-    for( var i = 0; i < networkInfo.relayStations.length; i++ ) {
-        var n = networkInfo.relayStations[i];
-        if( oldNode.label === "Processing Center") {
-            oldNode.color.background = getPresetColor(n.region);
-            oldNode.color.highlight = getPresetColor(n.region);
-            oldNode.color.border = '#2B7CE9';
-        }
-        else if(oldNode.label === n.stationIp.substr(10)) {
-            oldNode.color.background = getPresetColor(n.region);
-            oldNode.color.highlight = getPresetColor(n.region);
-            oldNode.color.border = '#2B7CE9';
-        }
-    }
-    for( var i = 0; i < networkInfo.stores.length; i++ ) {
-        var s = networkInfo.stores[i];
-        if(oldNode.label === s.storeIp.substr(10)) {
-            oldNode.color.background = getPresetColor(s.region);
-            oldNode.color.highlight = getPresetColor(s.region);
-            oldNode.color.border = '#2B7CE9';
-        }
-    }
-
-    //Set the new color
-    newNode.color.background = "#f44336";
-    newNode.color.highlight = "#f44336";
-    newNode.color.border = "#2B7CE9";
-
-    //Update the nodes
-    nodes.update(oldNode);
-    nodes.update(newNode);
-
+var prepareTransactionForUpdate = function(t, data) {
     //Update the transaction.
-    if(data.substr(10) === '253'){
-        //updateTransaction(t.transactionId,"APPROVED",data, t.storeIp);
+    if(data == pCenter){
             var transaction = {
                 transactionId: t.transactionId,
                 storeIp: t.storeIp,
                 transactionType: t.transactionType,
                 transactionAmount: t.transactionAmount,
                 cardId: t.cardId+"",
-                // currentPositionIp: t.currentPositionIp,
-                // currentDestinationIp: t.currentDestinationIp,
                 cardName: t.givenCardName,
                 securityCode: t.givenCardCode,
                 expirationDate: t.givenCardDate
             };
-            //console.log(transaction);
         processingVerification(transaction);
     }
     else if(t.transactionStatus === "PENDING"){
@@ -1189,7 +1146,6 @@ var setColors = function(oldNode, newNode, t, data) {
     else{
         updateTransaction(t.transactionId,t.transactionStatus, data, t.currentDestinationIp);
     }
-    //prepareMap();
 };
 
 //GET A PRESET COLOR FOR THE GRAPH BASED ON REGION NUMBER
@@ -1226,35 +1182,73 @@ var getPresetColor = function(i) {
     }
 };
 
-var setMapActiveInactive = function( edge, type, isActive, region ) {
-    //Relay Station
-    if( type === 0 ) {
-        //Check if the station is now active or inactive
-        if( isActive === 1 ) {
-            edge.color.background = getPresetColor(region);
-            edge.color.highlight = getPresetColor(region);
-        }
-        else {
-            edge.color.background = "#000000";
-            edge.color.highlight = "#000000";
-        }
-        nodes.update(edge);
-    }
-    //Connection
-    else {
-        //Check if the connection is now active or inactive
-        if( isActive === 1 ) {
-            edge.color.color = "#2B7CE9";
-            edge.color.highlight = "#2B7CE9";
-        }
-        else{
-            edge.color.color = "#000000";
-            edge.color.highlight = "#000000";
-        }
-        edges.update(edge);
-    }
+//PASS IT A NODE AND ITS COLOR WILL BE UPDATED
+var getNodeColor = function(node) {
+	var red = "#f44336";
+	var black = "#000000";
+	
+	//Find node info
+	var nodeInfo;
+	
+	for( var i = 0; i < networkInfo.relayStations.length; i++ ) {
+		if( node.id == networkInfo.relayStations[i].stationIp.substr(10) ){
+			nodeInfo = networkInfo.relayStations[i];
+		}
+		else if(node.id == "Processing Center" && networkInfo.relayStations[i].stationIp == pCenter){
+			nodeInfo = networkInfo.relayStations[i];
+		}
+	}
+	for ( i = 0; i < networkInfo.stores.length; i++ ) {
+		if( node.id == networkInfo.stores[i].storeIp.substr(10) ){
+			nodeInfo = networkInfo.stores[i];
+		}
+	}
+	
+	//IT IS INACTIVE
+	if( nodeInfo.isActive === 0 ) {
+		node.color.background = black;
+		node.color.highlight = black;
+		nodes.update(node);
+		return;
+	}
+	//IT CONTAINS A TRANSACTION
+	for( i = 0; i < transactions.length; i++ ) {
+		if( transactions[i].currentPositionIp == nodeInfo.stationIp || transactions[i].currentPositionIp == nodeInfo.storeIp ) {
+			node.color.background = red;
+			node.color.highlight = red;
+			nodes.update(node);
+			return;
+		}
+	}
+	//IT IS ITS BASE COLOR
+	var myColor = getPresetColor(nodeInfo.region);
+	node.color.background = myColor;
+	node.color.highlight = myColor;
+	nodes.update(node);
 };
 
+//PASS IT AN EDGE AND IT WILL BE UPDATED
+var getEdgeColor = function(edge) {
+    //Find edgeInfo
+    var edgeInfo;
+    for( var i = 0; i < networkInfo.connections.length; i++ ) {
+        if( edge.id == networkInfo.connections[i].connectionId ) {
+            edgeInfo = networkInfo.connections[i];
+        }
+    }
+
+    if( edgeInfo.isActive == 1 ) {
+        edge.color.color = "#2B7CE9";
+        edge.color.highlight = "#2B7CE9";
+    }
+    else{
+        edge.color.color = "#000000";
+        edge.color.highlight = "#000000";
+    }
+    edges.update(edge);
+};
+
+//Starts the animation clock that runs during execution
 setInterval(runAnimation, animationTimer);
 
 

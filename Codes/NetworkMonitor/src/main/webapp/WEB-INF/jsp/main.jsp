@@ -209,17 +209,17 @@
                         </select>
 
                         <select class="form-control" id="yearDate">
-                            <option value="18">18</option>
-                            <option value="19">19</option>
-                            <option value="20">20</option>
-                            <option value="21">21</option>
-                            <option value="22">22</option>
-                            <option value="23">23</option>
-                            <option value="24">24</option>
-                            <option value="25">25</option>
-                            <option value="26">26</option>
-                            <option value="27">27</option>
-                            <option value="28">28</option>
+                            <option value="18">2018</option>
+                            <option value="19">2019</option>
+                            <option value="20">2020</option>
+                            <option value="21">2021</option>
+                            <option value="22">2022</option>
+                            <option value="23">2023</option>
+                            <option value="24">2024</option>
+                            <option value="25">2025</option>
+                            <option value="26">2026</option>
+                            <option value="27">2027</option>
+                            <option value="28">2028</option>
                         </select>
                     </div>
 
@@ -380,6 +380,27 @@
                         <%--</tr>--%>
                         </tbody>
                     </table>
+                    <div class="form-group" style="display:none" id="newStoreToNewRegion">
+                        <form id="addStoreToNewRegion">
+                            <div class="form-group">
+                                <label>Store Ip</label>
+                                <input type="text" class="form-control" placeholder="Unique Ip" id="newStoreToNewRegionIp">
+                            </div>
+                            <div class="form-group">
+                                <label>Store Name</label>
+                                <input type="text" class="form-control" placeholder="Name" id="newStoreToNewRegionName">
+                            </div>
+                            <div class="form-group">
+                                <label>Connection Weight</label>
+                                <input type="text" class="form-control" placeholder="Weight" id="newStoreToNewRegionWeight">
+                            </div>
+                            <%--<div class="form-group">--%>
+                                <%--<label>Region</label>--%>
+                                <%--<select class="form-control" id="newStoreToNewRegionRegion">--%>
+                                <%--</select>--%>
+                            <%--</div>--%>
+                        </form>
+                    </div>
                 </form>
             </div>
             <div class="modal-footer">
