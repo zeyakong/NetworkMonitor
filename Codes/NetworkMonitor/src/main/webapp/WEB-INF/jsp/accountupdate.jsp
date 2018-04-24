@@ -171,7 +171,7 @@
 </svg>
 					</span>
 
-                <em>Account manage</em>
+                <em>Account management</em>
             </a>
         </li>
 
@@ -184,7 +184,7 @@
 </svg>
 					</span>
 
-                <em>Card manage</em>
+                <em>Card management</em>
             </a>
         </li>
 

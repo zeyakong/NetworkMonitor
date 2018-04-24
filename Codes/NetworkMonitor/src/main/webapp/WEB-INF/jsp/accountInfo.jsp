@@ -373,7 +373,7 @@
 </svg>
 					</span>
 
-                <em>Account manage</em>
+                <em>Account management</em>
             </a>
         </li>
         <li data-menu="cardmanage">
@@ -385,7 +385,7 @@
 </svg>
 					</span>
 
-                <em>Card manage</em>
+                <em>Card management</em>
             </a>
         </li>
 
