@@ -1,4 +1,5 @@
 package com.ssm.controller;
+import java.sql.Timestamp;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -43,6 +44,15 @@ public class AccountController {
     public String carddetail(long id,Model model){
         List<Transaction> list;
         list = creditCardServices.findTransactionByCardId(id);
+
+        for(int i= 0 ; i<list.size();i++){
+            Transaction t = list.get(i);
+            Timestamp sent = t.getTransactionDateSent();
+            Timestamp res = t.getTransactionDateResponded();
+//            t.setTransactionDateResponded(changeFormat(res));
+//            changeFormat(res);
+        }
+
         model.addAttribute("list",list);
         CreditCard creditCard = creditCardServices.findCreditCardsByCardId(id);
         model.addAttribute("creditCard",creditCard);
@@ -51,6 +61,11 @@ public class AccountController {
         System.out.println("card detail2");
         return "cardDetail";
     }
+
+    private String changeFormat(Timestamp sent) {
+        return null;
+    }
+
     @RequestMapping("/updateCardnumber")
     public String updateCardnumber(long id,Model model){
         CreditCard creditCard= creditCardServices.findCreditCardsByCardId(id);
