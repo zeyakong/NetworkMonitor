@@ -386,9 +386,9 @@ public class NetworkServicesImpl implements NetworkServices {
         for (int i = 0; i < connections.size(); i++) {
             Connection c = connections.get(i);
             if (c.getIsActive() == 1) {
-                if (end.equals(c.getStartIp()) && c.getIsActive() == 1 && !isFull(end)) {
+                if (end.equals(c.getStartIp()) && !isFull(end)) {
                     next.add(c.getEndIp());
-                } else if (end.equals(c.getEndIp()) && c.getIsActive() == 1 && !isFull(end)) {
+                } else if (end.equals(c.getEndIp()) && !isFull(end)) {
                     next.add(c.getStartIp());
                 }
             }

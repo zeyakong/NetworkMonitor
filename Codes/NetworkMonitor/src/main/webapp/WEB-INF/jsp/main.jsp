@@ -157,9 +157,9 @@
 </div>
 <!--------------------------------->
 <!-- THIS IS TRANSACTION CODE -->
-<div class="modal fade" id="transactionModal">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
+<div class="modal fade" id="transactionModal" >
+    <div class="modal-dialog modal-lg" role="document" >
+        <div class="modal-content" >
             <div class="modal-header">
                 <h5 class="modal-title">Create Transaction</h5>
                 <button id="btnExit" type="button" class="close" data-dismiss="modal" aria-label="Close">
