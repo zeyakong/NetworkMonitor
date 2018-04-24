@@ -76,7 +76,7 @@
 	</a> <!-- .cd-nav-trigger -->
  
 <div class="main-content">
-    <h1> Account Detail</h1>
+    <h1> Account Details</h1>
     <div class="sign-up" style="width:100px;height:50px;">
         <input type="submit" class="submit-btn" id="J_submit" value="Back" style="width:100px;height:50px;"
                onclick='window.location.href="accountInfo.action"' ;>

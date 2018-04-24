@@ -203,7 +203,7 @@
 
 
 <div class="main-content">
-    <h1> Account Informations</h1>
+    <h1> Account Information</h1>
     <div class="sap_tabs">
 
         <table id="table-demo" class="table table-bordered" style="margin-top:10px; width:100%;
