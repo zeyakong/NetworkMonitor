@@ -75,6 +75,13 @@
         function hideURLbar() {
             window.scrollTo(0, 1);
         }
+        function deletecard1(id){
+            if(confirm("DO YOU WANT TO DELTE THIS CARD?")){
+                deletecard(id);
+            }else{
+
+            }
+        }
         function deletecard(id) {
            /* window.location.href = "deleteCardnumber.action?id=" + id;*/
             $.ajax({
@@ -185,7 +192,7 @@
                     <td class="resp-tab-item" aria-controls="tab_item-0" role="tab" style="width:100px;height:50px;">
                             <div class="sign-up" style="width:100px;height:50px;">
                             <input type="redman" class="submit-btn " value="Delete"
-                                   style="text-align: center; width:70px;height:50px; margin-left:39px;" onclick="deletecard('${ac.cardId}')">
+                                   style="text-align: center; width:70px;height:50px; margin-left:39px;" onclick="deletecard1('${ac.cardId}')">
                         </div>
                     </td>
 
