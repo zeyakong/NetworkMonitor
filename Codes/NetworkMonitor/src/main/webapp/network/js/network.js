@@ -8,6 +8,7 @@ var transactions;
 
 //Controls start/stop
 var running;
+//var tryAgain;
 var animationTimer = 4000;
 
 //Global Constant
@@ -38,6 +39,7 @@ function createStore(ip,name,region){
             };
             nodes.add(newStore);
             getNetworkInfo();
+            prepareMap();
         }
     });
 }
@@ -74,6 +76,7 @@ function createRelayStation(ip,status,type,region,limit){
             };
             nodes.add(newRelay);
             getNetworkInfo();
+            prepareMap();
         }
     });
 }
@@ -127,6 +130,7 @@ function createConnection(start_ip,end_ip,is_active,weight) {
             };
             edges.add(newConnection);
             getNetworkInfo();
+            prepareMap();
         }
     });
 }
@@ -262,35 +266,38 @@ function getNextIp(ip,destination,t){
             //GET THE CONNECTION BETWEEN THEM
             var temp;
             var connection;
-            for( var i in edges._data ){
-                temp = edges._data[i];
-                if( (temp.from == oldNode.id && temp.to == newNode.id) || (temp.from == newNode.id && temp.to == oldNode.id) ){
-                    connection = temp;
+            if( ip != data ) {
+                for( var i in edges._data ){
+                    temp = edges._data[i];
+                    if( (temp.from == oldNode.id && temp.to == newNode.id) || (temp.from == newNode.id && temp.to == oldNode.id) ){
+                        connection = temp;
+                    }
                 }
             }
+            if( connection != undefined ) {
+                //--------ANIMATION--------------
+                //Update connection animations
+                setTimeout(function() {
+                    setConnectionWidth(connection,15);
+                }, animationTimer*.30);
 
-            //--------ANIMATION--------------
-            //Update connection animations
-            setTimeout(function() {
-                setConnectionWidth(connection,15);
-            }, animationTimer*.30);
+                setTimeout(function() {
+                    setConnectionWidth(connection,1);
+                }, animationTimer*.65);
 
-            setTimeout(function() {
-                setConnectionWidth(connection,1);
-            }, animationTimer*.65);
+                // setTimeout(function() {
+                //     prepareTransactionForUpdate(t, data);
+                // }, animationTimer*.60);
 
-            // setTimeout(function() {
-            //     prepareTransactionForUpdate(t, data);
-            // }, animationTimer*.60);
+                //Update both of the node's colors on the graph
+                setTimeout(function() {
+                    getNodeColor(oldNode);
+                }, animationTimer*.70);
 
-            //Update both of the node's colors on the graph
-            setTimeout(function() {
-                getNodeColor(oldNode);
-            }, animationTimer*.70);
-
-            setTimeout(function() {
-                getNodeColor(newNode);
-            }, animationTimer*.70);
+                setTimeout(function() {
+                    getNodeColor(newNode);
+                }, animationTimer*.70);
+            }
         }
     });
 }
@@ -459,14 +466,26 @@ var prepareMap = function() {
     }
 };
 
+//TransactionQueues is an object that contains { stationIp : Array of transactionIds[] }
 //Creates transaction object list for helping the transaction sending algorithm
 var updateTransactionQueues = function() {
     getTransactions();
     transactionQueues = {};
     for( var i = 0; i < transactions.length; i++ ) {
         var cip = transactions[i].currentPositionIp;
-        var tid = transactions[i].transactionId;
-        transactionQueues[cip] = tid;
+        var t = transactions[i];
+        var currentArray = transactionQueues[cip];
+        if( currentArray == undefined ) {
+            //There are no current records for this node
+            currentArray = [];
+            currentArray.push(t);
+            transactionQueues[cip] = currentArray;
+        }
+        else{
+            //Already transactions present there
+            currentArray.push(t);
+            transactionQueues[cip] = currentArray;
+        }
     }
 };
 
@@ -721,6 +740,10 @@ $('#btnSubmitTransaction').click(function () {
     }
 
     //Verify Card Code
+    if( isNaN(securityCode) ) {
+     alert("A security code must be a three digit number, not starting with zero!");
+     return;
+    }
     if( securityCode.length != 3 ) {
         alert("A security code must be three digits long!");
         return;
@@ -1204,29 +1227,79 @@ $('#toggle_button').click(function () {
        button.innerText = "Pause";
        button.style.backgroundColor = '#f44336';
        running = true;
-       //runAnimation();
+       //tryAgain = true;
+       //tryRunningRepeat();
    }
    else{                                //PAUSE ANIMATION
        button.innerText = "Start";
        button.style.backgroundColor = '#4CAF50';
        running = false;
+       //tryAgain = false;
    }
 });
 
+// var tryRunningRepeat = function() {
+//     if( tryAgain === true ) {
+//         runAnimation();
+//         setTimeout(tryRunningRepeat, 250);
+//     }
+// };
+
+// var runAnimation = function() {
+//    if(running)
+//    {
+//        for( var i = 0; i < transactions.length; i++ )
+//        {
+//            //console.log(transactions.length);
+//            var currentIp = transactions[i].currentPositionIp;
+//            var destinationIp = transactions[i].currentDestinationIp;
+//            var t = transactions[i];
+//            getNextIp(currentIp, destinationIp, t);
+//        }
+//        prepareMap();
+//        //setTimeout(updateTransactionQueues, animationTimer*.85); //POTENTIAL PROBLEM
+//    }
+// };
+
+//Calls one transaction at a time from each node, to be moved along to the next node.
 var runAnimation = function() {
-   if(running)
-   {
-       for( var i = 0; i < transactions.length; i++ )
-       {
-           //console.log(transactions.length);
-           var currentIp = transactions[i].currentPositionIp;
-           var destinationIp = transactions[i].currentDestinationIp;
-           var t = transactions[i];
-           getNextIp(currentIp, destinationIp, t);
-       }
-       prepareMap();
-       //setTimeout(updateTransactionQueues, animationTimer*.85); //POTENTIAL PROBLEM
-   }
+    if(running) {
+        //running = true;
+        for( var ip in transactionQueues ) {
+            if( transactionQueues.hasOwnProperty(ip) ) {
+                var isActive = true;
+                //Check to make sure the current station is not inActive
+                for( var i = 0; i < networkInfo.relayStations.length; i++ ) {
+                    var r = networkInfo.relayStations[i];
+                    if( r.stationIp == ip ) {
+                        //We have found the network info for this ip
+                        if( r.isActive == 0 ) {
+                            isActive = false;
+                        }
+                    }
+                }
+                if( isActive ) {
+                    //Grab first transaction in queue for this node
+                    var array = transactionQueues[ip];
+                    var t = array[0];
+
+                    //Error catcher
+                    if( t != undefined ) {
+                        var currentIp = t.currentPositionIp;
+                        var destination = t.currentDestinationIp;
+                        getNextIp(currentIp, destination, t);
+                    }
+                    else{
+                        console.log("Warning: Grabbed from empty queue");
+                    }
+                }
+            }
+        }
+        //running = false;
+    }
+    // else {
+    //     console.log("Already Running!");
+    // }
 };
 
 var setConnectionWidth = function( connection, w ) {
@@ -1236,7 +1309,7 @@ var setConnectionWidth = function( connection, w ) {
 
 var prepareTransactionForUpdate = function(t, data) {
     //Update the transaction.
-    if(data == pCenter){
+    if(data == pCenter && t.currentDestinationIp == pCenter){
             var transaction = {
                 transactionId: t.transactionId,
                 storeIp: t.storeIp,
