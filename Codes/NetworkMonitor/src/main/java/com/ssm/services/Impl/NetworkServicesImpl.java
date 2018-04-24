@@ -381,14 +381,17 @@ public class NetworkServicesImpl implements NetworkServices {
     }
 
     private boolean isReachable(String start, String end) {
+        if(isFull(end)){
+            return false;
+        }
         List<Connection> connections = connectionDao.findAllConnections();
         List<String> next = new ArrayList<String>();
         for (int i = 0; i < connections.size(); i++) {
             Connection c = connections.get(i);
             if (c.getIsActive() == 1) {
-                if (end.equals(c.getStartIp()) && !isFull(end)) {
+                if (end.equals(c.getStartIp())) {
                     next.add(c.getEndIp());
-                } else if (end.equals(c.getEndIp()) && !isFull(end)) {
+                } else if (end.equals(c.getEndIp())) {
                     next.add(c.getStartIp());
                 }
             }
