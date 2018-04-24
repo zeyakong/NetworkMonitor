@@ -9,6 +9,7 @@
     <version>1.0-SNAPSHOT</version>
     <dependencies>
         <!-- Unit test -->
+
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -152,5 +153,10 @@
         </dependency>
 
     </dependencies>
+
+    <properties>
+        <maven.compiler.source>1.9</maven.compiler.source>
+        <maven.compiler.target>1.9</maven.compiler.target>
+    </properties>
 
 </project>

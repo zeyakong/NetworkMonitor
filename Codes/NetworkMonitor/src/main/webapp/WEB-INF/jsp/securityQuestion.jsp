@@ -56,7 +56,7 @@
             answers[2] = "<%=request.getSession().getAttribute("answer3")%>";
             num = Math.floor(Math.random() * 3);
 
-            $("#question").attr("placeholder",question[1]);
+            $("#question").attr("placeholder",question[num]);
             $('#horizontalTab').easyResponsiveTabs({
                 type: 'default', //Types: default, vertical, accordion
                 width: 'auto', //auto or any width like 600px
