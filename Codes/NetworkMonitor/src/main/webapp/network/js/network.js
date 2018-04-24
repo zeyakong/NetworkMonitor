@@ -20,7 +20,7 @@ var totalRegions;
 
 function createStore(ip,name,region){
     $.ajax({
-        url: '/createStore',
+        url: '/demo6/createStore',
         method: 'POST',
         data:{
             ip:ip,
@@ -47,7 +47,7 @@ function createStore(ip,name,region){
 
 function createRelayStation(ip,status,type,region,limit){
     $.ajax({
-        url: '/createRelayStation',
+        url: '/demo6/createRelayStation',
         method: 'POST',
         data:{
             ip:ip,
@@ -84,7 +84,7 @@ function createRelayStation(ip,status,type,region,limit){
 
 function createConnection(start_ip,end_ip,is_active,weight) {
     $.ajax({
-        url: '/createConnection',
+        url: '/demo6/createConnection',
         method: 'POST',
         data:{
             start_ip: start_ip,
@@ -139,7 +139,7 @@ function createConnection(start_ip,end_ip,is_active,weight) {
 function processingVerification(transactionInfo) {
     //console.log(transactionInfo);
     $.ajax({
-        url: '/processingVerification',
+        url: '/demo6/processingVerification',
         method: 'POST',
         contentType: "application/json;charset=utf-8",
         data: JSON.stringify(transactionInfo),
@@ -158,7 +158,7 @@ function processingVerification(transactionInfo) {
 
 function changeCapacity(ip,newLimit){
     $.ajax({
-        url: '/changeCapacity',
+        url: '/demo6/changeCapacity',
         method: 'POST',
         data:{
             ip:ip,
@@ -177,7 +177,7 @@ function changeCapacity(ip,newLimit){
  */
 function getNetworkInfo(){
     $.ajax({
-        url: '/getNetworkInfo',
+        url: '/demo6/getNetworkInfo',
         method: 'GET',
         async: false,
         success: function (network) {
@@ -192,7 +192,7 @@ function getNetworkInfo(){
  */
 function getTransactions(){
     $.ajax({
-        url: '/getTransactions',
+        url: '/demo6/getTransactions',
         method: 'GET',
         async: false,
         success: function (data) {
@@ -223,7 +223,7 @@ function getTransactions(){
  */
 function updateTransaction(id,status,currentIP,nextIp){
     $.ajax({
-        url: '/updateTransaction?id='+id+"&status="+status+"&currentIP="+currentIP+"&nextIp="+nextIp,
+        url: '/demo6/updateTransaction?id='+id+"&status="+status+"&currentIP="+currentIP+"&nextIp="+nextIp,
         method: 'POST',
         success: function(data) {
             updateTransactionQueues();
@@ -239,7 +239,7 @@ function updateTransaction(id,status,currentIP,nextIp){
  */
 function getNextIp(ip,destination,t){
     $.ajax({
-        url: '/getNextIp?ip='+ip+'&destination='+destination,
+        url: '/demo6/getNextIp?ip='+ip+'&destination='+destination,
         method: 'GET',
         async: false,
         success: function (data) {
@@ -296,7 +296,7 @@ function getNextIp(ip,destination,t){
  */
 function changeConnectionStatusById(id){
     $.ajax({
-        url: '/changeConnectionStatusById?id='+id,
+        url: '/demo6/changeConnectionStatusById?id='+id,
         method: 'POST',
         success: function (data) {
             //alert("success");
@@ -322,7 +322,7 @@ function changeConnectionStatusById(id){
  */
 function changeStationStatusByIp(ip){
     $.ajax({
-        url: '/changeStationStatusByIp?ip='+ip,
+        url: '/demo6/changeStationStatusByIp?ip='+ip,
         method: 'POST',
         success: function (data) {
             //alert("success");
@@ -349,7 +349,7 @@ function changeStationStatusByIp(ip){
  */
 function setTransactionStartTime(id){
     $.ajax({
-        url: '/setTransactionStartTime?id='+id,
+        url: '/demo6/setTransactionStartTime?id='+id,
         method: 'POST',
         success: function (data) {
             //alert("success");
@@ -369,7 +369,7 @@ function setTransactionStartTime(id){
  */
 function createNewTransaction(type,amount,start,card,currentIp,destination,cardName,cardDate,cardCode){
     $.ajax({
-        url: '/createNewTransaction?transaction_type='+type+'&transaction_amount='+amount+
+        url: '/demo6/createNewTransaction?transaction_type='+type+'&transaction_amount='+amount+
         '&store_ip='+start+'&card_id='+card+'&current_position_ip='+currentIp+'&current_destination_ip='+destination+
         '&given_card_name='+cardName+'&given_card_date='+cardDate+'&given_card_code='+cardCode,
         method: 'POST',
