@@ -209,17 +209,17 @@
                         </select>
 
                         <select class="form-control" id="yearDate">
-                            <option value="18">2018</option>
-                            <option value="19">2019</option>
-                            <option value="20">2020</option>
-                            <option value="21">2021</option>
-                            <option value="22">2022</option>
-                            <option value="23">2023</option>
-                            <option value="24">2024</option>
-                            <option value="25">2025</option>
-                            <option value="26">2026</option>
-                            <option value="27">2027</option>
-                            <option value="28">2028</option>
+                            <option value="2018">2018</option>
+                            <option value="2019">2019</option>
+                            <option value="2020">2020</option>
+                            <option value="2021">2021</option>
+                            <option value="2022">2022</option>
+                            <option value="2023">2023</option>
+                            <option value="2024">2024</option>
+                            <option value="2025">2025</option>
+                            <option value="2026">2026</option>
+                            <option value="2027">2027</option>
+                            <option value="2028">2028</option>
                         </select>
                     </div>
 
@@ -350,6 +350,27 @@
                     </div>
                 </form>
             </div>
+            <div class="modal-body" style="display:none" id="newStoreToNewRegion">
+                <form id="addStoreToNewRegion">
+                    <div class="form-group">
+                        <label>Store Ip</label>
+                        <input type="text" class="form-control" value="192.168.0." id="newStoreToNewRegionIp">
+                    </div>
+                    <div class="form-group">
+                        <label>Store Name</label>
+                        <input type="text" class="form-control" placeholder="Name" id="newStoreToNewRegionName">
+                    </div>
+                    <div class="form-group">
+                        <label>Connection Weight</label>
+                        <input type="text" class="form-control" placeholder="Weight" id="newStoreToNewRegionWeight">
+                    </div>
+                    <%--<div class="form-group">--%>
+                    <%--<label>Region</label>--%>
+                    <%--<select class="form-control" id="newStoreToNewRegionRegion">--%>
+                    <%--</select>--%>
+                    <%--</div>--%>
+                </form>
+            </div>
             <div class = "modal-body">
                 <form id="addRelayFormTwo" class="form-inline">
                     <table class="table table-striped table-bordered" style="table-layout: fixed; word-wrap: break-word;" id="relayRelayTable">
@@ -380,27 +401,6 @@
                         <%--</tr>--%>
                         </tbody>
                     </table>
-                    <div class="form-group" style="display:none" id="newStoreToNewRegion">
-                        <form id="addStoreToNewRegion">
-                            <div class="form-group">
-                                <label>Store Ip</label>
-                                <input type="text" class="form-control" value="192.168.0." id="newStoreToNewRegionIp">
-                            </div>
-                            <div class="form-group">
-                                <label>Store Name</label>
-                                <input type="text" class="form-control" placeholder="Name" id="newStoreToNewRegionName">
-                            </div>
-                            <div class="form-group">
-                                <label>Connection Weight</label>
-                                <input type="text" class="form-control" placeholder="Weight" id="newStoreToNewRegionWeight">
-                            </div>
-                            <%--<div class="form-group">--%>
-                                <%--<label>Region</label>--%>
-                                <%--<select class="form-control" id="newStoreToNewRegionRegion">--%>
-                                <%--</select>--%>
-                            <%--</div>--%>
-                        </form>
-                    </div>
                 </form>
             </div>
             <div class="modal-footer">

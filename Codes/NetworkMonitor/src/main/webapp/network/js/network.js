@@ -872,6 +872,10 @@ $('#addRelay').click(function() {
     var region = document.getElementById('newRelayRegion');
     var maxRegions = 0;
 
+    //Reset store field
+    var newStoreToNewRegionForm = document.getElementById('newStoreToNewRegion');
+    newStoreToNewRegionForm.style.display = 'none';
+
     //Get number of regions
     for( var i = 0; i < networkInfo.relayStations.length; i++ ) {
         var r = networkInfo.relayStations[i];
@@ -1018,9 +1022,16 @@ $('#addStoreButton').click(function() {
     if( name != "" ) {
         if(!exists) {
             if(!ipIsCorrectFormat(ip)) {
-                alert("The ip must follow the format 192.168.0.---");
+                alert("The store ip must follow the format 192.168.0.--- and cannot end in 0, 255 or greater than 255");
                 return;
             }
+
+            //Check for a selected relaystation
+            if( isAnItemSelected(table) === false ) {
+                alert("You must select a relay station to attach the store to!");
+                return;
+            }
+
             //Check weights
             if( areWeightsFilledIn(table) === false ){
                 alert("A weight must be given for any connection being created!");
@@ -1065,9 +1076,12 @@ $('#addRelayButton').click(function() {
 
     //VALIDATION
     if( !ipIsCorrectFormat(ip) ) {
-        alert("The relay ip must follow the format 192.168.0.---");
+        alert("The relay ip must follow the format 192.168.0.--- and cannot end in 0, 255 or greater than 255");
         return;
     }
+
+    console.log("Here");
+    console.log(ip);
 
     var exists = nodes.get(ip.substr(10));
     if( exists ) {
@@ -1089,7 +1103,7 @@ $('#addRelayButton').click(function() {
 
         //VALIDATION
         if( !ipIsCorrectFormat(ip) ) {
-            alert("The store ip must follow the format 192.168.0.---");
+            alert("The store ip must follow the format 192.168.0.--- and cannot end in 0, 255 or greater than 255");
             return;
         }
 
@@ -1101,6 +1115,12 @@ $('#addRelayButton').click(function() {
 
         if( newStoreName == "" ) {
             alert("The store must have a name!");
+            return;
+        }
+
+        //Check Relay table selection
+        if( isAnItemSelected(relayTable) ===false ) {
+            alert("You must attach the region to at least one gateway or the processing center");
             return;
         }
 
@@ -1133,6 +1153,10 @@ $('#addRelayButton').click(function() {
     }
 
     //Verification
+            if( isAnItemSelected(relayTable) === false && isAnItemSelected(storeTable) === false ) {
+                alert("You must attach the relay station to either a store or other relay station");
+                return;
+            }
 
             //Check weights relayTable
             if( areWeightsFilledIn(relayTable) === false ){
@@ -1186,7 +1210,15 @@ $('#cancelAddRelay').click(function() {
 });
 
 var ipIsCorrectFormat = function(ip) {
-    if( ip.length > 13 ) {
+    if( ip.length > 13 || ip.length < 11 ) {
+        return false;
+    }
+    var threeDigits = ip.substr(10);
+    if( isNaN(threeDigits) ) {
+        return false;
+    }
+    var num = parseInt(threeDigits,10);
+    if( num >= 254 || num == 0) {
         return false;
     }
     return true;
@@ -1204,7 +1236,17 @@ var areWeightsFilledIn = function(table) {
         }
     }
     return true;
-}
+};
+
+var isAnItemSelected = function(table) {
+    for( var r = 1, n = table.rows.length; r < n; r++ ) {
+        var checkbox = table.rows[r].cells[2].childNodes[0];
+        if( checkbox.checked ) {
+            return true;
+        }
+    }
+    return false;
+};
 
 //ANIMATION STUFF--------------------------------------------
 
