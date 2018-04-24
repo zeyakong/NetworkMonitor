@@ -5,11 +5,12 @@ var networkInfo;
 var transactionQueues;
 //array
 var transactions;
+var nodeStepSummaries;
 
 //Controls start/stop
 var running;
 //var tryAgain;
-var animationTimer = 4000;
+var cycleTimer = 4000;
 
 //Global Constant
 var pCenter = "192.168.0.200"; //CHANGE THIS WHEN WE MOVE OVER TO NEW DATA
@@ -136,7 +137,7 @@ function createConnection(start_ip,end_ip,is_active,weight) {
 }
 
 function processingVerification(transactionInfo) {
-    console.log(transactionInfo);
+    //console.log(transactionInfo);
     $.ajax({
         url: '/processingVerification',
         method: 'POST',
@@ -144,7 +145,7 @@ function processingVerification(transactionInfo) {
         data: JSON.stringify(transactionInfo),
         success: function (data) {
             //OK | ERROR
-            console.log(data);
+            //console.log(data);
             if (data == "OK") {
                 updateTransaction(transactionInfo.transactionId, "APPROVED", pCenter, transactionInfo.storeIp);
             } else {
@@ -240,6 +241,7 @@ function getNextIp(ip,destination,t){
     $.ajax({
         url: '/getNextIp?ip='+ip+'&destination='+destination,
         method: 'GET',
+        async: false,
         success: function (data) {
             console.log("ok get next ip success!!!");
             console.log(data);
@@ -276,30 +278,14 @@ function getNextIp(ip,destination,t){
                     }
                 }
             }
-            if( connection != undefined ) {
-                //--------ANIMATION--------------
-                //Update connection animations
-                setTimeout(function() {
-                    setConnectionWidth(connection,15);
-                }, animationTimer*.30);
-
-                setTimeout(function() {
-                    setConnectionWidth(connection,1);
-                }, animationTimer*.65);
-
-                // setTimeout(function() {
-                //     prepareTransactionForUpdate(t, data);
-                // }, animationTimer*.60);
-
-                //Update both of the node's colors on the graph
-                setTimeout(function() {
-                    getNodeColor(oldNode);
-                }, animationTimer*.70);
-
-                setTimeout(function() {
-                    getNodeColor(newNode);
-                }, animationTimer*.70);
-            }
+            //Create the summary to run the animation at the end
+            var nodeStepSummary = {
+                oldNode : oldNode,
+                newNode: newNode,
+                connection: connection
+            };
+            //console.log(nodeStepSummary);
+            nodeStepSummaries.push(nodeStepSummary);
         }
     });
 }
@@ -1265,8 +1251,11 @@ $('#toggle_button').click(function () {
 
 //Calls one transaction at a time from each node, to be moved along to the next node.
 var runAnimation = function() {
+    //Only proceed if we are running
     if(running) {
-        //running = true;
+        console.log("Begin RUN");
+        nodeStepSummaries = [];
+        //var count = -1;
         for( var ip in transactionQueues ) {
             if( transactionQueues.hasOwnProperty(ip) ) {
                 var isActive = true;
@@ -1287,9 +1276,12 @@ var runAnimation = function() {
 
                     //Error catcher
                     if( t != undefined ) {
+                        //count = count + 1;
                         var currentIp = t.currentPositionIp;
                         var destination = t.currentDestinationIp;
                         getNextIp(currentIp, destination, t);
+                        //nodeStepSummaries.push(nss);
+
                     }
                     else{
                         console.log("Warning: Grabbed from empty queue");
@@ -1297,16 +1289,46 @@ var runAnimation = function() {
                 }
             }
         }
-        //running = false;
+        //Do the animation
+        for( var j = 0; j < nodeStepSummaries.length; j++ ) {
+            var nodeStepSummary = nodeStepSummaries[j];
+            setNextAnimationStep(nodeStepSummary.oldNode, nodeStepSummary.newNode, nodeStepSummary.connection);
+        }
+        nodeStepSummaries = [];
+        //console.log("End RUN");
     }
-    // else {
-    //     console.log("Already Running!");
-    // }
 };
 
 var setConnectionWidth = function( connection, w ) {
     connection.width = w;
     edges.update(connection);
+};
+
+var setNextAnimationStep = function( oldNode, newNode, connection) {
+    if( connection != undefined ) {
+        //--------ANIMATION--------------
+        //Update connection animations
+        setTimeout(function() {
+            setConnectionWidth(connection,15);
+        }, 0);
+
+        setTimeout(function() {
+            setConnectionWidth(connection,1);
+        }, 1000);
+
+        // setTimeout(function() {
+        //     prepareTransactionForUpdate(t, data);
+        // }, animationTimer*.60);
+
+        //Update both of the node's colors on the graph
+        setTimeout(function() {
+            getNodeColor(oldNode);
+        }, 1000);
+
+        setTimeout(function() {
+            getNodeColor(newNode);
+        }, 1000);
+    }
 };
 
 var prepareTransactionForUpdate = function(t, data) {
@@ -1463,7 +1485,7 @@ $('#newStoreToNewRegionIp').keydown(function(e) {
 });
 
 //Starts the animation clock that runs during execution
-setInterval(runAnimation, animationTimer);
+setInterval(runAnimation, cycleTimer);
 
 
 
