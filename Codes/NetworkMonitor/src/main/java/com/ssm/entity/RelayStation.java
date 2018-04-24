@@ -10,6 +10,15 @@ public class RelayStation {
     private int stationType;
     private int region;
     private int transactionLimit;
+    private int transactionCount;
+
+    public int getTransactionCount() {
+        return transactionCount;
+    }
+
+    public void setTransactionCount(int transactionCount) {
+        this.transactionCount = transactionCount;
+    }
 
     public String getStationIp() {
         return stationIp;

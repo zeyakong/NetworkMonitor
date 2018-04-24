@@ -58,7 +58,7 @@ public class NetworkServicesImpl implements NetworkServices {
     @param i : the region 0-7
     @return the hex color of that region
      */
-    private String getPreSetColor( int i ) {
+    private String getPreSetColor(int i) {
         String hGrey = "#CCCCCC";
         String hBlue = "#0000FF";
         String hCyan = "#00FFFF";
@@ -69,24 +69,24 @@ public class NetworkServicesImpl implements NetworkServices {
         String hPink = "#FF66CC";
 
         i = i % 7;
-        switch(i) {
-            case 0 :
+        switch (i) {
+            case 0:
                 return hGrey;
-            case 1 :
+            case 1:
                 return hCyan;
-            case 2 :
+            case 2:
                 return hLGreen;
-            case 3 :
+            case 3:
                 return hYellow;
-            case 4 :
+            case 4:
                 return hPink;
-            case 5 :
+            case 5:
                 return hOrange;
-            case 6 :
+            case 6:
                 return hDGreen;
-            case 7 :
+            case 7:
                 return hBlue;
-            default :
+            default:
                 return hGrey;
         }
     }
@@ -111,7 +111,7 @@ public class NetworkServicesImpl implements NetworkServices {
 //        }
 
         //Generate Pre-Set Color For Each Region
-        for( int i = 0; i < 8; i++ ) {
+        for (int i = 0; i < 8; i++) {
             region.put(i, getPreSetColor(i));
         }
 
@@ -142,7 +142,7 @@ public class NetworkServicesImpl implements NetworkServices {
             if (endIp.equals(pCenter))
                 endIp = "\"Processing Center\"";
 
-            result += startIp + " -- " + endIp + "[ id="+c.getConnectionId()+",label=\"" + c.getWeight() + "\",color=\"#2B7CE9\"];";
+            result += startIp + " -- " + endIp + "[ id=" + c.getConnectionId() + ",label=\"" + c.getWeight() + "\",color=\"#2B7CE9\"];";
         }
 
         //Add node beautification
@@ -177,7 +177,7 @@ public class NetworkServicesImpl implements NetworkServices {
     }
 
     //path algorithm
-    public String getNextIp(String startIp,String destination) {
+    public String getNextIp(String startIp, String destination) {
 //        if(isReachable(startIp,destination)){
 //            return destination;
 //        }
@@ -242,11 +242,30 @@ public class NetworkServicesImpl implements NetworkServices {
 //            }
 //        }
         //get the path list
-        List<String> path =  findShortestPath(startIp,destination);
-        if(path==null){
+        List<String> path = findShortestPath(startIp, destination);
+        if (path == null) {
             return startIp;
-        }else{
-            return path.get(1);
+        } else {
+            String nextIp = path.get(1);
+//            RelayStation nextStation = relayStationDao.findRelayStationByIp(nextIp);
+//            if (nextStation != null) {
+//
+//                int count = nextStation.getTransactionCount();
+//                relayStationDao.updateTransactionCount(nextIp, count + 1);
+//            } else {
+//                System.out.println("the nextStation is null!!!!!!!!!");
+//            }
+//
+//            RelayStation old = relayStationDao.findRelayStationByIp(startIp);
+//            if (old != null) {
+//                System.out.println(old.toString());
+//                int count = old.getTransactionCount();
+//                relayStationDao.updateTransactionCount(startIp, count - 1);
+//            } else {
+//                System.out.println("the old is null!!!!!!!!!");
+//            }
+
+            return nextIp;
         }
     }
 
@@ -259,11 +278,11 @@ public class NetworkServicesImpl implements NetworkServices {
     }
 
     public void createTransaction(String transaction_type, double transaction_amount, String store_ip, String card_id, String current_position_ip, String current_destination_ip, String given_card_name, String given_card_date, String given_card_code) {
-        transactionDao.createTransaction(transaction_type,transaction_amount,store_ip,card_id,current_position_ip,current_destination_ip, given_card_name, given_card_date, given_card_code);
+        transactionDao.createTransaction(transaction_type, transaction_amount, store_ip, card_id, current_position_ip, current_destination_ip, given_card_name, given_card_date, given_card_code);
     }
 
     public void updateTransaction(int transaction_id, String status, String current_position_ip, String current_destination_ip) {
-        transactionDao.updateTransaction(transaction_id,status,current_position_ip,current_destination_ip);
+        transactionDao.updateTransaction(transaction_id, status, current_position_ip, current_destination_ip);
     }
 
     public List<Transaction> findAllTransactions() {
@@ -275,33 +294,33 @@ public class NetworkServicesImpl implements NetworkServices {
     }
 
     public void createStore(String ip, String name, int region) {
-        storeDao.createStore(ip,name,region);
+        storeDao.createStore(ip, name, region);
     }
 
-    public void createRelayStation(String ip, String status, int type, int region,int limit) {
-        relayStationDao.createRelayStation(ip,type,region,limit);
+    public void createRelayStation(String ip, String status, int type, int region, int limit) {
+        relayStationDao.createRelayStation(ip, type, region, limit);
     }
 
-    public void createConnection(String start_ip, String end_ip, int is_active, int weight){
+    public void createConnection(String start_ip, String end_ip, int is_active, int weight) {
         connectionDao.createConnection(start_ip, end_ip, is_active, weight);
     }
 
     public void updateRelayStationLimit(String ip, int limit) {
-        relayStationDao.updateRelayStationLimit(ip,limit);
+        relayStationDao.updateRelayStationLimit(ip, limit);
     }
 
 
     //path algorithm BFS
-    private List<String> findShortestPath(String start , String destination){
+    private List<String> findShortestPath(String start, String destination) {
         //generate graph with ip;
         List<RelayStation> relayStations = relayStationDao.findAllRelayStations();
 
         //graph set{ip1,ip2....}
         Set<String> graph = new HashSet<String>();
-        Queue<String> queue  = new LinkedList<String>();
+        Queue<String> queue = new LinkedList<String>();
         List<String> marked = new ArrayList<String>();
         //Map <ip , parent>
-        Map<String,String> path = new HashMap<String, String>();
+        Map<String, String> path = new HashMap<String, String>();
 
 
         //add start and end node into graph.
@@ -309,16 +328,16 @@ public class NetworkServicesImpl implements NetworkServices {
         graph.add(destination);
 
         //add all relay stations as nodes.
-        for(int i = 0 ;i<relayStations.size() ; i++){
+        for (int i = 0; i < relayStations.size(); i++) {
             RelayStation relayStation = relayStations.get(i);
-            if(relayStation.getIsActive()==1){
+            if (relayStation.getIsActive() == 1) {
                 graph.add(relayStation.getStationIp());
             }
         }
 
         //now all the nodes belongs to the open set.
 
-        System.out.println("===============\nFrom "+start+" to "+destination+".\nPath finding start...\nThe graph contains:"+graph.toString());
+        System.out.println("===============\nFrom " + start + " to " + destination + ".\nPath finding start...\nThe graph contains:" + graph.toString());
 
         //add the start into queue.marked it reached.
         queue.add(start);
@@ -329,13 +348,13 @@ public class NetworkServicesImpl implements NetworkServices {
             marked.add(top);
 
             //find all adjacent nodes for the top node of the queue.
-            for(Iterator i = graph.iterator();i.hasNext();){
-                String temp = i.next()+"";
-                if(!marked.contains(temp)&&isReachable(temp,top)){
+            for (Iterator i = graph.iterator(); i.hasNext(); ) {
+                String temp = i.next() + "";
+                if (!marked.contains(temp) && isReachable(top, temp)) {
                     //marked it and add it into queue
-                   marked.add(temp);
-                   queue.add(temp);
-                   path.put(temp,top);
+                    marked.add(temp);
+                    queue.add(temp);
+                    path.put(temp, top);
                 }
             }
         }
@@ -346,14 +365,14 @@ public class NetworkServicesImpl implements NetworkServices {
         String parent = "";
         List<String> finalPath = new ArrayList<String>();
         finalPath.add(destination);
-        while(!parent.equals(start)){
-            if(path.containsKey(index)){
+        while (!parent.equals(start)) {
+            if (path.containsKey(index)) {
                 parent = path.get(index);
                 finalPath.add(parent);
                 index = parent;
-            }else{
+            } else {
                 //no path
-                return  null;
+                return null;
             }
         }
 
@@ -361,21 +380,21 @@ public class NetworkServicesImpl implements NetworkServices {
         return finalPath;
     }
 
-    private boolean isReachable(String ip1, String ip2){
-        List<Connection>connections = connectionDao.findAllConnections();
+    private boolean isReachable(String start, String end) {
+        List<Connection> connections = connectionDao.findAllConnections();
         List<String> next = new ArrayList<String>();
-        for(int i = 0 ;i<connections.size() ;i++){
+        for (int i = 0; i < connections.size(); i++) {
             Connection c = connections.get(i);
-            if(c.getIsActive()==1){
-                if(ip1.equals(c.getStartIp())&&c.getIsActive()==1&&!isFull(c.getEndIp())){
+            if (c.getIsActive() == 1) {
+                if (end.equals(c.getStartIp()) && c.getIsActive() == 1 && !isFull(end)) {
                     next.add(c.getEndIp());
-                }else if(ip1.equals(c.getEndIp())&&c.getIsActive()==1&&!isFull(c.getStartIp())){
+                } else if (end.equals(c.getEndIp()) && c.getIsActive() == 1 && !isFull(end)) {
                     next.add(c.getStartIp());
                 }
             }
         }
-        for(int i = 0 ;i<next.size() ; i++){
-            if(next.get(i).equals(ip2)){
+        for (int i = 0; i < next.size(); i++) {
+            if (next.get(i).equals(start)) {
                 return true;
             }
         }
@@ -384,30 +403,33 @@ public class NetworkServicesImpl implements NetworkServices {
 
     /**
      * check if the station is full or not.
+     *
      * @param ip the relay station ip
      * @return
      */
-    public boolean isFull(String ip){
-        List<RelayStation> relayStations = relayStationDao.findAllRelayStations();
-        int limit;
-        for(int i = 0 ;i<relayStations.size() ;i++){
-            RelayStation r = relayStations.get(i);
-            if(ip.equals(r.getStationIp())){
+    public boolean isFull(String ip) {
 
-                limit = r.getTransactionLimit();
-                List<Transaction> transactions = transactionDao.findAllTransactions();
-                for(int j = 0 ;j<transactions.size() ; j++){
-                    Transaction t = transactions.get(j);
-                    if(t.getCurrentPositionIp().equals(r.getStationIp())){
-                        limit--;
-                        if(limit<=0){
-                            return true;
-                        }
-                    }
+        RelayStation r = relayStationDao.findRelayStationByIp(ip);
+        int limit = r.getTransactionLimit();
+        List<Transaction> transactions = transactionDao.findAllTransactions();
+        for (int j = 0; j < transactions.size(); j++) {
+            Transaction t = transactions.get(j);
+            if (t.getCurrentPositionIp().equals(r.getStationIp())) {
+                limit--;
+                if (limit <= 0) {
+                    return true;
                 }
             }
         }
         return false;
+//        RelayStation r = relayStationDao.findRelayStationByIp(ip);
+//        int count = r.getTransactionCount();
+//        int limit = r.getTransactionLimit();
+//        if (count >= limit) {
+//            return true;
+//        } else {
+//            return false;
+//        }
     }
 
 }
