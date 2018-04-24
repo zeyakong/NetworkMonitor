@@ -410,6 +410,9 @@ public class NetworkServicesImpl implements NetworkServices {
     public boolean isFull(String ip) {
 
         RelayStation r = relayStationDao.findRelayStationByIp(ip);
+        if(r==null){
+         return false;
+        }
         int limit = r.getTransactionLimit();
         List<Transaction> transactions = transactionDao.findAllTransactions();
         for (int j = 0; j < transactions.size(); j++) {

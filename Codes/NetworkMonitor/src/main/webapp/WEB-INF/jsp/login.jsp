@@ -49,7 +49,7 @@
                         window.location.href="loginSuccess.action";
                     } else {
                         //incorrect
-                        $("#message").text("The username or password was wrong!");
+                        $("#message").text("Wrong username, password or blocked");
 //                        document.getElementById("message").innerHTML="The username or password wrong!";
                     }
                 }

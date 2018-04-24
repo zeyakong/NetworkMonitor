@@ -54,7 +54,7 @@
             answers[0] = "<%=request.getSession().getAttribute("answer1")%>";
             answers[1] = "<%=request.getSession().getAttribute("answer2")%>";
             answers[2] = "<%=request.getSession().getAttribute("answer3")%>";
-            num = Math.floor(Math.random() * 3 + 1);
+            num = Math.floor(Math.random() * 3);
 
             $("#question").attr("placeholder",question[1]);
             $('#horizontalTab').easyResponsiveTabs({
@@ -79,10 +79,11 @@
                 window.location.href="goMain.action";
             }else{
                 $("#message").text("The answer is wrong!");
+                $("#answer").val("");
                 times++;
                 if(times>=3){
                     $.ajax({
-                        url:"/block/"+"<%=request.getSession().getAttribute("loginId")%>",
+                        url:"/blockUser/"+"<%=request.getSession().getAttribute("loginId")%>",
                         method: 'POST',
                         success: function (data) {
                             alert("Your account is blocked because of 3 times wrong!");

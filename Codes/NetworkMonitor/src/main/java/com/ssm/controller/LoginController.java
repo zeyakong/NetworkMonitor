@@ -44,6 +44,10 @@ public class LoginController {
     LoginAccount doLogin(String username, String password,HttpServletRequest request){
         LoginAccount loginAccount= loginServices.findAccountByUsernameAndPassword(username,password);
         if(loginAccount!=null){
+            if(loginAccount.getIsActive().equals("0")){
+                //blocked
+                return null;
+            }
             //success login
             request.getSession().setAttribute("loginId",loginAccount.getLoginId());
             request.getSession().setAttribute("question1",loginAccount.getSecurityQuestion1());

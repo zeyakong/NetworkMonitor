@@ -14,7 +14,7 @@
 
 	<update id="blockAccountById">
 		UPDATE login_accounts
-		SET is_active = NOT is_active;
+		SET is_active = NOT is_active
 		WHERE login_id = #{accountId}
 	</update>
 

@@ -54,7 +54,7 @@ public class AccountController {
         }
 
         model.addAttribute("list",list);
-        CreditCard creditCard = creditCardServices.findCreditCardsByCardId(id);
+        CreditCard creditCard = creditCardServices.findCreditCardsByCardId(id+"");
         model.addAttribute("creditCard",creditCard);
         System.out.println("card detail");
         System.out.println(list);
@@ -68,7 +68,7 @@ public class AccountController {
 
     @RequestMapping("/updateCardnumber")
     public String updateCardnumber(long id,Model model){
-        CreditCard creditCard= creditCardServices.findCreditCardsByCardId(id);
+        CreditCard creditCard= creditCardServices.findCreditCardsByCardId(id+"");
         model.addAttribute("creditCard",creditCard);
         return "cardupdate";
     }
@@ -205,7 +205,7 @@ public class AccountController {
                                              if(flg8==false||balance1>25000){
                                                  message="Invalid balance amount";
                                              }else{
-                                                 if(creditCardServices.findCreditCardsByCardId(cnumber)!=null){
+                                                 if(creditCardServices.findCreditCardsByCardId(cnumber+"")!=null){
                                                      message="This card is already exist!";
                                                  }else{
                                                      int max=cardAccountServices.getmax();
@@ -283,7 +283,7 @@ return message;
                         if(flg4==false){
                             message="Invalid security code";
                         }else {
-                            if(creditCardServices.findCreditCardsByCardId(cnumber)!=null){
+                            if(creditCardServices.findCreditCardsByCardId(cnumber+"")!=null){
                                 message="This card is already exist!";
                             }else{
                                 if(cardAccountServices.findCardAccountById(name)==null){
@@ -351,7 +351,7 @@ return message;
                                 if(cardAccountServices.findCardAccountById(name2)==null){
                                     message="This Account do not exist!"; ;
                                 }else{
-                                    if(creditCardServices.findCreditCardsByCardId(cnumber2)!=null){
+                                    if(creditCardServices.findCreditCardsByCardId(cnumber2+"")!=null){
                                         message="This card is already exist!";
                                     }else{
                                         creditCardServices.updatingcards(cnumber2,cname2,cdate2,ccode2,name2);

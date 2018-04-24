@@ -14,7 +14,7 @@ public interface CreditCardServices {
     List<Transaction> findAll();
     List<Transaction>  findTransactionByCardId(long id);
     List<CreditCard> findCreditCardsByAccountId(int id);
-    CreditCard findCreditCardsByCardId(long id);
+    CreditCard findCreditCardsByCardId(String id);
     void deleteCard(int id);
     String deleteCardnumber(long id);
  /*   void justdeleteCardnumber(long id);*/

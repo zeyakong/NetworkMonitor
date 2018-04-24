@@ -141,7 +141,7 @@ public class NetworkController {
         return "OK";
     }
 
-    @RequestMapping(value = "processingVerification", method = RequestMethod.POST)
+    @RequestMapping(value = "processingVerification")
     public @ResponseBody
     String processingVerification(@RequestBody TransactionInfo transactionInfo) {
         System.out.println("Got:" + transactionInfo.toString());
@@ -154,7 +154,7 @@ public class NetworkController {
         String cname = transactionInfo.getCardName();
         String scode = transactionInfo.getSecurityCode();
         String exdate = transactionInfo.getExpirationDate();
-        CreditCard creditCard = creditCardServices.findCreditCardsByCardId(Long.parseLong(cardId));
+        CreditCard creditCard = creditCardServices.findCreditCardsByCardId(cardId);
         if (creditCard == null) {
             return "DENY";
         } else {

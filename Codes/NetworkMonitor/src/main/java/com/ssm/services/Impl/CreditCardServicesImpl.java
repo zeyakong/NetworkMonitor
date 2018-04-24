@@ -110,7 +110,7 @@ public class CreditCardServicesImpl implements CreditCardServices {
     public List<CreditCard> findCreditCardsByAccountId(int id) {
         return creditCardDao.findCreditCardsByAccountId(id);
     }
-    public CreditCard findCreditCardsByCardId(long id) {
+    public CreditCard findCreditCardsByCardId(String id) {
         return creditCardDao.findCreditCardsByCardId(id);
     }
 }

@@ -18,7 +18,7 @@ public interface CreditCardDao {
      */
     List<CreditCard> findAllCreditCard();
     List<CreditCard> findCreditCardsByAccountId(@Param("accountId")int accountId);
-    CreditCard findCreditCardsByCardId(@Param("cardId")long cardId);
+    CreditCard findCreditCardsByCardId(@Param("cardId")String cardId);
     void deleteAccount(int i);
     void deleteCard(int id);
     CreditCard findcardbyid(int i);
