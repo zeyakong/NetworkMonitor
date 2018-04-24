@@ -29,7 +29,7 @@ img{max-width:100%;}
 /*end reset*/
 /****-----start-body----****/
 body{
-	background:url("../images/11.jpg") 0px 0px no-repeat;
+	background:url("../images/6.jpg") 0px 0px no-repeat;
 	text-align: center;
 	font-family:Nunito-Light;
 	background-attachment: fixed;
@@ -45,7 +45,7 @@ body{
 .main-content{
 	width:1000px;
 	height:1000px;
-	background-color: rgba(42, 54, 80, 0.7);
+	background-color: rgba(0, 0, 0, 0.7);
 	margin:50px auto;
 }
 
@@ -193,7 +193,7 @@ h2.resp-accordion {
 }
 .sign-up input[type="freeze"]:hover{
 	color: #fff;
-    background:#3184ce;
+    background:green;
 }
 
 .sign-up input[type="redman"] {

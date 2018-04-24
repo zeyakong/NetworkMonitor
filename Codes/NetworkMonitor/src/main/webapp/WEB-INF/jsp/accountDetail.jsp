@@ -41,10 +41,13 @@
             margin-top: 30px;
         }
         .main-content{
-            heigh:90%;
+            width:80%;
+            height:100%;
+            background-color: rgba(0, 0, 0, 0.88);
+            margin:50px auto;
         }
     </style>
-    <script type="application/x-javascript">
+ <%--   <script type="application/x-javascript">
         addEventListener("load", function () {
             setTimeout(hideURLbar, 0);
         }, false);
@@ -64,7 +67,7 @@
                 fit: true   // 100% fit in a container
             });
         });
-    </script>
+    </script>--%>
 </head>
 <body>
 
@@ -79,7 +82,6 @@
                onclick='window.location.href="accountInfo.action"' ;>
     </div>
     <div class="sap_tabs"/>
-    ">
     <table id="tbeTest " class="table table-bordered" style="margin-top:0px; width:100%;
     margin-left:0px;">
         <tr>

@@ -145,13 +145,13 @@ h2.resp-accordion {
 .sign-up input[type="submit"] {
     background:rgba(2, 2, 2, 0.60);
     color: #fff;
-	border: 2px solid #fff;
+    border: 2px solid #fff;
     font-size: 18px;
-	font-family:Nunito-Light;
+    font-family:Nunito-Light;
     padding: 0px 0px 0px 0px;
     width: 85%;
     cursor: pointer;
-    outline: none; 
+    outline: none;
     margin-top:0px;
     margin-left:17px;
     transition: 0.5s all;
@@ -159,26 +159,26 @@ h2.resp-accordion {
     -moz-transition: 0.5s all;
     -o-transition: 0.5s all;
     -ms-transition: 0.5s all;
-	-moz-border-radius: 3px;
-	-webkit-border-radius: 3px;
-	-khtml-border-radius: 3px;
-	border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -khtml-border-radius: 3px;
+    border-radius: 3px;
 }
 .sign-up input[type="submit"]:hover{
-	color: #fff;
+    color: #fff;
     background:#d8cc52;
 }
 
 .sign-up input[type="freeze"] {
     background:rgba(2, 2, 2, 0.60);
     color: #fff;
-	border: 2px solid #fff;
+    border: 2px solid #fff;
     font-size: 18px;
-	font-family:Nunito-Light;
+    font-family:Nunito-Light;
     padding: 0px 0px 0px 0px;
     width: 85%;
     cursor: pointer;
-    outline: none; 
+    outline: none;
     margin-top:0px;
     margin-left:17px;
     transition: 0.5s all;
@@ -186,18 +186,44 @@ h2.resp-accordion {
     -moz-transition: 0.5s all;
     -o-transition: 0.5s all;
     -ms-transition: 0.5s all;
-	-moz-border-radius: 3px;
-	-webkit-border-radius: 3px;
-	-khtml-border-radius: 3px;
-	border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -khtml-border-radius: 3px;
+    border-radius: 3px;
 }
 .sign-up input[type="freeze"]:hover{
-	color: #fff;
-    background:	#FF0000;
+    color: #fff;
+    background:green;
 }
- ::-webkit-input-placeholder{
-	color:#fff;
+
+.sign-up input[type="redman"] {
+    background:rgba(2, 2, 2, 0.60);
+    color: #fff;
+    border: 2px solid #fff;
+    font-size: 18px;
+    font-family:Nunito-Light;
+    padding: 0px 0px 0px 0px;
+    width: 85%;
+    cursor: pointer;
+    outline: none;
+    margin-top:0px;
+    margin-left:17px;
+    transition: 0.5s all;
+    -webkit-transition: 0.5s all;
+    -moz-transition: 0.5s all;
+    -o-transition: 0.5s all;
+    -ms-transition: 0.5s all;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -khtml-border-radius: 3px;
+    border-radius: 3px;
 }
+.sign-up input[type="redman"]:hover{
+    color: #fff;
+    background:#FF0000;
+}
+
+
 
 :-moz-placeholder { /* Firefox 18- */
    color: #fff; 
