@@ -13,7 +13,7 @@
     Object obj = session.getAttribute("loginId");
     if (obj == null) {
 %>
-<meta http-equiv="refresh" content="0; url=doLogin"/>
+<meta http-equiv="refresh" content="0; url=login"/>
 <%
     }
 %>

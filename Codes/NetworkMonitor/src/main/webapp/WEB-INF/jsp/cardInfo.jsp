@@ -13,7 +13,7 @@
     Object obj = session.getAttribute("loginId");
     if (obj == null) {
 %>
-<meta http-equiv="refresh" content="0; url=doLogin"/>
+<meta http-equiv="refresh" content="0; url=login"/>
 <%
     }
 %>
@@ -140,7 +140,7 @@
 
 
 <div class="main-content">
-    <h1> Card Informations</h1>
+    <h1> Card Information</h1>
     <div class="sap_tabs">
 
        <%-- <div class="sign-up" style="width:100px;height:50px;">
@@ -237,7 +237,7 @@
 </svg>
 					</span>
 
-                <em>Account manage</em>
+                <em>Account management</em>
             </a>
         </li>
 
@@ -250,7 +250,7 @@
 </svg>
 					</span>
 
-                <em>Card manage</em>
+                <em>Card management</em>
             </a>
         </li>
 
