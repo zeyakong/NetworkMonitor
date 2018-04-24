@@ -790,12 +790,13 @@ $('#applyButton').click(function() {
     var ip = document.getElementById('relayIp').innerText;
 
     //Quick check
-    if( limit > -1 && limit < 1000000) {
+    if( limit > 0 && limit < 1000000) {
         changeCapacity(ip,limit);
         $('#relayModal').modal('hide');
+        alert("The limit has been changes successfully!");
     }
     else{
-        alert("The limit should be a positive value or zero!");
+        alert("The limit should be a positive value!");
     }
 });
 
