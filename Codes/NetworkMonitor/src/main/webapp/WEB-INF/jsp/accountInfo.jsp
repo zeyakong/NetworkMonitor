@@ -62,10 +62,11 @@
             z-index:1002;
             overflow: auto;
         }
+
         .main-content {
-            width: 1000px;
-            height: 1000px;
-            background-color: rgba(42, 54, 80, 0.7);
+            width: 80%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.88);
             margin: 50px auto;
         }
     </style>
@@ -209,19 +210,19 @@
     margin-left:0px;">
             <thead>
             <tr>
-                <th class="resp-tab-item" aria-controls="tab_item-0" role="tab" style="width:200px;height:50px;">Account
+                <th class="resp-tab-item" aria-controls="tab_item-0" role="tab" style="width:200px;height:50px;text-align: center;">Account
                     Id
                 </th>
-                <th class="resp-tab-item" aria-controls="tab_item-0" role="tab" style="width:200px;height:50px;">Account
+                <th class="resp-tab-item" aria-controls="tab_item-0" role="tab" style="width:200px;height:50px;text-align: center;">Account
                     Name
                 </th>
-                <th class="resp-tab-item" aria-controls="tab_item-0" role="tab" style="width:100px;height:50px;">
+                <th class="resp-tab-item" aria-controls="tab_item-0" role="tab" style="width:100px;height:50px;text-align: center;">
                     Detail
                 </th>
-                <th class="resp-tab-item" aria-controls="tab_item-0" role="tab" style="width:100px;height:50px;">
-                    Edit
+                <th class="resp-tab-item" aria-controls="tab_item-0" role="tab" style="width:100px;height:50px;text-align: center;">
+                    Update
                 </th>
-                <th class="resp-tab-item" aria-controls="tab_item-0" role="tab" style="width:100px;height:50px;">
+                <th class="resp-tab-item" aria-controls="tab_item-0" role="tab" style="width:100px;height:50px;text-align: center;">
                     Delete
                 </th>
             </tr>
@@ -234,25 +235,20 @@
                     <td class="resp-tab-item" aria-controls="tab_item-0" role="tab"
                         style="width:200px;height:50px;">${ac.accountName}</td>
                     <td class="resp-tab-item" aria-controls="tab_item-0" role="tab" style="width:100px;height:50px;">
-                        <div class="sign-up" style="width:100px;height:50px;">
-                            <input type="submit" class="submit-btn" id="J_submit" value="Details" id="detail"
-                                   style="width:100px;height:50px;" onclick="accountDetail('${ac.accountId}')">
-                        </div>
-
-                            <%-- <a style="padding:0;">
-                                <button type="button" class="submit-btn" onclick="accountDetail('${ac.accountId}')" style="width:100px;height:50px;">View
-                                </button>
-                            </a> --%></td>
+                        <div class="sign-up" style="width:100px;height:50px;margin-left:45px;">
+                            <input type="submit" class="submit-btn" id="J_submit" value="Detail" id="detail"
+                                   style="width:100px;height:50px;margin-left:28px;" onclick="accountDetail('${ac.accountId}')">
+                        </div></td>
                     <td class="resp-tab-item" aria-controls="tab_item-0" role="tab" style="width:100px;height:50px;">
                         <div class="sign-up" style="width:100px;height:50px;">
-                            <input type="freeze" class="submit-btn" value="Edit" id="edit"  onclick=" updateAccount('${ac.accountId}')"
-                                   style="text-align: center; width:100px;height:50px;">
+                            <input type="freeze" class="submit-btn" value="Update" id="edit"  onclick=" updateAccount('${ac.accountId}')"
+                                   style="text-align: center; width:100px;height:50px;margin-left:40px;">
                         </div>
                     </td>
                     <td class="resp-tab-item" aria-controls="tab_item-0" role="tab" style="width:100px;height:50px;">
                         <div class="sign-up" style="width:100px;height:50px;">
                             <input type="redman" class="submit-btn" value="Delete" id="delete"
-                                   style="text-align: center; width:100px;height:50px;"onclick="deleteAccount('${ac.accountId}')">
+                                   style="text-align: center; width:100px;height:50px;margin-left:40px;"onclick="deleteAccount('${ac.accountId}')">
                         </div>
                     </td>
 

@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.List;
 import java.util.Calendar;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.*;
 /**
  * Created by Zeya Kong
  * On 2018/2/15 17:35.
@@ -42,17 +45,124 @@ public class AccountController {
 
     @RequestMapping("/carddetail")
     public String carddetail(long id,Model model){
+        String transact="333";
+        String transact2="433";
         List<Transaction> list;
+        List<Transaction> lists;
+        lists = creditCardServices.findTransactionByCardId(0);
         list = creditCardServices.findTransactionByCardId(id);
-
         for(int i= 0 ; i<list.size();i++){
             Transaction t = list.get(i);
+            System.out.println("t"+t);
             Timestamp sent = t.getTransactionDateSent();
             Timestamp res = t.getTransactionDateResponded();
-//            t.setTransactionDateResponded(changeFormat(res));
+            System.out.println("sent"+sent);
+            System.out.println("do");
+            System.out.println("res"+res);
+            if(sent!=null){
+                String tran=sent.toString();
+                String arr[]=tran.split(" ");
+         String arrdmy[]=arr[0].split("-");
+         int month01= Integer.parseInt(arrdmy[1]);
+         String month="12313";
+        System.out.println(month01);
+        System.out.println(month);
+         switch(month01){
+                 case 1:
+                 month="Jan";
+                 break;
+             case 2:
+                 month="Feb";
+                 break;
+             case 3:
+                 month="Mar";
+                 break;
+             case 4:month="Apr";
+                 break;
+             case 5:month="May";
+                 break;
+             case 6:month="Jun";
+                 break;
+             case 7:month="Jul";
+                 break;
+             case 8:month="Aug";
+                 break;
+             case 9:month="Sep";
+                 break;
+             case 10:month="Oct";
+                 break;
+             case 11:month="Nov";
+                 break;
+             case 12:month="Dec";
+                 break;
+
+         }
+        System.out.println(month);
+         String arrhm[]=arr[1].split(":");
+        transact=month+" "+arrdmy[2]+","+arrdmy[0]+" "+arrhm[0]+":"+arrhm[1];
+
+            }else{
+                 transact="No Data";
+            }
+if (res!=null){
+    String tran=res.toString();
+        System.out.println(tran);
+        String arr[]=tran.split(" ");
+        String arrdmy[]=arr[0].split("-");
+        int month01= Integer.parseInt(arrdmy[1]);
+        String month="12313";
+        System.out.println(month01);
+        System.out.println(month);
+        switch(month01){
+            case 1:
+                month="Jan";
+                break;
+            case 2:
+                month="Feb";
+                break;
+            case 3:
+                month="Mar";
+                break;
+            case 4:month="Apr";
+                break;
+            case 5:month="May";
+                break;
+            case 6:month="Jun";
+                break;
+            case 7:month="Jul";
+                break;
+            case 8:month="Aug";
+                break;
+            case 9:month="Sep";
+                break;
+            case 10:month="Oct";
+                break;
+            case 11:month="Nov";
+                break;
+            case 12:month="Dec";
+                break;
+
+        }
+        System.out.println(month);
+        String arrhm[]=arr[1].split(":");
+       transact2=month+" "+arrdmy[2]+","+arrdmy[0]+" "+arrhm[0]+":"+arrhm[1];
+
+}else{
+    transact2="No Data";
+} t.setGivenCardName(transact);
+  t.setGivenCardDate(transact2);
+  lists.add(t);
+
+            //            t.setlisTransactionDateResponded(changeFormat(res));
 //            changeFormat(res);
         }
-
+        System.out.println("card detail");
+        System.out.println(transact);
+        System.out.println("card detail2");
+        System.out.println("card detail");
+        System.out.println(transact2);
+        System.out.println("card detail2");
+        model.addAttribute("lists",lists);
         model.addAttribute("list",list);
         CreditCard creditCard = creditCardServices.findCreditCardsByCardId(id+"");
         model.addAttribute("creditCard",creditCard);
@@ -351,12 +461,10 @@ return message;
                                 if(cardAccountServices.findCardAccountById(name2)==null){
                                     message="This Account do not exist!"; ;
                                 }else{
-                                    if(creditCardServices.findCreditCardsByCardId(cnumber2+"")!=null){
-                                        message="This card is already exist!";
-                                    }else{
+
                                         creditCardServices.updatingcards(cnumber2,cname2,cdate2,ccode2,name2);
                                         message="Success to update card";
-                                    }
+
                                     /*creditCardServices.updatingcards(cnumber2,cname2,cdate2,ccode2,name2);
                                     message="Success to update card";*/
                                 }

@@ -41,7 +41,10 @@
             margin-top: 30px;
         }
         .main-content{
-            heigh:90%;
+            width:80%;
+            height:100%;
+            background-color: rgba(0, 0, 0, 0.88);
+            margin:50px auto;
         }
     </style>
     <script type="application/x-javascript">
@@ -52,6 +55,67 @@
         function hideURLbar() {
             window.scrollTo(0, 1);
         }
+
+
+        function changeformat(i){
+            var arr=new Arrary();
+            var arrdmy=new Arrary();
+            var arrdhm=new Arrary();
+            arr=i.split(" ");
+            arrdmy=arr[0].split("-");
+            var month01= Integer.parseInt(arrdmy[1]);
+            var month="12313";
+            System.out.println(month01);
+            System.out.println(month);
+            switch(month01){
+                case 1:
+                    month="Jan";
+                    break;
+                case 2:
+                    month="Feb";
+                    break;
+                case 3:
+                    month="Mar";
+                    break;
+                case 4:month="Apr";
+                    break;
+                case 5:month="May";
+                    break;
+                case 6:month="Jun";
+                    break;
+                case 7:month="Jul";
+                    break;
+                case 8:month="Aug";
+                    break;
+                case 9:month="Sep";
+                    break;
+                case 10:month="Oct";
+                    break;
+                case 11:month="Nov";
+                    break;
+                case 12:month="Dec";
+                    break;
+
+            }
+
+            arrhm=arr[1].split(":");
+            transact2=month+" "+arrdmy[2]+","+arrdmy[0]+" "+arrhm[0]+":"+arrhm[1];
+            return tansact2;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     </script>
     <script src="js/jquery.min.js"></script>
@@ -139,7 +203,7 @@
     <br>
 
 
-    <c:forEach var="ac" items="${list}">
+    <c:forEach var="ac" items="${lists}">
         <table class="table table-bordered" >
             <tr>
                 <td class="resp-tab-item" aria-controls="tab_item-0" role="tab" style="width:200px;height:50px;">Transaction Amount
@@ -174,14 +238,14 @@
                     Send-Date
                 </td>
                 <td class="resp-tab-item" aria-controls="tab_item-0" role="tab"
-                    style="width:200px;height:50px;">${ac.transactionDateSent}</td>
+                    style="width:200px;height:50px;">${ac.givenCardName}</td>
             </tr>
             <tr>
             <td class="resp-tab-item" aria-controls="tab_item-0" role="tab" style="width:200px;height:50px;">
                 Respond-Date
             </td>
             <td class="resp-tab-item" aria-controls="tab_item-0" role="tab"
-                style="width:200px;height:50px;">${ac.transactionDateResponded}</td>
+                style="width:200px;height:50px;" value="">${ac.givenCardDate}</td>
         </tr>
             <tr>
                 <td class="resp-tab-item" aria-controls="tab_item-0" role="tab" style="width:200px;height:50px;">
@@ -214,7 +278,7 @@
 
 		<ul  class="cd-nav">
 		
-			<li class="cd-selected"  data-menu="accountinfo">
+			<li   data-menu="accountinfo">
                 <a href=" " onclick='window.location.href="accountInfo.action"'>
 					<span >
 						<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1000 1000" enable-background="new 0 0 1000 1000" xml:space="preserve"   style="stroke: #000066; fill: #666666;" >
@@ -227,7 +291,7 @@
 				</a>
 			</li>
 
-            <li data-menu="cardmanage">
+            <li class="cd-selected" data-menu="cardmanage">
                 <a href=" " onclick='window.location.href="cardInfo.action"'>
 					<span>
 						<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1000 1000" enable-background="new 0 0 1000 1000" xml:space="preserve">

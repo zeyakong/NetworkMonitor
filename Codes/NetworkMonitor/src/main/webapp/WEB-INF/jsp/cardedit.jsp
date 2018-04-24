@@ -20,6 +20,18 @@
     <title>Let's make things better.</title>
     <link href="css/stylec.css" rel='stylesheet' type='text/css'/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="js/modernizr.js"></script> <!-- Modernizr -->
+    <link rel="stylesheet" href="css/css/style.css"> <!-- CSS reset -->
+    <script src="js/jquery-2.1.1.js"></script>
+    <script src="js/main.js"></script> <!-- Resource jQuery -->
+    <script src="https://code.jquery.com/jquery-3.3.1.js"
+            integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.js"></script>
+
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="keywords"
           content="Alley Signup & Signin Form Tab Form,Login Forms,Sign up Forms,Registration Forms,News letter Forms,Elements"
@@ -42,8 +54,17 @@
             color:white;
             text-align:right;
         }
+        .main-content{
+            width:80%;
+            height:100%;
+            background-color: rgba(151, 121, 150, 0.9);
+            margin:50px auto;
+        }
+        .register input[type="text"] {
+            margin:0 40px 15px 0;
+        }
     </style>
-    <script type="application/x-javascript">
+   <%-- <script type="application/x-javascript">
         addEventListener("load", function () {
             setTimeout(hideURLbar, 0);
         }, false);
@@ -84,135 +105,31 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
     <script src="https://github.com/igorescobar/jQuery-Mask-Plugin/blob/master/jquery.mask.min.js"></script>
     <script src="js/jquery.min.js"></script>
-    <script src="js/easyResponsiveTabs.js" type="text/javascript"></script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('#horizontalTab').easyResponsiveTabs({
-                type: 'default', //Types: default, vertical, accordion
-                width: 'auto', //auto or any width like 600px
-                fit: true   // 100% fit in a container
-            });
-        });
+    <script src="js/easyResponsiveTabs.js" type="text/javascript"></script>--%>
 
-        function validatemobile(mobile)
-        {
-            if(mobile.length==0)
-            {
-                $("#message").text("Security Code:Security code cant been empty?");
-                return false;
-            }
-            if(mobile.length!=3)
-            {
-                $("#message").text("Security Code:Security code should be 3!");
-                return false;
-            }
-            var reg = /^[0-9]+$/;
-            if(mobile!=""&&!reg.test(mobile)){
-                $("#message").text("Security Code:Must be Number!");
-                return false;
-            }
-
-
-        }
-        $(document).ready(function(){
-            $('.date').mask('11/11/1111');
-
-            $('.time').mask('00:00:00');
-            $('.date_time').mask('00/00/0000 00:00:00');
-            $('.cep').mask('00000-000');
-            $('.phone').mask('0000-0000');
-            $('.phone_with_ddd').mask('(00) 0000-0000');
-            $('.phone_us').mask('(000) 000-0000');
-            $('.mixed').mask('AAA 000-S0S');
-            $('.cpf').mask('000.000.000-00', {reverse: true});
-            $('.money').mask('000.000.000.000.000,00', {reverse: true});
-        });
-        function validatecard(mobile)
-        {
-            if(mobile.length==0)
-            {
-                $("#message").text("Card Number:Cant been empty?");
-                return false;
-            }
-            if(mobile.length!=16)
-            {
-                $("#message").text("Card Number:Card Number should be 16!");
-                return false;
-            }
-            var reg = /^[0-9]+$/;
-            if(mobile!=""&&!reg.test(mobile)){
-                $("#message").text("Card Number:Must be Number!");
-                return false;
-            }
-
-
-        }
-
-        function validatenumber(mobile)
-        {
-
-            var reg = /^[0-9]+$/;
-            if(mobile!=""&&!reg.test(mobile)){
-                $("#message").text("Must be Number!");
-                return false;
-            }
-
-
-        }
-        function validatemobile2(mobile)
-        {
-
-            if(mobile.length!=5)
-            {
-                $("#message").text("Expiration date:Invalid Date format(MM/YYYY)")
-                return false;
-            }
-
-
-
-        }
-
-        function validatename(name){
-            if(name.length<2){
-                $("#message").text("Name:Invalid format(name should more than 2)")
-            }
-            if(name.length>15){
-                $("#message").text("Name:Invalid format(name should less than 15)")
-            }
-        }
-
-
-
-
-
-
-
-
-
-    </script>
 </head>
 <body>
-<h1> Let's Make Things Better</h1>
+
+<a href="#cd-nav" class="cd-nav-trigger">
+    Menu<span><!-- used to create the menu icon --></span>
+</a> <!-- .cd-nav-trigger -->
 
 <div class="main-content">
     <div class="sign-up" style="width:100px;height:50px;">
-        <input type="submit" class="submit-btn" id="J_submit" value="Back" style="width:100px;height:50px;"
+        <input type="submit" class="submit-btn" id="J_submit" value="Back" style="width:100px;height:50px;margin-top:80px;margin-left:80px;"
                onclick='window.location.href="cardInfo.action"' ;>
     </div>
     <div class="sap_tabs">
-        <div id="horizontalTab" style="display: block; width: 100%; margin: 0px;">
-            <ul>
-                <li class="resp-tab-item" aria-controls="tab_item-0" role="tab"><span></span></li>
-            </ul>
-            <div class="tab-2 resp-tab-content" aria-labelledby="tab_item-1">
+
                 <div class="facts">
                     <div class="register">
+                        <h1> Create New Card</h1>
                         <h3>Account ID:<input placeholder="Related account number" id="name" class="lock"   type="text" required=""   ></h3>
-                        <h3>Card Number:<input placeholder="XXXX-XXXX-XXXX-XXXX" id="cnumber" class="mail" type="text" required="" onblur="validatecard(this.value)"  onfocus='$("#message").text("");'   ></h3>
+                        <h3>Card Number:<input placeholder="XXXX-XXXX-XXXX-XXXX" id="cnumber" class="cardlimi" type="text" required="" onblur="validatecard(this.value)"  onfocus='$("#message").text("");'   ></h3>
                         <h3>First name:<input placeholder="The length of name must be between 2 to 15" id="cname1" class="lock" type="text" required=""  onblur="validatename(this.value)"  onfocus='$("#messagen").text("");' ></h3>
                         <h3>Last name:<input placeholder="The length of name must be between 2 to 15" id="cname2" class="lock" type="text" required=""  onblur="validatename(this.value)"  onfocus='$("#messagen").text("");' ></h3>
-                        <h3>Expiration date:<input placeholder="MM/YYYY" class=".date2" id="cdate" class="lock" type="text" required="" onblur="validatemobile2(this.value)"  onfocus='$("#message").text("");'></h3>
-                        <h3>Sercurity Code:<input placeholder="NNN" id="ccode" class="mail" onblur="validatemobile(this.value)" onfocus='$("#message").text("");' type="text" required="" ></h3>
+                        <h3>Expiration date:<input placeholder="MM/YYYY" class="datelimi" id="cdate" class="lock" type="text" required="" onblur="validatemobile2(this.value)"  onfocus='$("#message").text("");'></h3>
+                        <h3>Sercurity Code:<input placeholder="NNN" id="ccode" class="codelimi" onblur="validatemobile(this.value)" onfocus='$("#message").text("");' type="text" required="" ></h3>
                         <div class="sign-up">
                             <p id="message"></p>
                             <input type="submit" class="submit-btn" style="width:100px;height:50px;" onclick="createcards()" value="Submit"></div>
@@ -220,10 +137,8 @@
                 </div>
             </div>
         </div>
-    </div>
-</div>
+
 <!--start-copyright-->
-<%--
 
 <nav class="cd-nav-container" id="cd-nav">
     <header>
@@ -236,7 +151,7 @@
 
     <ul  class="cd-nav">
 
-        <li    data-menu="accountinfo">
+        <li   data-menu="accountinfo">
             <a href=" " onclick='window.location.href="accountInfo.action"'>
 					<span >
 						<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1000 1000" enable-background="new 0 0 1000 1000" xml:space="preserve"   style="stroke: #000066; fill: #666666;" >
@@ -262,6 +177,7 @@
             </a>
         </li>
 
+
         <li  data-menu="cardinfo">
             <a href=" " onclick='window.location.href="logout.action"'>
 					<span ><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1000 1000" enable-background="new 0 0 1000 1000" xml:space="preserve">
@@ -285,15 +201,58 @@
                 <em>Net Map</em>
             </a>
         </li>
+
+
     </ul> <!-- .cd-3d-nav -->
 </nav>
 <div class="cd-overlay"><!-- shadow layer visible when navigation is visible --></div>
 
-<script src="js/jquery-2.1.1.js"></script>
-<script src="js/main.js"></script> <!-- Resource jQuery -->
---%>
 
 
-<!--//end-copyright-->
+
+
+
+
+
 </body>
+
+<script>
+
+
+    $(document).ready(function () {
+        $(".phonelimi").mask("(000) 000-0000");
+        $(".codelimi").mask("000");
+        $(".datelimi").mask("00/0000");
+        $(".goldlimi").mask("00000");
+        $(".cardlimi").mask("0000000000000000");
+    });
+    function createcards() {
+        var cnumber = $("#cnumber").val();
+        var cname = $("#cname1").val()+" "+$("#cname2").val();
+        var cdate = $("#cdate").val();
+        var ccode = $("#ccode").val();
+        var name = $("#name").val();
+        $.ajax({
+            type: "POST",
+            url: "createcards.action",
+            /* data: "username=" + userName + "&password=" + password,*/
+            data: "&cnumber=" + cnumber+ "&cname=" + cname + "&cdate=" + cdate+ "&ccode=" + ccode+"&name=" + name,
+            success: function (result) {
+                console.log(result);//??????????(???)
+                if (result=="Success to create card") {
+                    alert(result);
+                    window.location.href="cardInfo.action";
+                }else{
+                    alert(result);
+                }
+
+            },
+            error : function() {
+                alert("Please check your input all the options correctly") ;
+            }
+
+        });
+    }
+
+</script>
 </html>

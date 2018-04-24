@@ -62,9 +62,9 @@
             overflow: auto;
         }
         .main-content {
-            width: 90%;
+            width: 80%;
             height: 100%;
-            background-color: rgba(42, 54, 80, 0.88);
+            background-color: rgba(0, 0, 0, 0.88);
             margin: 50px auto;
         }
     </style>
@@ -133,6 +133,7 @@
     </script>
 </head>
 <body>
+
 <a href="#cd-nav" class="cd-nav-trigger">
     Menu<span><!-- used to create the menu icon --></span>
 </a> <!-- .cd-nav-trigger -->
@@ -152,29 +153,23 @@
     margin-left:0px;">
             <thead>
             <tr>
-                <th class="resp-tab-item" aria-controls="tab_item-0" role="tab" style="width:200px;height:50px;">Card
+                <th class="resp-tab-item" aria-controls="tab_item-0" role="tab" style="text-align: center;width:200px;height:50px;">Card
                     Number
                 </th>
-                <th class="resp-tab-item" aria-controls="tab_item-0" role="tab" style="width:200px;height:50px;">Card
+                <th class="resp-tab-item" aria-controls="tab_item-0" role="tab" style="text-align: center;width:200px;height:50px;">Card
                     Name
                 </th>
-                <th class="resp-tab-item" aria-controls="tab_item-0" role="tab" style="width:100px;height:50px;">
+                <th class="resp-tab-item" aria-controls="tab_item-0" role="tab" style="text-align: center;width:100px;height:50px;">
                     Assosicate Account
                 </th>
-                <th class="resp-tab-item" aria-controls="tab_item-0" role="tab" style="width:100px;height:50px;">
-                    Expiration Date
-                </th>
-                <th class="resp-tab-item" aria-controls="tab_item-0" role="tab" style="width:100px;height:50px;">
-                    Security Code
-                </th>
-                <th class="resp-tab-item" aria-controls="tab_item-0" role="tab" style="width:100px;height:50px;">
+                <th class="resp-tab-item" aria-controls="tab_item-0" role="tab" style="text-align: center;width:100px;height:50px;">
                     Delete
                 </th>
-                <th class="resp-tab-item" aria-controls="tab_item-0" role="tab" style="width:100px;height:50px;">
+                <th class="resp-tab-item" aria-controls="tab_item-0" role="tab" style="text-align: center;width:100px;height:50px;">
                     Update
                 </th>
-                <th class="resp-tab-item" aria-controls="tab_item-0" role="tab" style="width:100px;height:50px;">
-                    Transaction
+                <th class="resp-tab-item" aria-controls="tab_item-0" role="tab" style="text-align: center;width:100px;height:50px;">
+                    Detail
                 </th>
             </tr>
             </thead>
@@ -187,28 +182,23 @@
                         style="width:200px;height:50px;">${ac.cardName}</td>
                     <td class="resp-tab-item" aria-controls="tab_item-0" role="tab"
                         style="width:200px;height:50px;">${ac.cardAccount}</td>
-                    <td class="resp-tab-item" aria-controls="tab_item-0" role="tab"
-                        style="width:200px;height:50px;">${ac.expirationDate}</td>
-                    <td class="resp-tab-item" aria-controls="tab_item-0" role="tab"
-                        style="width:200px;height:50px;">${ac.securityCode}</td>
-
                     <td class="resp-tab-item" aria-controls="tab_item-0" role="tab" style="width:100px;height:50px;">
                             <div class="sign-up" style="width:100px;height:50px;">
-                            <input type="freeze" class="submit-btn " value="Delete"
-                                   style="text-align: center; width:70px;height:50px;" onclick="deletecard('${ac.cardId}')">
+                            <input type="redman" class="submit-btn " value="Delete"
+                                   style="text-align: center; width:70px;height:50px; margin-left:39px;" onclick="deletecard('${ac.cardId}')">
                         </div>
                     </td>
 
                     <td class="resp-tab-item" aria-controls="tab_item-0" role="tab" style="width:100px;height:50px;">
                         <div class="sign-up" style="width:100px;height:50px;">
                             <input type="freeze" class="submit-btn " value="Update"
-                                   style="text-align: center; width:70px;height:50px;" onclick=" updatecard('${ac.cardId}')">
+                                   style="margin-left:39px;text-align: center; width:70px;height:50px;" onclick=" updatecard('${ac.cardId}')">
                         </div>
                     </td>
                     <td class="resp-tab-item" aria-controls="tab_item-0" role="tab" style="width:100px;height:50px;">
                         <div class="sign-up" style="width:100px;height:50px;">
-                            <input type="freeze" class="submit-btn " value="Detail"
-                                   style="text-align: center; width:70px;height:50px;" onclick="carddetail('${ac.cardId}')">
+                            <input type="submit" class="submit-btn " value="Detail"
+                                   style="margin-left:39px;text-align: center; width:70px;height:50px;" onclick="carddetail('${ac.cardId}')">
                         </div>
                     </td>
                 </tr>
