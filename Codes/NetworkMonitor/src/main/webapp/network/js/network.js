@@ -570,7 +570,7 @@ network.on("click", function (params) {
                 var t = transactions[i];
                 if(t.currentPositionIp == pCenter) {
                     var tId = t.transactionId;
-                    var cardId = t.cardId;
+                    var cardId = t.givenCardId;
                     var status = t.transactionStatus;
                     var type = t.transactionType;
                     var store = t.storeIp;
@@ -1280,6 +1280,7 @@ var runAnimation = function() {
                         //count = count + 1;
                         var currentIp = t.currentPositionIp;
                         var destination = t.currentDestinationIp;
+                        //console.log(destination);
                         getNextIp(currentIp, destination, t);
                         //nodeStepSummaries.push(nss);
 
@@ -1340,11 +1341,12 @@ var prepareTransactionForUpdate = function(t, data) {
                 storeIp: t.storeIp,
                 transactionType: t.transactionType,
                 transactionAmount: t.transactionAmount,
-                cardId: t.cardId+"",
+                cardId: t.givenCardId+"",
                 cardName: t.givenCardName,
                 securityCode: t.givenCardCode,
                 expirationDate: t.givenCardDate
             };
+            console.log(transaction);
         processingVerification(transaction);
     }
     else if(t.transactionStatus === "PENDING"){
