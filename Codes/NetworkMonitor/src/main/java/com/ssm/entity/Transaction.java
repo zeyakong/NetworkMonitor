@@ -45,16 +45,118 @@ public class Transaction {
         this.transactionId = transactionId;
     }
 
-    public Timestamp getTransactionDateSent() {
-        return transactionDateSent;
+    public String getTransactionDateSent() {
+        System.out.println("starttransaction");
+        System.out.println(transactionDateSent);
+        String tran=transactionDateSent.toString();
+        System.out.println(tran);
+        String arr[]=tran.split(" ");
+         String arrdmy[]=arr[0].split("-");
+         int month01= Integer.parseInt(arrdmy[1]);
+         String month="12313";
+        System.out.println(month01);
+        System.out.println(month);
+         switch(month01){
+                 case 1:
+                 month="Jan";
+                 break;
+             case 2:
+                 month="Feb";
+                 break;
+             case 3:
+                 month="Mar";
+                 break;
+             case 4:month="Apr";
+                 break;
+             case 5:month="May";
+                 break;
+             case 6:month="Jun";
+                 break;
+             case 7:month="Jul";
+                 break;
+             case 8:month="Aug";
+                 break;
+             case 9:month="Sep";
+                 break;
+             case 10:month="Oct";
+                 break;
+             case 11:month="Nov";
+                 break;
+             case 12:month="Dec";
+                 break;
+
+         }
+        System.out.println(month);
+         String arrhm[]=arr[1].split(":");
+         String transact=month+" "+arrdmy[2]+","+arrdmy[0]+" "+arrhm[0]+":"+arrhm[1];
+        System.out.println(transact);
+        return transact;
+       /* return transactionDateSent;*/
     }
 
     public void setTransactionDateSent(Timestamp transactionDateSent) {
+
+
         this.transactionDateSent = transactionDateSent;
     }
 
-    public Timestamp getTransactionDateResponded() {
-        return transactionDateResponded;
+    public String getTransactionDateResponded() {
+
+        System.out.println("starttransaction");
+        System.out.println(transactionDateResponded);
+        String tran=transactionDateResponded.toString();
+        System.out.println(tran);
+        String arr[]=tran.split(" ");
+        String arrdmy[]=arr[0].split("-");
+        int month01= Integer.parseInt(arrdmy[1]);
+        String month="12313";
+        System.out.println(month01);
+        System.out.println(month);
+        switch(month01){
+            case 1:
+                month="Jan";
+                break;
+            case 2:
+                month="Feb";
+                break;
+            case 3:
+                month="Mar";
+                break;
+            case 4:month="Apr";
+                break;
+            case 5:month="May";
+                break;
+            case 6:month="Jun";
+                break;
+            case 7:month="Jul";
+                break;
+            case 8:month="Aug";
+                break;
+            case 9:month="Sep";
+                break;
+            case 10:month="Oct";
+                break;
+            case 11:month="Nov";
+                break;
+            case 12:month="Dec";
+                break;
+
+        }
+        System.out.println(month);
+        String arrhm[]=arr[1].split(":");
+        String transact2=month+" "+arrdmy[2]+","+arrdmy[0]+" "+arrhm[0]+":"+arrhm[1];
+        System.out.println(transact2);
+        return transact2;
+
+
+
+
+
+
+
+
+
+
     }
 
     public void setTransactionDateResponded(Timestamp transactionDateResponded) {

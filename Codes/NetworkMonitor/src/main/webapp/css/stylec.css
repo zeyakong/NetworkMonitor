@@ -44,8 +44,8 @@ body{
 
 .main-content{
 	width:1000px;
-	height:1000px;
-	background-color: rgba(42, 54, 80, 0.44);
+	height:100%;
+	background-color: rgba(42, 54, 80, 0.66);
 	margin:50px auto;
 }
 

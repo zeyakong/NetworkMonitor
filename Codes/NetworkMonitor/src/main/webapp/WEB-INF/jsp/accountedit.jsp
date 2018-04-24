@@ -20,6 +20,16 @@
     <title>Let's make things better.</title>
     <link href="css/stylec.css" rel='stylesheet' type='text/css'/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="Scripts/jquery-1.7.1.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+    <script src="https://github.com/igorescobar/jQuery-Mask-Plugin/blob/master/jquery.mask.min.js"></script>
+
+
+
+    ?? <script src="Scripts/jquery.validate.js"></script>
+    ??<script src="Scripts/jquery.validate.unobtrusive.js"></script>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="keywords"
           content="Alley Signup & Signin Form Tab Form,Login Forms,Sign up Forms,Registration Forms,News letter Forms,Elements"
@@ -89,94 +99,79 @@
 
             });
         }
-        function validatephone(mobile)
-        {
-            if(mobile.length==0)
-            {
-                $("#message").text("Cant been empty?");
-                return false;
-            }
-            var reg = /^[0-9]+$/;
-            if(mobile!=""&&!reg.test(mobile)){
-                $("#message").text("Must be Number!");
-                return false;
-            }
 
+    </script>
+    <script src="https://code.jquery.com/jquery-3.3.1.js"
+            integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.js"></script>
+    <script>
 
-        }
-        function validatemobile(mobile)
-        {
-            if(mobile.length==0)
-            {
-                $("#message").text("Security Code:Security code cant been empty?");
-                return false;
-            }
-            if(mobile.length!=3)
-            {
-                $("#message").text("Security Code:Security code should be 3!");
-                return false;
-            }
-            var reg = /^[0-9]+$/;
-            if(mobile!=""&&!reg.test(mobile)){
-                $("#message").text("Security Code:Must be Number!");
-                return false;
-            }
-
-
-        }
-        function validatecard(mobile)
-        {
-            if(mobile.length==0)
-            {
-                $("#message").text("Card Number:Cant been empty?");
-                return false;
-            }
-            if(mobile.length!=14)
-            {
-                $("#message").text("Card Number:Card Number should be 16!");
-                return false;
-            }
-            var reg = /^[0-9]+$/;
-            if(mobile!=""&&!reg.test(mobile)){
-                $("#message").text("Card Number:Must be Number!");
-                return false;
-            }
-
-
+        function refreshCaptcha(){
+            var ran = Math.floor(Math.random() * 100)
+            $('#captcha1').attr('src','/doGet?' + ran);
         }
 
-        function validatenumber(mobile)
-        {
+        $('#btnSubmit').on('click',function(event){
+            event.preventDefault();
 
-            var reg = /^[0-9]+$/;
-            if(mobile!=""&&!reg.test(mobile)){
-                $("#message").text("Must be Number!");
-                return false;
+            if ($('#phone').val().trim().length < 1) {
+                layer.msg('Can not been empty?');
+                $('#phone').focus();
+                return;
+            }
+            var reg1 = /^\(([0-9]{3})\)[ ]([0-9]{3})[-]([0-9]{4})$/;
+            var input1 = $('#phone').val();
+            if(!reg1.test(input1)){
+                layer.msg('Invalid phone format');
+                return;
+            }
+
+            if ($('#password').val().trim().length < 1) {
+                layer.msg('??????');
+                $('#password').focus();
+                return;
+            }
+            var pass = /^[a-zA-Z]\w{5,17}$/;
+            var input2 = $('#password').val();
+            if(!pass.test(input2)){
+                layer.msg('??????6~18???,?????????')
+                return;
+
+            }
+            if ($('#repeatPassword').val().trim().length < 1) {
+                layer.msg('????????');
+                $('#repeatPassword').focus();
+                return;
+            }
+
+            if (($('#repeatPassword').val().trim())!=($('#password').val().trim())) {
+                layer.msg('??????????');
+                $('#repeatPassword').focus();
+                return;
+            }
+            if ($('#yzm').val().trim().length < 1) {
+                layer.msg('???????');
+                $('#yzm').focus();
+                return;
             }
 
 
-        }
-        function validatemobile2(mobile)
-        {
+            $.post('/api/register', $('#form_reg').serialize(), function(res) {
+                if(res.code == 200){
+                    setTimeout(function(){
+                        location.reload();
+                    },2000);
+                    layer.msg('?????????????????')
+                }else{
+                    //$('.error-message').text(res.message);
+                    layer.msg(res.message)
+                }
 
-            if(mobile.length!=5)
-            {
-                $("#message").text("Expiration date:Invalid Date format(MM/YY)")
-                return false;
-            }
+            })
 
+        })
 
-
-        }
-
-        function validatename(name){
-            if(name.length<2){
-                $("#message").text("Name:Invalid format(name should more than 2)")
-            }
-            if(name.length>15){
-                $("#message").text("Name:Invalid format(name should less than 15)")
-            }
-        }
     </script>
     <script src="js/jquery.min.js"></script>
     <script src="js/easyResponsiveTabs.js" type="text/javascript"></script>
@@ -206,10 +201,13 @@
             <div class="tab-2 resp-tab-content" aria-labelledby="tab_item-1">
                 <div class="facts">
                     <div class="register">
-                        <h3>First Name:<input placeholder="The length of name must be between 2 to 15" id="name1" onblur="validatename(this.value)"  onfocus='$("#message").text("");' class="lock" type="text" required=""  ></h3>
-                        <h3>Last Name:<input placeholder="The length of name must be between 2 to 15" id="name2" onblur="validatename(this.value)"  onfocus='$("#message").text("");' class="lock" type="text" required=""  ></h3>
-                        <h3>Account Addrress:<input placeholder=" " id="address" class="lock" type="text" required=""  ></h3>
-                        <h3>Phone Number:<input placeholder="(XXX) XXX-XXXX"   id="phone" class="mail" type="text" required="" onblur="validatenumber(this.value)"  onfocus='$("#message").text("");' ></h3>
+                        <h3>First Name:<input placeholder="The length of name must be between 2 to 15"
+                                              maxlength="15"     id="name1"  class="lock" type="text" required="required"  ></h3>
+                        <h3>Last Name:<input placeholder="The length of name must be between 2 to 15"
+                                             maxlength="15" id="name2"   class="lock" type="text" required="required"  ></h3>
+                        <h3>Account Addrress:<input placeholder="Street,City,State and ZIP" id="address" class="lock" type="text" required="required"  ></h3>
+                        <h3>Phone Number:<input placeholder="(XXX) XXX-XXXX"   id="phone" class="mail" type="text" required="required"
+                                                data-val-regex-pattern="^\(([0-9]{3})\)[ ]([0-9]{3})[-]([0-9]{4})$"          ></h3>
                         <h3>Limit:<input type="text" class="form-control" id="limit" placeholder="$" maxlength="5"  onkeyup="value=value.replace(/[^\d]/g,'')"></h3>
                         <h3>Balance:<input type="text" class="form-control" id="balance" placeholder="$"   maxlength="5" onkeyup="value=value.replace(/[^\d]/g,'')"></h3>
                         <h4>Related Card</h4>
@@ -236,4 +234,8 @@
 </div>
 <!--//end-copyright-->
 </body>
+<script>
+
+
+</script>
 </html>

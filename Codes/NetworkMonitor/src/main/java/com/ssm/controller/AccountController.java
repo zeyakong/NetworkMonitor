@@ -46,6 +46,9 @@ public class AccountController {
         model.addAttribute("list",list);
         CreditCard creditCard = creditCardServices.findCreditCardsByCardId(id);
         model.addAttribute("creditCard",creditCard);
+        System.out.println("card detail");
+        System.out.println(list);
+        System.out.println("card detail2");
         return "cardDetail";
     }
     @RequestMapping("/updateCardnumber")
@@ -88,33 +91,21 @@ public class AccountController {
 
 
     @RequestMapping("/deleteAccount")
+    @ResponseBody
     public String deleteAccount(int id,Model model){
-      /*  cardAccountServices.xxx();*/
-        creditCardServices.deleteCard(id);
-        cardAccountServices.deleteCardAccountById(id);
-       /* cardAccountServices.zzz();*/
-        List<CardAccount> list;
-        list =  cardAccountServices.findAllCardAccounts();
-        if(list!=null){
-            for(int i = 0 ;i<list.size();i++){
-                System.out.println("----------------"+list.get(i));
-            }
-        }else System.out.println("---------------empty list!");
-        model.addAttribute("list",list);
-        return "accountInfo";
+        System.out.println("controller");
+        String message="";
+        message=cardAccountServices.deleteaccount(id);
+        System.out.println("controller2");
+        return message;
     }
+
     @RequestMapping("/deleteCardnumber")
+    @ResponseBody
     public String deleteCard(long id,Model model){
-        creditCardServices.deleteCardnumber(id);
-        List<CreditCard> list;
-        list =  creditCardServices.findAllCreditCard();
-        if(list!=null){
-            for(int i = 0 ;i<list.size();i++){
-                System.out.println("----------------"+list.get(i));
-            }
-        }else System.out.println("---------------empty list!");
-        model.addAttribute("list",list);
-        return "cardInfo";
+        String message="";
+        message=creditCardServices.deleteCardnumber(id);
+        return message;
     }
 
 
@@ -196,7 +187,7 @@ public class AccountController {
                                          if(flg7==false||limit1>25000){
                                              message="Invalid limit amount";
                                          }else{
-                                             if(flg8==false||limit1>25000){
+                                             if(flg8==false||balance1>25000){
                                                  message="Invalid balance amount";
                                              }else{
                                                  if(creditCardServices.findCreditCardsByCardId(cnumber)!=null){
@@ -345,8 +336,14 @@ return message;
                                 if(cardAccountServices.findCardAccountById(name2)==null){
                                     message="This Account do not exist!"; ;
                                 }else{
-                                    creditCardServices.updatingcards(cnumber2,cname2,cdate2,ccode2,name2);
-                                    message="Success to update card";
+                                    if(creditCardServices.findCreditCardsByCardId(cnumber2)!=null){
+                                        message="This card is already exist!";
+                                    }else{
+                                        creditCardServices.updatingcards(cnumber2,cname2,cdate2,ccode2,name2);
+                                        message="Success to update card";
+                                    }
+                                    /*creditCardServices.updatingcards(cnumber2,cname2,cdate2,ccode2,name2);
+                                    message="Success to update card";*/
                                 }
                             }
                         }

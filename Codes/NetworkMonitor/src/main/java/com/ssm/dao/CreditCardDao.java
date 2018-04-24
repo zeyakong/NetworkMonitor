@@ -3,7 +3,7 @@ package com.ssm.dao;
 import com.ssm.entity.CardAccount;
 import com.ssm.entity.CreditCard;
 import org.apache.ibatis.annotations.Param;
-
+import java.lang.String;
 import java.util.List;
 
 /**
@@ -23,6 +23,7 @@ public interface CreditCardDao {
     void deleteCard(int id);
     CreditCard findcardbyid(int i);
     int findAccountnumber(long id);
+    double checkbalance(int i);
     void deleteCardnumber(long id);
   /*  void createcard(@Param("cnumber")String cnumber,
                     @Param("cname")String cname, @Param("ccode")String ccode,

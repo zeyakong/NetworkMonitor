@@ -1,6 +1,7 @@
 package com.ssm.services.Impl;
 
 import com.ssm.dao.CardAccountDao;
+import com.ssm.dao.CreditCardDao;
 import com.ssm.entity.CardAccount;
 import com.ssm.services.CardAccountServices;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,8 @@ import java.util.List;
 public class CardAccountServicesImpl implements CardAccountServices {
     @Autowired
     CardAccountDao cardAccountDao;
+    @Autowired
+    CreditCardDao creditCardDao;
     public List<CardAccount> findAllCardAccounts() {
         return cardAccountDao.findAllCardAccounts();
     }
@@ -45,7 +48,12 @@ public class CardAccountServicesImpl implements CardAccountServices {
 
     }
     public int getmax(){
-        return cardAccountDao.getmax();
+        System.out.println("getmax start");
+
+            return cardAccountDao.getmax();
+
+
+
     }
     public void  xxx() {
         cardAccountDao.xxx();
@@ -53,7 +61,28 @@ public class CardAccountServicesImpl implements CardAccountServices {
     public void  zzz() {
         cardAccountDao.zzz();
     }
+public String deleteaccount(int id){
+    String message="123";
+    int i=id;
+    System.out.println("impl start0");
+    System.out.println("balance"+creditCardDao.checkbalance(i));
+    if(creditCardDao.checkbalance(i)>0) {
+        System.out.println("impl start2");
+        message="You can not delete an account which balance is not zero";
+        System.out.println("You can not delete the only card of account which balance is not zero");
+        return message;
+    }else
+    {System.out.println("impl start3");
+        System.out.println("The account and related account has been deleted");
+        creditCardDao.deleteAccount(id);
+        creditCardDao.deleteCard(id);
+        message="The account and related card has been deleted";  return message;
 
+    }
+
+
+
+}
     public CardAccount findCardAccountById(int id) {
         return cardAccountDao.findCardAccountById(id);
     }

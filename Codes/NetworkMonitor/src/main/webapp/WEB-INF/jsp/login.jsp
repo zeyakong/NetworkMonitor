@@ -10,13 +10,20 @@
     <meta name="keywords"
           content="Alley Signup & Signin Form Tab Form,Login Forms,Sign up Forms,Registration Forms,News letter Forms,Elements"
           ./>
+    <!--JQuery CDN-->
+    <script src="https://code.jquery.com/jquery-3.3.1.js"
+            integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.js"></script>
     <style>
         #message{
             color: red;
             font-weight:bold;
         }
     </style>
+
     <script type="application/x-javascript">
+
         addEventListener("load", function () {
             setTimeout(hideURLbar, 0);
         }, false);
@@ -51,15 +58,6 @@
     </script>
     <script src="js/jquery.min.js"></script>
     <script src="js/easyResponsiveTabs.js" type="text/javascript"></script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('#horizontalTab').easyResponsiveTabs({
-                type: 'default', //Types: default, vertical, accordion
-                width: 'auto', //auto or any width like 600px
-                fit: true   // 100% fit in a container
-            });
-        });
-    </script>
 </head>
 <body>
 <h1>Login</h1>
@@ -75,7 +73,7 @@
             <div class="tab-2 resp-tab-content" aria-labelledby="tab_item-1">
                 <div class="facts">
                     <div class="register">
-                        <input placeholder="Username" id="username" class="mail" type="text" required=""onfocus='$("#message").text("");'>
+                        <input placeholder="Username" id="username" class="phone" type="text" required=""onfocus='$("#message").text("");'>
                         <input placeholder="Password" id="password" class="lock" type="password" required=""onfocus='$("#message").text("");'>
                         <div class="sign-up">
                             <p id="message"></p>
@@ -96,4 +94,14 @@
 </div>
 <!--//end-copyright-->
 </body>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $('#horizontalTab').easyResponsiveTabs({
+            type: 'default', //Types: default, vertical, accordion
+            width: 'auto', //auto or any width like 600px
+            fit: true   // 100% fit in a container
+        });
+    });
+</script>
 </html>

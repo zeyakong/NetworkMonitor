@@ -16,8 +16,8 @@ public interface CreditCardServices {
     List<CreditCard> findCreditCardsByAccountId(int id);
     CreditCard findCreditCardsByCardId(long id);
     void deleteCard(int id);
-    void deleteCardnumber(long id);
-    void justdeleteCardnumber(long id);
+    String deleteCardnumber(long id);
+ /*   void justdeleteCardnumber(long id);*/
     void createcards(long cnumber,String cname,String cdate,String ccode,int name);
     void updatingcards(long cnumber2,String cname2,String cdate2,String ccode2,int name2);
 

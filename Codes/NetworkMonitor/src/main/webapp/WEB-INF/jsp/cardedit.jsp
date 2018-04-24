@@ -25,6 +25,12 @@
           content="Alley Signup & Signin Form Tab Form,Login Forms,Sign up Forms,Registration Forms,News letter Forms,Elements"
           ./>
     <style>
+        .main-content{
+            width:1000px;
+            height:100%;
+            background-color: rgba(42, 54, 80, 0.66);
+            margin:50px auto;
+        }
         #message{
             padding-bottom:25px;
             color: red;
@@ -74,6 +80,9 @@
         }
 
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+    <script src="https://github.com/igorescobar/jQuery-Mask-Plugin/blob/master/jquery.mask.min.js"></script>
     <script src="js/jquery.min.js"></script>
     <script src="js/easyResponsiveTabs.js" type="text/javascript"></script>
     <script type="text/javascript">
@@ -105,6 +114,19 @@
 
 
         }
+        $(document).ready(function(){
+            $('.date').mask('11/11/1111');
+
+            $('.time').mask('00:00:00');
+            $('.date_time').mask('00/00/0000 00:00:00');
+            $('.cep').mask('00000-000');
+            $('.phone').mask('0000-0000');
+            $('.phone_with_ddd').mask('(00) 0000-0000');
+            $('.phone_us').mask('(000) 000-0000');
+            $('.mixed').mask('AAA 000-S0S');
+            $('.cpf').mask('000.000.000-00', {reverse: true});
+            $('.money').mask('000.000.000.000.000,00', {reverse: true});
+        });
         function validatecard(mobile)
         {
             if(mobile.length==0)
@@ -189,7 +211,7 @@
                         <h3>Card Number:<input placeholder="XXXX-XXXX-XXXX-XXXX" id="cnumber" class="mail" type="text" required="" onblur="validatecard(this.value)"  onfocus='$("#message").text("");'   ></h3>
                         <h3>First name:<input placeholder="The length of name must be between 2 to 15" id="cname1" class="lock" type="text" required=""  onblur="validatename(this.value)"  onfocus='$("#messagen").text("");' ></h3>
                         <h3>Last name:<input placeholder="The length of name must be between 2 to 15" id="cname2" class="lock" type="text" required=""  onblur="validatename(this.value)"  onfocus='$("#messagen").text("");' ></h3>
-                        <h3>Expiration date:<input placeholder="MM/YYYY" id="cdate" class="lock" type="text" required="" onblur="validatemobile2(this.value)"  onfocus='$("#message").text("");'></h3>
+                        <h3>Expiration date:<input placeholder="MM/YYYY" class=".date2" id="cdate" class="lock" type="text" required="" onblur="validatemobile2(this.value)"  onfocus='$("#message").text("");'></h3>
                         <h3>Sercurity Code:<input placeholder="NNN" id="ccode" class="mail" onblur="validatemobile(this.value)" onfocus='$("#message").text("");' type="text" required="" ></h3>
                         <div class="sign-up">
                             <p id="message"></p>

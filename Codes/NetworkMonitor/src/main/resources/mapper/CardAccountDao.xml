@@ -25,7 +25,7 @@
 	</select>
 
 	<select id="getmax" resultType="int">
-		SELECT max(account_id)
+		SELECT ifnull(max(account_id),0)
 		FROM card_accounts
 	</select>
 

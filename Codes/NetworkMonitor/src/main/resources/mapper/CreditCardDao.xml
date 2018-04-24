@@ -34,12 +34,17 @@
         WHERE  card_id = #{cardId};
     </select>
 
-
 	<select id="findcardbyid" resultType="CreditCard">
 		SELECT *
 		FROM credit_cards
 		WHERE card_account=#{i}
 	</select>
+
+	<!--<select id="findcardbyid" resultType="CreditCard">
+		SELECT *
+		FROM credit_cards
+		WHERE card_account=#{i}
+	</select>-->
 
 	<select id="findAllCreditCard" resultType="CreditCard">
 		SELECT *
@@ -50,6 +55,12 @@
 		SELECT card_account
 		FROM credit_cards
 		WHERE card_id=#{id}
+	</select>
+
+	<select id="checkbalance"  resultType="double">
+		SELECT balance
+		FROM card_accounts
+		WHERE account_id=#{i}
 	</select>
 
 	<select id="checknumber"  resultType="int">

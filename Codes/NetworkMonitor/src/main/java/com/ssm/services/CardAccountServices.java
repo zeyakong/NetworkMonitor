@@ -11,6 +11,7 @@ import java.util.List;
 public interface CardAccountServices {
     List<CardAccount> findAllCardAccounts();
     CardAccount findCardAccountById(int id);
+    String deleteaccount(int id);
     void deleteCardAccountById(int id);
     void justdeleteCardAccountById(int id);
     double getBalanceById(int id);

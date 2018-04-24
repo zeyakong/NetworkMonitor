@@ -62,9 +62,9 @@
             overflow: auto;
         }
         .main-content {
-            width: 1000px;
-            height: 1000px;
-            background-color: rgba(42, 54, 80, 0.7);
+            width: 90%;
+            height: 100%;
+            background-color: rgba(42, 54, 80, 0.88);
             margin: 50px auto;
         }
     </style>
@@ -76,7 +76,35 @@
             window.scrollTo(0, 1);
         }
         function deletecard(id) {
-            window.location.href = "deleteCardnumber.action?id=" + id;
+           /* window.location.href = "deleteCardnumber.action?id=" + id;*/
+            $.ajax({
+                type: "POST",
+                url: "deleteCardnumber.action",
+                /* data: "username=" + userName + "&password=" + password,*/
+                data: "&id=" + id,
+                success: function (result) {
+                    console.log(result);//??????????(???)
+                    alert (result);
+                    window.location.href="cardInfo.action";
+
+                },
+                error : function() {
+                    console.log("error"+error);
+                    alert("Error happened!") ;
+                }
+
+            });
+
+
+
+
+
+
+
+
+
+
+
         }
         function carddetail(id) {
             window.location.href = "carddetail.action?id=" + id;
@@ -188,7 +216,7 @@
             </tbody>
         </table>
         <div class="sign-up" style="width:260px;height:80px;margin:0px auto;">
-            <input type="submit" class="submit-btn" id="Create" value="Create a New Card"
+            <input type="submit" class="submit-btn" id="Create" value="Add a new card"
                    style="width:260px;height:80px;" onclick='window.location.href="createcardpage.action"'>
         </div>
 

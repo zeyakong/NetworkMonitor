@@ -109,7 +109,42 @@
         window.location.href = "accountCards.action?id=" + id;
     }
     function deleteAccount(id){
-        window.location.href="deleteAccount.action?id="+id;
+        /*window.location.href="deleteAccount.action?id="+id;*/
+        $.ajax({
+            type: "POST",
+            url: "deleteAccount.action",
+            /* data: "username=" + userName + "&password=" + password,*/
+            data: "&id=" + id,
+            success: function (result) {
+                console.log(result);//??????????(???)
+                alert (result);
+                window.location.href="accountInfo.action";
+
+            },
+            error : function() {
+                console.log("error"+error);
+                alert("Error happened!") ;
+            }
+
+        });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
     function updateAccount(id) {
         console.log("43");
