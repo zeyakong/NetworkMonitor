@@ -25,27 +25,27 @@ Tomcat
 Maven  
 ##### All The Dependencies We need  
 * [pom.xml](https://github.com/Kong96/NetworkMonitor/blob/master/Codes/NetworkMonitor/pom.xml).
-### Update Log  
-#### The basic SSM web-app framework
+## Update Log  
+### The basic SSM web-app framework
 * [core-code](https://github.com/Kong96/NetworkMonitor/tree/95a7fdbb6f1f92f6e1d9c55e56d65e1110afa667).
-#### The SQL statement
+### The SQL statement
 * [SQL](https://github.com/Kong96/NetworkMonitor/tree/master/SQL).
-#### The Front-end Code
+### The Front-end Code
 * [html/css](https://github.com/Kong96/NetworkMonitor/tree/master/Codes/NetworkMonitor/src/main/webapp).  
-#### The Integration of the First Demo
+### The Integration of the First Demo
 * [DEMO1](https://github.com/Kong96/NetworkMonitor/tree/767fa8b45147e7d687c4e12418b294a470f4c5a2).  
-#### Demo2: Show the static network
+### Demo2: Show the static network
 * [DEMO2](https://github.com/Kong96/NetworkMonitor/tree/543fe07b2b34acac874516c52bae4bdc9ad90ed4). 
-#### Demo3: Show the interactive network and transaction animation
+### Demo3: Show the interactive network and transaction animation
 * [DEMO3](https://github.com/Kong96/NetworkMonitor/tree/7d73809aaa4aeccbcf332d082aeffca6eb2e3925). 
-### Requirements changes: introduce the region.
+#### Requirements changes: introduce the region.
 * [change requirements](https://github.com/zeyakong/NetworkMonitor/blob/master/Project%20Description%20-%20changes%202.pdf). 
-#### Demo4: Show the multiple transaction animations and the account management
+### Demo4: Show the multiple transaction animations and the account management
 * [DEMO4](https://github.com/zeyakong/NetworkMonitor/tree/899d396831ef9514231667529ed894286d78eab6). 
-#### Demo5: Finishing all the required functionalities
+### Demo5: Finishing all the required functionalities
 * [DEMO5](https://github.com/zeyakong/NetworkMonitor/tree/7d2d72ffc58ff8a39571ab6e74dda142107830ad). 
-#### final demo:
+### final demo:
 * [DEMO6](https://github.com/zeyakong/NetworkMonitor/tree/52de2d07ded1562d83312a1dbee23744a9a3031a). 
 * [demo deployed in the windows server](http://138.49.101.86:8080/demo6/login).  
-### final demo data form Dr. Kasi
+#### final demo data form Dr. Kasi
 * [data](http://faculty.cs.uwlax.edu/~kasi/cs744/cs744-18/Test%20Data.xlsx).
