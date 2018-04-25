@@ -36,6 +36,8 @@ Maven
 * [DEMO1](https://github.com/Kong96/NetworkMonitor/tree/767fa8b45147e7d687c4e12418b294a470f4c5a2).  
 ### Demo2: Show the static network
 * [DEMO2](https://github.com/Kong96/NetworkMonitor/tree/543fe07b2b34acac874516c52bae4bdc9ad90ed4). 
+#### Requirements changes: card account/credit card changes.
+* [change requirements](https://github.com/zeyakong/NetworkMonitor/blob/master/Project%20Description%20-%20changes%201.pdf). 
 ### Demo3: Show the interactive network and transaction animation
 * [DEMO3](https://github.com/Kong96/NetworkMonitor/tree/7d73809aaa4aeccbcf332d082aeffca6eb2e3925). 
 #### Requirements changes: introduce the region.
