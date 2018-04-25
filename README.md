@@ -37,11 +37,11 @@ Maven
 ### Demo2: Show the static network
 * [DEMO2](https://github.com/Kong96/NetworkMonitor/tree/543fe07b2b34acac874516c52bae4bdc9ad90ed4). 
 #### Requirements changes: card account/credit card changes.
-* [change requirements](https://github.com/zeyakong/NetworkMonitor/blob/master/Project%20Description%20-%20changes%201.pdf). 
+* [change requirements 1](https://github.com/zeyakong/NetworkMonitor/blob/master/Project%20Description%20-%20changes%201.pdf). 
 ### Demo3: Show the interactive network and transaction animation
 * [DEMO3](https://github.com/Kong96/NetworkMonitor/tree/7d73809aaa4aeccbcf332d082aeffca6eb2e3925). 
 #### Requirements changes: introduce the region.
-* [change requirements](https://github.com/zeyakong/NetworkMonitor/blob/master/Project%20Description%20-%20changes%202.pdf). 
+* [change requirements 2](https://github.com/zeyakong/NetworkMonitor/blob/master/Project%20Description%20-%20changes%202.pdf). 
 ### Demo4: Show the multiple transaction animations and the account management
 * [DEMO4](https://github.com/zeyakong/NetworkMonitor/tree/899d396831ef9514231667529ed894286d78eab6). 
 ### Demo5: Finishing all the required functionalities
