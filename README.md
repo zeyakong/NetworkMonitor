@@ -44,8 +44,8 @@ Maven
 * [DEMO4](https://github.com/zeyakong/NetworkMonitor/tree/899d396831ef9514231667529ed894286d78eab6). 
 ### Demo5: Finishing all the required functionalities
 * [DEMO5](https://github.com/zeyakong/NetworkMonitor/tree/7d2d72ffc58ff8a39571ab6e74dda142107830ad). 
-### final demo:
+### Final demo:
 * [DEMO6](https://github.com/zeyakong/NetworkMonitor/tree/52de2d07ded1562d83312a1dbee23744a9a3031a). 
 .Demo6 was deployed in the windows server [Go to Website](http://138.49.101.86:8080/demo6/login).  
-#### final demo data form Dr. Kasi
+#### Final demo data form Dr. Kasi
 * [data](http://faculty.cs.uwlax.edu/~kasi/cs744/cs744-18/Test%20Data.xlsx).
