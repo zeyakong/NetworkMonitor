@@ -50,4 +50,8 @@ Maven
 * [DEMO6](https://github.com/zeyakong/NetworkMonitor/tree/52de2d07ded1562d83312a1dbee23744a9a3031a). 
 .Demo6 was deployed in the windows server [Go to Website](http://138.49.101.86:8080/demo6/login).  
 #### Final demo data from Dr. Kasi
-* [data](http://faculty.cs.uwlax.edu/~kasi/cs744/cs744-18/Test%20Data.xlsx).
+* [data](http://faculty.cs.uwlax.edu/~kasi/cs744/cs744-18/Test%20Data.xlsx).  
+
+## Project Report  
+After one semester's developing, our team finished this project. We implemented all the functionalities according to the project requirements by using agile Scrum method. Here is the final report for this project.  
+* [Report](https://github.com/zeyakong/NetworkMonitor/blob/master/Documents/MercuryFinalReportt.pdf).  
