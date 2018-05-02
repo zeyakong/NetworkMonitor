@@ -9,10 +9,10 @@ will be modeled in this project.Web-based application.
   * [Overview of Project](https://github.com/Kong96/NetworkMonitor/blob/master/Project%20Description.pdf).
 ## Tools and techniques 
 ### Language  
-java  
-html  
-css  
-javascript  
+Java  
+Html  
+CSS  
+JavaScript  
 ..
 ### Framework  
 SSM: (Spring SpringMVC Mybatis)  
