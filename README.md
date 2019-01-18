@@ -1,7 +1,7 @@
 # NetworkMonitor
 The project is from the CS744 course, Management Issues in Software Engineering.  
 ### Team  
-MERCURY:	Kyle VanAllen, Xianrui Zhu and Zeya Kong  
+MERCURY:	Kyle Van Allen, Xianrui Zhu and Zeya Kong  
 ## About the project  
 This project aims at developing a visual tool to monitor network communication. Credit card processing
 has been chosen as the application domain and hence communications based on credit card transactions
