@@ -20,11 +20,13 @@ SSM: (Spring SpringMVC Mybatis)
 #### DB  
 MySQL  
 #### Server  
-Tomcat  
+Apache Tomcat  
 #### Comprehension Tool  
 Maven  
 ##### All The Dependencies We need  
 * [pom.xml](https://github.com/Kong96/NetworkMonitor/blob/master/Codes/NetworkMonitor/pom.xml).
+#### Third-party Package to show the Transaction Animation
+[graphviz](https://www.graphviz.org/)
 ## Update Log  
 ### The basic SSM web-app framework
 * [core-code](https://github.com/Kong96/NetworkMonitor/tree/95a7fdbb6f1f92f6e1d9c55e56d65e1110afa667).
@@ -48,7 +50,7 @@ Maven
 * [DEMO5](https://github.com/zeyakong/NetworkMonitor/tree/7d2d72ffc58ff8a39571ab6e74dda142107830ad). 
 ### Final demo:
 * [DEMO6](https://github.com/zeyakong/NetworkMonitor/tree/52de2d07ded1562d83312a1dbee23744a9a3031a). 
-.Demo6 was deployed in the windows server [Go to Website](http://138.49.101.86:8080/demo6/login).  
+.Demo6 was deployed in the windows server [Go to Website](http://138.49.101.86:8080/demo6/login) (unavalible now).  
 #### Final demo data from Dr. Kasi
 * [data](http://faculty.cs.uwlax.edu/~kasi/cs744/cs744-18/Test%20Data.xlsx).  
 
@@ -56,4 +58,5 @@ Maven
 After one semester's developing, our team finished this project. We implemented all the functionalities according to the project requirements by using agile Scrum method. Here is the final report for this project.  
 * [Report](https://github.com/zeyakong/NetworkMonitor/blob/master/Documents/MercuryFinalReportt.pdf).  
 ## Documentation
-In this project, as a team work, we used Scrum medthod to develop the whole project. All team members met three times every week and email every day to fix the problem. All of the Sprint meeting logs are stored at the [Document folder](https://github.com/zeyakong/NetworkMonitor/tree/master/Documents). Thanks to all team memebrs, our team demonstrated our final demo very well and reached a high score for the whole class.
+In this project, as a team work, we used Scrum method to develop the whole project. All team members met three times every week and email every day to fix the problem. Everyone was fully involved in this project and built very nice contributions. All of the Sprint meeting logs are stored at the [Document folder](https://github.com/zeyakong/NetworkMonitor/tree/master/Documents). 
+Thanks to all team membrs, our team demonstrated our final demo very well and reached a high score for the whole class.
