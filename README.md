@@ -58,5 +58,4 @@ Maven
 After one semester's developing, our team finished this project. We implemented all the functionalities according to the project requirements by using agile Scrum method. Here is the final report for this project.  
 * [Report](https://github.com/zeyakong/NetworkMonitor/blob/master/Documents/MercuryFinalReportt.pdf).  
 ## Documentation
-In this project, as a team work, we used Scrum method to develop the whole project. All team members met three times every week and email every day to fix the problem. Everyone was fully involved in this project and built very nice contributions. All of the Sprint meeting logs are stored at the ``Document`` folder.  
-Thanks to all team membrs, our team demonstrated our final demo very well and reached a high score in the whole class.
+In this project, as a team work, we used Scrum method to develop the whole project. All team members met three times every week and email every day to fix the problem. Everyone was fully involved in this project and built very nice contributions. All of the Sprint meeting logs are stored at the ``Document`` folder. Thanks to all team membrs, our team demonstrated our final demo very well and reached a high score in the whole class.
